@@ -1,0 +1,1304 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Polaris – Ngôi Sao Dẫn Đường Du Lịch Việt Nam</title>
+        <meta
+            name="description"
+            content="Khám phá 200+ điểm đến Việt Nam, lập hành trình cá nhân hoá và đặt phòng qua đối tác tin cậy – tất cả trên Polaris."
+        />
+        <link rel="canonical" href="index.html" />
+
+        <!-- Open Graph -->
+        <meta
+            property="og:title"
+            content="Polaris – Du lịch Việt Nam theo cách của bạn"
+        />
+        <meta
+            property="og:description"
+            content="Hơn 200 điểm đến, hành trình cá nhân hoá và đặt phòng qua Booking.com, Agoda, Traveloka, Klook."
+        />
+        <meta
+            property="og:image"
+            content="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=80"
+        />
+        <meta property="og:type" content="website" />
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/variables.css" />
+        <link rel="stylesheet" href="css/reset.css" />
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/layout.css" />
+        <link rel="stylesheet" href="css/components/navbar.css" />
+        <link rel="stylesheet" href="css/components/footer.css" />
+        <link rel="stylesheet" href="css/components/hero.css" />
+        <link rel="stylesheet" href="css/components/cards.css" />
+        <link rel="stylesheet" href="css/components/buttons.css" />
+        <link rel="stylesheet" href="css/components/forms.css" />
+        <link rel="stylesheet" href="css/components/carousel.css" />
+        <link rel="stylesheet" href="css/components/toast.css" />
+
+        <style>
+            /* === HOME-SPECIFIC === */
+            .stats-strip {
+                background: var(--gradient-hero);
+                padding-block: var(--space-10);
+            }
+            .stats-strip .container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: var(--space-6);
+                text-align: center;
+            }
+            .stat__number {
+                font-family: var(--font-display);
+                font-size: var(--text-4xl);
+                font-weight: 700;
+                color: white;
+            }
+            .stat__label {
+                font-size: var(--text-sm);
+                color: var(--text-on-dark-muted);
+                margin-top: var(--space-1);
+            }
+
+            .pref-tiles {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: var(--space-4);
+            }
+            @media (min-width: 640px) {
+                .pref-tiles {
+                    grid-template-columns: repeat(6, 1fr);
+                }
+            }
+            .pref-tile {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: var(--space-2);
+                padding: var(--space-5) var(--space-3);
+                background: white;
+                border-radius: var(--radius-xl);
+                border: 2px solid var(--border-color);
+                text-decoration: none;
+                font-size: var(--text-xs);
+                font-weight: 700;
+                color: var(--text-primary);
+                text-align: center;
+                transition:
+                    border-color 0.5s ease,
+                    background 0.5s ease,
+                    transform 0.5s ease,
+                    box-shadow 0.5s ease,
+                    color 0.5s ease;
+                will-change: transform;
+                box-shadow: var(--shadow-sm);
+            }
+            .pref-tile:hover {
+                border-color: var(--color-secondary);
+                background: rgba(102, 103, 171, 0.05);
+                transform: translateY(-3px);
+                box-shadow: var(--shadow-md);
+                color: var(--color-primary);
+            }
+            .pref-tile__icon {
+                font-size: 2rem;
+                transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+
+            .how-it-works {
+                position: relative;
+            }
+            .how-steps {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: var(--space-8);
+            }
+            @media (min-width: 768px) {
+                .how-steps {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+            .how-step {
+                text-align: center;
+            }
+            .how-step__number {
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                background: var(--gradient-cta);
+                color: white;
+                font-family: var(--font-display);
+                font-size: var(--text-2xl);
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto var(--space-5);
+                box-shadow: var(--shadow-glow);
+            }
+            .how-step__title {
+                font-family: var(--font-display);
+                font-size: var(--text-xl);
+                color: var(--text-primary);
+                margin-bottom: var(--space-3);
+            }
+            .how-step__desc {
+                font-size: var(--text-sm);
+                color: var(--text-muted);
+                max-width: 28ch;
+                margin-inline: auto;
+            }
+
+            .partner-marquee {
+                overflow: hidden;
+                padding-block: var(--space-6);
+                width: 80%;
+                max-width: 960px;
+                margin-inline: auto;
+                position: relative;
+                mask-image: linear-gradient(
+                    to right,
+                    transparent 0%,
+                    black 8%,
+                    black 92%,
+                    transparent 100%
+                );
+                -webkit-mask-image: linear-gradient(
+                    to right,
+                    transparent 0%,
+                    black 8%,
+                    black 92%,
+                    transparent 100%
+                );
+            }
+            .partner-marquee__track {
+                display: flex;
+                gap: var(--space-12);
+                align-items: center;
+                animation: marquee 60s linear infinite;
+                width: max-content;
+                will-change: transform;
+            }
+            .partner-marquee:hover .partner-marquee__track {
+                animation-play-state: paused;
+            }
+            @keyframes marquee {
+                from {
+                    transform: translateX(0);
+                }
+                to {
+                    transform: translateX(-50%);
+                }
+            }
+            .partner-marquee__logo {
+                height: 28px;
+                opacity: 0.5;
+                filter: grayscale(1);
+                flex-shrink: 0;
+                transition:
+                    opacity 1s ease,
+                    filter 0.8s ease;
+            }
+            .partner-marquee__logo:hover {
+                opacity: 1;
+                filter: grayscale(0);
+            }
+
+            .newsletter-section {
+                background: var(--gradient-hero);
+                padding-block: var(--space-16);
+                text-align: center;
+            }
+            .newsletter-form {
+                display: flex;
+                gap: var(--space-3);
+                max-width: 480px;
+                margin-inline: auto;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: var(--space-6);
+            }
+            .newsletter-input {
+                flex: 1;
+                min-width: 200px;
+                padding: var(--space-4) var(--space-5);
+                background: rgba(255, 255, 255, 0.12);
+                border: 1px solid rgba(255, 255, 255, 0.25);
+                border-radius: var(--radius-full);
+                color: white;
+                font-size: var(--text-base);
+            }
+            .newsletter-input::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+            }
+            .newsletter-input:focus {
+                outline: none;
+                background: rgba(255, 255, 255, 0.18);
+                border-color: white;
+            }
+
+            /* === SEARCH ACTION MODAL === */
+            .search-modal {
+                position: fixed;
+                inset: 0;
+                z-index: var(--z-modal);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: var(--space-4);
+            }
+            .search-modal[hidden] {
+                display: none;
+            }
+            .search-modal__backdrop {
+                position: absolute;
+                inset: 0;
+                background: rgba(33, 6, 53, 0.65);
+                backdrop-filter: blur(4px);
+            }
+            .search-modal__card {
+                position: relative;
+                background: white;
+                border-radius: var(--radius-2xl);
+                padding: var(--space-8);
+                max-width: 480px;
+                width: 100%;
+                box-shadow: var(--shadow-xl);
+                z-index: 1;
+            }
+            .search-modal__close {
+                position: absolute;
+                top: var(--space-4);
+                right: var(--space-4);
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background: var(--bg-alt);
+                color: var(--text-muted);
+                font-size: var(--text-base);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background var(--transition-fast);
+            }
+            .search-modal__close:hover {
+                background: var(--border-color);
+            }
+            .search-modal__title {
+                font-family: var(--font-display);
+                font-size: var(--text-2xl);
+                color: var(--text-primary);
+                margin-bottom: var(--space-2);
+            }
+            .search-modal__query {
+                font-size: var(--text-sm);
+                color: var(--color-secondary);
+                font-weight: 600;
+                margin-bottom: var(--space-6);
+                min-height: 1.2em;
+            }
+            /* Planner quick-start modal */
+            .planner-modal-section {
+                margin-bottom: var(--space-5);
+            }
+            .planner-modal-label {
+                font-weight: 700;
+                font-size: var(--text-sm);
+                color: var(--text-primary);
+                margin-bottom: var(--space-3);
+            }
+            .planner-modal-chips {
+                display: flex;
+                flex-wrap: wrap;
+                gap: var(--space-2);
+            }
+            .planner-chip {
+                padding: var(--space-2) var(--space-4);
+                border: 2px solid var(--border-color);
+                border-radius: var(--radius-full);
+                font-size: var(--text-sm);
+                font-weight: 600;
+                color: var(--text-muted);
+                background: white;
+                cursor: pointer;
+                transition:
+                    border-color var(--transition-fast),
+                    background var(--transition-fast),
+                    color var(--transition-fast);
+            }
+            .planner-chip:hover {
+                border-color: var(--color-secondary);
+                color: var(--color-primary);
+            }
+            .planner-chip.is-active {
+                border-color: var(--color-secondary);
+                background: rgba(102, 103, 171, 0.1);
+                color: var(--color-primary);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Skip link -->
+        <a href="#main" class="skip-link" data-i18n="nav.skip"
+            >Bỏ qua đến nội dung chính</a
+        >
+
+        <!-- ===== NAVBAR ===== -->
+        <header class="navbar navbar--transparent">
+            <div class="navbar__inner">
+                <a href="index.html" class="navbar__brand">
+                    <img
+                        src="assets/images/logo.png"
+                        alt="Polaris logo"
+                        class="navbar__logo"
+                    />
+                    <span class="navbar__name">POLARIS</span>
+                </a>
+
+                <nav class="navbar__links" aria-label="Main navigation">
+                    <a
+                        href="index.html"
+                        class="navbar__link"
+                        data-nav-page="index.html"
+                        data-i18n="nav.home"
+                        >Trang chủ</a
+                    >
+                    <a
+                        href="destinations.html"
+                        class="navbar__link"
+                        data-nav-page="destinations.html"
+                        data-i18n="nav.destinations"
+                        >Điểm đến</a
+                    >
+                    <a
+                        href="planner.html"
+                        class="navbar__link"
+                        data-nav-page="planner.html"
+                        data-i18n="nav.planner"
+                        >Lập kế hoạch</a
+                    >
+                    <a
+                        href="packages.html"
+                        class="navbar__link"
+                        data-nav-page="packages.html"
+                        data-i18n="nav.packages"
+                        >Gói dịch vụ</a
+                    >
+                    <a
+                        href="blog.html"
+                        class="navbar__link"
+                        data-nav-page="blog.html"
+                        data-i18n="nav.blog"
+                        >Cẩm nang</a
+                    >
+                    <a
+                        href="about.html"
+                        class="navbar__link"
+                        data-nav-page="about.html"
+                        data-i18n="nav.about"
+                        >Về chúng tôi</a
+                    >
+                </nav>
+
+                <div class="navbar__actions">
+                    <div
+                        class="lang-toggle"
+                        role="group"
+                        aria-label="Chọn ngôn ngữ"
+                    >
+                        <button
+                            class="lang-toggle__btn lang-toggle__btn--active"
+                            data-lang="vi"
+                        >
+                            VI
+                        </button>
+                        <button class="lang-toggle__btn" data-lang="en">
+                            EN
+                        </button>
+                    </div>
+                    <a
+                        href="planner.html"
+                        class="navbar__cta btn btn--primary btn--sm"
+                        data-i18n="nav.cta"
+                        >Lập hành trình</a
+                    >
+                    <button
+                        class="navbar__hamburger"
+                        aria-expanded="false"
+                        aria-controls="mobile-menu"
+                        aria-label="Mở menu"
+                    >
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <nav
+                id="mobile-menu"
+                class="navbar__mobile"
+                aria-label="Mobile navigation"
+            >
+                <a
+                    href="index.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="index.html"
+                    data-i18n="nav.home"
+                    >Trang chủ</a
+                >
+                <a
+                    href="destinations.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="destinations.html"
+                    data-i18n="nav.destinations"
+                    >Điểm đến</a
+                >
+                <a
+                    href="planner.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="planner.html"
+                    data-i18n="nav.planner"
+                    >Lập kế hoạch</a
+                >
+                <a
+                    href="packages.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="packages.html"
+                    data-i18n="nav.packages"
+                    >Gói dịch vụ</a
+                >
+                <a
+                    href="blog.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="blog.html"
+                    data-i18n="nav.blog"
+                    >Cẩm nang</a
+                >
+                <a
+                    href="about.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="about.html"
+                    data-i18n="nav.about"
+                    >Về chúng tôi</a
+                >
+                <a
+                    href="contact.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="contact.html"
+                    data-i18n="nav.contact"
+                    >Liên hệ</a
+                >
+                <div class="navbar__mobile-actions">
+                    <div
+                        class="lang-toggle"
+                        role="group"
+                        aria-label="Chọn ngôn ngữ"
+                    >
+                        <button
+                            class="lang-toggle__btn lang-toggle__btn--active"
+                            data-lang="vi"
+                        >
+                            VI
+                        </button>
+                        <button class="lang-toggle__btn" data-lang="en">
+                            EN
+                        </button>
+                    </div>
+                    <a
+                        href="planner.html"
+                        class="navbar__mobile-cta btn btn--primary"
+                        data-i18n="nav.cta"
+                        >Lập hành trình</a
+                    >
+                </div>
+            </nav>
+        </header>
+
+        <!-- ===== MAIN ===== -->
+        <main id="main" class="main--hero">
+            <!-- ===== HERO ===== -->
+            <section class="hero" aria-label="Hero">
+                <div
+                    class="hero__bg"
+                    style="
+                        background-image: url(&quot;https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1600&q=80&quot;);
+                    "
+                ></div>
+                <canvas id="star-canvas" aria-hidden="true"></canvas>
+
+                <div class="hero__content">
+                    <span class="hero__label">
+                        <span class="hero__label-dot" aria-hidden="true"></span>
+                        <span data-i18n="hero.label"
+                            >Ngôi sao dẫn đường của bạn</span
+                        >
+                    </span>
+
+                    <h1 class="hero__title">
+                        <span data-i18n="hero.title.line1"
+                            >Khám phá Việt Nam</span
+                        ><br />
+                        <em data-i18n="hero.title.line2">theo cách của bạn</em>
+                    </h1>
+
+                    <p class="hero__subtitle" data-i18n="hero.subtitle">
+                        Hơn 200 điểm đến, hành trình cá nhân hoá và đặt phòng
+                        qua đối tác tin cậy – tất cả trong một nơi.
+                    </p>
+
+                    <!-- Search bar -->
+                    <div class="hero__search" role="search">
+                        <div class="hero__search-body">
+                            <input
+                                class="hero__search-input"
+                                type="search"
+                                id="hero-search"
+                                placeholder="Tìm điểm đến..."
+                                autocomplete="off"
+                                list="dest-suggestions"
+                            />
+                            <datalist id="dest-suggestions"></datalist>
+                            <select
+                                class="hero__search-select"
+                                id="type-filter"
+                                aria-label="Lọc theo loại hình"
+                            >
+                                <option value="" data-i18n="dest.filter.type">
+                                    Loại hình
+                                </option>
+                                <option
+                                    value="beach"
+                                    data-i18n="dest.type.beach"
+                                >
+                                    Biển
+                                </option>
+                                <option
+                                    value="mountain"
+                                    data-i18n="dest.type.mountain"
+                                >
+                                    Núi
+                                </option>
+                                <option value="city" data-i18n="dest.type.city">
+                                    Thành phố
+                                </option>
+                                <option
+                                    value="cultural"
+                                    data-i18n="dest.type.cultural"
+                                >
+                                    Văn hoá
+                                </option>
+                                <option
+                                    value="nature"
+                                    data-i18n="dest.type.nature"
+                                >
+                                    Thiên nhiên
+                                </option>
+                                <option
+                                    value="adventure"
+                                    data-i18n="dest.type.adventure"
+                                >
+                                    Phiêu lưu
+                                </option>
+                            </select>
+                            <button
+                                class="hero__search-btn"
+                                id="hero-search-btn"
+                                data-i18n="hero.search.btn"
+                            >
+                                🔍 Tìm điểm đến
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hero__ctas">
+                        <button
+                            class="btn-hero-primary"
+                            id="hero-planner-cta"
+                            data-i18n="hero.cta.primary"
+                        >
+                            ✨ Lập hành trình ngay
+                        </button>
+                        <a
+                            href="destinations.html"
+                            class="btn-hero-secondary"
+                            data-i18n="hero.cta.secondary"
+                            >Xem điểm đến →</a
+                        >
+                    </div>
+                </div>
+
+                <div class="hero__scroll" aria-hidden="true">
+                    <div class="hero__scroll-line"></div>
+                </div>
+            </section>
+
+            <!-- ===== STATS STRIP ===== -->
+            <section class="stats-strip" aria-label="Statistics">
+                <div class="container">
+                    <div class="text-center">
+                        <span
+                            class="stat__number"
+                            id="stat-destinations"
+                            data-target="200"
+                            >0</span
+                        >
+                        <span class="stat__number">+</span>
+                        <p
+                            class="stat__label"
+                            data-i18n="stats.destinations_label"
+                        >
+                            Điểm đến khám phá
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <span
+                            class="stat__number"
+                            id="stat-itineraries"
+                            data-target="5000"
+                            >0</span
+                        >
+                        <span class="stat__number">+</span>
+                        <p
+                            class="stat__label"
+                            data-i18n="stats.itineraries_label"
+                        >
+                            Hành trình cá nhân
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <span
+                            class="stat__number"
+                            id="stat-satisfaction"
+                            data-target="98"
+                            >0</span
+                        >
+                        <span class="stat__number">%</span>
+                        <p
+                            class="stat__label"
+                            data-i18n="stats.satisfaction_label"
+                        >
+                            Khách hài lòng
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== PREFERENCE TILES ===== -->
+            <section class="section section--alt" aria-labelledby="pref-title">
+                <div class="container">
+                    <div class="text-center reveal">
+                        <span class="section-label" data-i18n="pref.label"
+                            >Phong cách du lịch</span
+                        >
+
+                        <h2
+                            class="section-title"
+                            id="pref-title"
+                            data-i18n="pref.title"
+                        >
+                            Bạn muốn trải nghiệm gì?
+                        </h2>
+                        <p
+                            class="section-subtitle"
+                            style="margin-inline: auto"
+                            data-i18n="pref.subtitle"
+                        >
+                            Chọn loại hình du lịch yêu thích để chúng tôi gợi ý
+                            điểm đến phù hợp nhất.
+                        </p>
+                    </div>
+                    <div
+                        class="pref-tiles reveal-group reveal"
+                        style="margin-top: var(--space-10)"
+                    >
+                        <a
+                            href="destinations.html?type=beach"
+                            class="pref-tile"
+                        >
+                            <span class="pref-tile__icon">🏖️</span>
+                            <span data-i18n="pref.beach">Biển & Đảo</span>
+                        </a>
+                        <a
+                            href="destinations.html?type=mountain"
+                            class="pref-tile"
+                        >
+                            <span class="pref-tile__icon">⛰️</span>
+                            <span data-i18n="pref.mountain"
+                                >Núi & Trekking</span
+                            >
+                        </a>
+                        <a href="destinations.html?type=city" class="pref-tile">
+                            <span class="pref-tile__icon">🏙️</span>
+                            <span data-i18n="pref.city">Thành phố</span>
+                        </a>
+                        <a
+                            href="destinations.html?type=cultural"
+                            class="pref-tile"
+                        >
+                            <span class="pref-tile__icon">🏛️</span>
+                            <span data-i18n="pref.culture">Văn hoá</span>
+                        </a>
+                        <a
+                            href="destinations.html?type=adventure"
+                            class="pref-tile"
+                        >
+                            <span class="pref-tile__icon">🧗</span>
+                            <span data-i18n="pref.adventure">Phiêu lưu</span>
+                        </a>
+                        <a href="planner.html?group=family" class="pref-tile">
+                            <span class="pref-tile__icon">👨‍👩‍👧</span>
+                            <span data-i18n="pref.family">Gia đình</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== FEATURED DESTINATIONS CAROUSEL ===== -->
+            <section class="section" aria-labelledby="featured-title">
+                <div class="container">
+                    <div
+                        class="flex--between flex reveal"
+                        style="
+                            flex-wrap: wrap;
+                            gap: var(--space-4);
+                            margin-bottom: var(--space-8);
+                        "
+                    >
+                        <div>
+                            <span class="section-label">Top picks</span>
+                            <h2
+                                class="section-title"
+                                id="featured-title"
+                                data-i18n="featured.title"
+                            >
+                                Điểm đến nổi bật
+                            </h2>
+                            <p
+                                class="section-subtitle"
+                                data-i18n="featured.subtitle"
+                            >
+                                Được lựa chọn bởi hàng ngàn khách du lịch mỗi
+                                tháng
+                            </p>
+                        </div>
+                        <a
+                            href="destinations.html"
+                            class="btn btn--secondary"
+                            data-i18n="featured.viewAll"
+                            >Xem tất cả điểm đến</a
+                        >
+                    </div>
+
+                    <div
+                        class="carousel carousel--multi"
+                        id="featured-carousel"
+                        aria-label="Featured destinations"
+                    >
+                        <div class="carousel__track-wrap">
+                            <div class="carousel__track" id="featured-track">
+                                <!-- Cards injected by home.js -->
+                            </div>
+                        </div>
+                        <button
+                            class="carousel__btn carousel__btn--prev"
+                            aria-label="Trước"
+                        >
+                            &#8249;
+                        </button>
+                        <button
+                            class="carousel__btn carousel__btn--next"
+                            aria-label="Tiếp theo"
+                        >
+                            &#8250;
+                        </button>
+                        <div
+                            class="carousel__dots"
+                            aria-label="Slide navigation"
+                        ></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== HOW IT WORKS ===== -->
+            <section
+                class="section section--alt how-it-works"
+                aria-labelledby="howit-title"
+            >
+                <div class="container">
+                    <div class="text-center reveal">
+                        <span class="section-label" data-i18n="howit.label"
+                            >Cách hoạt động</span
+                        >
+                        <h2
+                            class="section-title"
+                            id="howit-title"
+                            data-i18n="howit.title"
+                        >
+                            Lập hành trình chỉ trong 3 bước
+                        </h2>
+                    </div>
+                    <div
+                        class="how-steps reveal-group reveal"
+                        style="margin-top: var(--space-12)"
+                    >
+                        <div class="how-step">
+                            <div class="how-step__number" aria-hidden="true">
+                                1
+                            </div>
+                            <h3
+                                class="how-step__title"
+                                data-i18n="howit.step1.title"
+                            >
+                                Chọn sở thích
+                            </h3>
+                            <p
+                                class="how-step__desc"
+                                data-i18n="howit.step1.desc"
+                            >
+                                Trả lời vài câu hỏi nhanh về phong cách du lịch,
+                                ngân sách và thời gian của bạn.
+                            </p>
+                        </div>
+                        <div class="how-step">
+                            <div class="how-step__number" aria-hidden="true">
+                                2
+                            </div>
+                            <h3
+                                class="how-step__title"
+                                data-i18n="howit.step2.title"
+                            >
+                                Nhận gợi ý cá nhân
+                            </h3>
+                            <p
+                                class="how-step__desc"
+                                data-i18n="howit.step2.desc"
+                            >
+                                Hệ thống gợi ý điểm đến và lịch trình phù hợp
+                                nhất dựa trên câu trả lời của bạn.
+                            </p>
+                        </div>
+                        <div class="how-step">
+                            <div class="how-step__number" aria-hidden="true">
+                                3
+                            </div>
+                            <h3
+                                class="how-step__title"
+                                data-i18n="howit.step3.title"
+                            >
+                                Đặt và khởi hành
+                            </h3>
+                            <p
+                                class="how-step__desc"
+                                data-i18n="howit.step3.desc"
+                            >
+                                Đặt khách sạn và tour qua các đối tác uy tín với
+                                ưu đãi độc quyền từ Polaris.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="text-center reveal"
+                        style="margin-top: var(--space-10)"
+                    >
+                        <a
+                            href="planner.html"
+                            class="btn btn--primary btn--lg"
+                            data-i18n="howit.cta"
+                            >Bắt đầu lập hành trình</a
+                        >
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== TESTIMONIALS ===== -->
+            <section class="section" aria-labelledby="testimonials-title">
+                <div class="container">
+                    <div
+                        class="text-center reveal"
+                        style="margin-bottom: var(--space-10)"
+                    >
+                        <span class="section-label">Đánh giá</span>
+                        <h2
+                            class="section-title"
+                            id="testimonials-title"
+                            data-i18n="testimonials.title"
+                        >
+                            Khách hàng nói gì về chúng tôi
+                        </h2>
+                        <p
+                            class="section-subtitle"
+                            style="margin-inline: auto"
+                            data-i18n="testimonials.subtitle"
+                        >
+                            Hơn 5.000 hành trình đã được lên kế hoạch qua
+                            Polaris
+                        </p>
+                    </div>
+                    <div
+                        class="carousel carousel--multi"
+                        id="testimonials-carousel"
+                        aria-label="Customer testimonials"
+                    >
+                        <div class="carousel__track-wrap">
+                            <div
+                                class="carousel__track"
+                                id="testimonials-track"
+                            >
+                                <!-- Injected by home.js -->
+                            </div>
+                        </div>
+                        <div class="carousel__dots"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== PARTNER LOGOS ===== -->
+            <section
+                class="section section--alt"
+                aria-labelledby="partners-title"
+            >
+                <div class="container text-center reveal">
+                    <span class="section-label" data-i18n="partners.label"
+                        >Đối tác tin cậy</span
+                    >
+                    <h2
+                        class="section-title"
+                        id="partners-title"
+                        data-i18n="partners.title"
+                    >
+                        Đặt phòng & tour qua đối tác hàng đầu
+                    </h2>
+                </div>
+                <div
+                    class="partner-marquee"
+                    aria-hidden="true"
+                    style="margin-top: var(--space-8)"
+                >
+                    <div class="partner-marquee__track" id="partner-track">
+                        <!-- Duplicated for seamless loop by home.js -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== NEWSLETTER ===== -->
+        </main>
+
+        <!-- ===== PLANNER QUICK-START MODAL ===== -->
+        <div
+            id="planner-start-modal"
+            class="search-modal"
+            hidden
+            aria-modal="true"
+            role="dialog"
+            aria-labelledby="planner-modal-title"
+        >
+            <div
+                class="search-modal__backdrop"
+                id="planner-modal-backdrop"
+            ></div>
+            <div class="search-modal__card" style="max-width: 520px">
+                <button
+                    class="search-modal__close"
+                    id="planner-modal-close"
+                    aria-label="Đóng"
+                >
+                    ✕
+                </button>
+                <h2 class="search-modal__title" id="planner-modal-title">
+                    Lập hành trình của bạn
+                </h2>
+                <p class="search-modal__query">
+                    Trả lời nhanh để Polaris gợi ý phù hợp hơn
+                </p>
+
+                <div class="planner-modal-section">
+                    <p class="planner-modal-label">Ai đi cùng bạn?</p>
+                    <div class="planner-modal-chips" id="modal-group">
+                        <button class="planner-chip" data-value="solo">
+                            🧑 Một mình
+                        </button>
+                        <button class="planner-chip" data-value="couple">
+                            👫 Cặp đôi
+                        </button>
+                        <button class="planner-chip" data-value="group">
+                            👥 Nhóm bạn
+                        </button>
+                        <button class="planner-chip" data-value="family">
+                            👨‍👩‍👧 Gia đình
+                        </button>
+                    </div>
+                </div>
+
+                <div class="planner-modal-section">
+                    <p class="planner-modal-label">Thời gian chuyến đi?</p>
+                    <div class="planner-modal-chips" id="modal-duration">
+                        <button class="planner-chip" data-value="3">
+                            2–3 ngày
+                        </button>
+                        <button class="planner-chip" data-value="5">
+                            4–5 ngày
+                        </button>
+                        <button class="planner-chip" data-value="7">
+                            7 ngày
+                        </button>
+                        <button class="planner-chip" data-value="10">
+                            10+ ngày
+                        </button>
+                    </div>
+                </div>
+
+                <div class="planner-modal-section">
+                    <p class="planner-modal-label">Ngân sách dự kiến?</p>
+                    <div class="planner-modal-chips" id="modal-budget">
+                        <button class="planner-chip" data-value="budget">
+                            💚 Tiết kiệm
+                        </button>
+                        <button class="planner-chip" data-value="mid">
+                            💛 Trung bình
+                        </button>
+                        <button class="planner-chip" data-value="luxury">
+                            💜 Cao cấp
+                        </button>
+                    </div>
+                </div>
+
+                <button
+                    class="btn btn--primary"
+                    id="planner-modal-start"
+                    style="width: 100%; margin-top: var(--space-2)"
+                >
+                    Bắt đầu lập hành trình →
+                </button>
+            </div>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__grid">
+                    <!-- Brand -->
+                    <div class="footer__brand">
+                        <div class="footer__logo-wrap">
+                            <img
+                                src="assets/images/logo.png"
+                                alt="Polaris logo"
+                                class="footer__logo"
+                            />
+                            <span class="footer__name">POLARIS</span>
+                        </div>
+                        <p class="footer__tagline" data-i18n="footer.tagline">
+                            Ngôi sao dẫn đường trong mỗi hành trình của bạn.
+                        </p>
+                        <div class="footer__socials">
+                            <a
+                                href="#"
+                                class="footer__social"
+                                aria-label="Facebook"
+                                >f</a
+                            >
+                            <a
+                                href="#"
+                                class="footer__social"
+                                aria-label="Instagram"
+                                >📷</a
+                            >
+                            <a
+                                href="#"
+                                class="footer__social"
+                                aria-label="YouTube"
+                                >▶</a
+                            >
+                            <a
+                                href="#"
+                                class="footer__social"
+                                aria-label="TikTok"
+                                >♪</a
+                            >
+                        </div>
+                    </div>
+                    <!-- Explore -->
+                    <div class="footer__col">
+                        <h3
+                            class="footer__col-title"
+                            data-i18n="footer.links.explore"
+                        >
+                            Khám phá
+                        </h3>
+                        <ul class="footer__links">
+                            <li>
+                                <a
+                                    href="destinations.html"
+                                    class="footer__link"
+                                    data-i18n="nav.destinations"
+                                    >Điểm đến</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="planner.html"
+                                    class="footer__link"
+                                    data-i18n="nav.planner"
+                                    >Lập kế hoạch</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="packages.html"
+                                    class="footer__link"
+                                    data-i18n="nav.packages"
+                                    >Gói dịch vụ</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="blog.html"
+                                    class="footer__link"
+                                    data-i18n="nav.blog"
+                                    >Cẩm nang</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Company -->
+                    <div class="footer__col">
+                        <h3
+                            class="footer__col-title"
+                            data-i18n="footer.links.company"
+                        >
+                            Công ty
+                        </h3>
+                        <ul class="footer__links">
+                            <li>
+                                <a
+                                    href="about.html"
+                                    class="footer__link"
+                                    data-i18n="nav.about"
+                                    >Về chúng tôi</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="contact.html"
+                                    class="footer__link"
+                                    data-i18n="nav.contact"
+                                    >Liên hệ</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Newsletter -->
+                    <div class="footer__col">
+                        <h3
+                            class="footer__col-title"
+                            data-i18n="footer.newsletter.title"
+                        >
+                            Nhận tin du lịch mỗi tuần
+                        </h3>
+                        <div class="footer__newsletter">
+                            <p data-i18n="newsletter.subtitle">
+                                Cùng hàng ngàn người yêu du lịch nhận tin tức
+                                điểm đến mới.
+                            </p>
+                            <form
+                                class="footer__newsletter-form"
+                                id="footer-newsletter-form"
+                                novalidate
+                            >
+                                <input
+                                    class="footer__newsletter-input"
+                                    type="email"
+                                    placeholder="Email của bạn"
+                                    data-i18n-placeholder="newsletter.placeholder"
+                                    aria-label="Email"
+                                />
+                                <button
+                                    type="submit"
+                                    class="footer__newsletter-btn"
+                                    data-i18n="newsletter.btn"
+                                >
+                                    Đăng ký
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Partners -->
+                <div class="footer__partners">
+                    <p
+                        class="footer__partners-label"
+                        data-i18n="footer.partners"
+                    >
+                        Đối tác đặt phòng & tour
+                    </p>
+                    <div class="footer__partner-logos">
+                        <span
+                            class="footer__partner-logo"
+                            style="
+                                color: white;
+                                font-weight: 700;
+                                font-size: var(--text-sm);
+                                opacity: 0.5;
+                            "
+                            >Booking.com</span
+                        >
+                        <span
+                            class="footer__partner-logo"
+                            style="
+                                color: white;
+                                font-weight: 700;
+                                font-size: var(--text-sm);
+                                opacity: 0.5;
+                            "
+                            >Agoda</span
+                        >
+                        <span
+                            class="footer__partner-logo"
+                            style="
+                                color: white;
+                                font-weight: 700;
+                                font-size: var(--text-sm);
+                                opacity: 0.5;
+                            "
+                            >Traveloka</span
+                        >
+                        <span
+                            class="footer__partner-logo"
+                            style="
+                                color: white;
+                                font-weight: 700;
+                                font-size: var(--text-sm);
+                                opacity: 0.5;
+                            "
+                            >Klook</span
+                        >
+                    </div>
+                </div>
+
+                <!-- Bottom -->
+                <div class="footer__bottom">
+                    <p class="footer__copyright" data-i18n="footer.copyright">
+                        © 2026 Polaris. Bản quyền thuộc về Polaris Travel.
+                    </p>
+                    <div class="footer__legal">
+                        <a href="#">Chính sách bảo mật</a>
+                        <a href="#">Điều khoản sử dụng</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script type="module" src="js/pages/home.js"></script>
+    </body>
+</html>

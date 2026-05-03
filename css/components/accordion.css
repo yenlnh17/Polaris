@@ -1,0 +1,110 @@
+/* Accordion — FAQ sections
+   Requires: variables.css */
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.accordion__item {
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.accordion__item.is-open {
+  border-color: rgba(102,103,171,0.3);
+  box-shadow: var(--shadow-sm);
+}
+
+/* === TRIGGER === */
+.accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-5) var(--space-6);
+  background: white;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.accordion__trigger:hover { background: var(--bg-alt); }
+
+.accordion__item.is-open .accordion__trigger {
+  background: var(--bg-alt);
+}
+
+.accordion__question {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: var(--leading-tight);
+  flex: 1;
+}
+
+.accordion__icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(102,103,171,0.08);
+  color: var(--color-secondary);
+  font-size: var(--text-sm);
+  transition: transform var(--transition-base), background-color var(--transition-fast);
+}
+
+.accordion__item.is-open .accordion__icon {
+  transform: rotate(180deg);
+  background: var(--color-secondary);
+  color: white;
+}
+
+/* === PANEL === */
+.accordion__panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-slow);
+}
+
+.accordion__item.is-open .accordion__panel {
+  max-height: 600px;
+}
+
+.accordion__answer {
+  padding: 0 var(--space-6) var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: var(--leading-loose);
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--space-4);
+}
+
+/* Dark variant (for dark section backgrounds) */
+.accordion--dark .accordion__item {
+  border-color: rgba(255,255,255,0.08);
+}
+
+.accordion--dark .accordion__trigger {
+  background: rgba(255,255,255,0.04);
+}
+
+.accordion--dark .accordion__trigger:hover { background: rgba(255,255,255,0.08); }
+
+.accordion--dark .accordion__item.is-open .accordion__trigger {
+  background: rgba(255,255,255,0.06);
+}
+
+.accordion--dark .accordion__question { color: white; }
+
+.accordion--dark .accordion__answer {
+  color: var(--text-on-dark-muted);
+  border-top-color: rgba(255,255,255,0.06);
+}

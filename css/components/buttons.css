@@ -1,0 +1,223 @@
+/* Buttons — all button variants
+   Requires: variables.css */
+
+/* === BASE === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-spring),
+    box-shadow var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* === PRIMARY === */
+.btn--primary {
+  background: var(--gradient-cta);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--primary:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  color: white;
+}
+
+.btn--primary:active { transform: translateY(0); }
+
+/* === SECONDARY (outline) === */
+.btn--secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn--secondary:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* === GHOST (white outlined, for dark bg) === */
+.btn--ghost {
+  background: transparent;
+  color: white;
+  border-color: rgba(255,255,255,0.4);
+}
+
+.btn--ghost:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: white;
+  color: white;
+}
+
+/* === SOFT === */
+.btn--soft {
+  background: rgba(102,103,171,0.1);
+  color: var(--color-secondary);
+  border-color: transparent;
+}
+
+.btn--soft:hover {
+  background: rgba(102,103,171,0.18);
+  color: var(--color-primary);
+}
+
+/* === DANGER === */
+.btn--danger {
+  background: rgba(239,68,68,0.1);
+  color: #dc2626;
+  border-color: transparent;
+}
+
+.btn--danger:hover {
+  background: #dc2626;
+  color: white;
+}
+
+/* === SIZES === */
+.btn--sm {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-xs);
+}
+
+.btn--lg {
+  padding: var(--space-4) var(--space-10);
+  font-size: var(--text-base);
+}
+
+.btn--xl {
+  padding: var(--space-5) var(--space-12);
+  font-size: var(--text-lg);
+}
+
+/* === ICON ONLY === */
+.btn--icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.btn--icon-sm {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+}
+
+.btn--icon-lg {
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border-radius: var(--radius-lg);
+  font-size: var(--text-xl);
+}
+
+/* === FULL WIDTH === */
+.btn--full { width: 100%; }
+
+/* === LOADING STATE === */
+.btn--loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.btn--loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: btn-spin 0.7s linear infinite;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* === HEART / WISHLIST TOGGLE === */
+.btn-heart {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+  color: var(--text-muted);
+  font-size: var(--text-base);
+  transition: color var(--transition-fast), transform var(--transition-spring), box-shadow var(--transition-fast);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-heart:hover {
+  color: #e11d48;
+  transform: scale(1.12);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-heart.is-active {
+  color: #e11d48;
+}
+
+.btn-heart.is-active:hover {
+  transform: scale(1.12);
+}
+
+/* === FAB (Floating Action Button) === */
+.fab {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--z-raised);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  background: var(--gradient-cta);
+  color: white;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  box-shadow: var(--shadow-xl);
+  transition: transform var(--transition-spring), box-shadow var(--transition-base);
+}
+
+.fab:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  color: white;
+}
+
+@media (min-width: 1024px) {
+  .fab { display: none; }
+}

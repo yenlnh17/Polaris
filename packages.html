@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gói Dịch Vụ – Polaris</title>
+  <meta name="description" content="Chọn gói dịch vụ du lịch phù hợp: Basic miễn phí, Standard hoặc Premium với tư vấn chuyên dụng và mã giảm giá đối tác.">
+  <link rel="canonical" href="packages.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components/navbar.css">
+  <link rel="stylesheet" href="css/components/footer.css">
+  <link rel="stylesheet" href="css/components/cards.css">
+  <link rel="stylesheet" href="css/components/buttons.css">
+  <link rel="stylesheet" href="css/components/forms.css">
+  <link rel="stylesheet" href="css/components/modal.css">
+  <link rel="stylesheet" href="css/components/toast.css">
+
+  <style>
+    .pkg-page { padding-top: var(--navbar-height); }
+
+    /* Header */
+    .pkg-header {
+      background: var(--gradient-hero);
+      padding: var(--space-16) 0 var(--space-10);
+      text-align: center;
+    }
+    .pkg-header h1 { color: white; font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl)); }
+    .pkg-header p  { color: rgba(255,255,255,.75); max-width: 520px; margin-inline: auto; }
+
+    /* Pricing cards */
+    .pricing-grid { display: grid; gap: var(--space-6); grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .pricing-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .pricing-card {
+      background: white;
+      border-radius: var(--radius-2xl);
+      border: 2px solid var(--border-color);
+      padding: var(--space-8) var(--space-6);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
+
+    .pricing-card--featured {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .pricing-card__badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gradient-cta);
+      color: white;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      padding: var(--space-1) var(--space-4);
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+    }
+
+    .pricing-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      color: var(--text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .pricing-card__tagline {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      margin-bottom: var(--space-6);
+    }
+
+    .pricing-card__price {
+      font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: var(--space-6);
+    }
+
+    .feature-list { flex: 1; display: flex; flex-direction: column; gap: var(--space-3); margin-bottom: var(--space-8); }
+    .feature-row { display: flex; align-items: flex-start; gap: var(--space-3); font-size: var(--text-sm); }
+    .feature-row__icon { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; margin-top: 1px; }
+    .feature-row--included .feature-row__icon { background: rgba(22,163,74,0.12); color: #16a34a; }
+    .feature-row--excluded .feature-row__icon { background: var(--bg-alt); color: var(--text-muted); }
+    .feature-row--excluded span:last-child { color: var(--text-muted); text-decoration: line-through; }
+
+    /* Inquiry form */
+    .inquiry-section { background: var(--bg-alt); }
+    .inquiry-card {
+      background: white;
+      border-radius: var(--radius-2xl);
+      padding: var(--space-10) var(--space-8);
+      box-shadow: var(--shadow-card);
+      max-width: 700px;
+      margin-inline: auto;
+    }
+
+    .form-grid { display: grid; gap: var(--space-5); grid-template-columns: 1fr; }
+    @media (min-width: 640px) { .form-grid { grid-template-columns: 1fr 1fr; } }
+
+    .form-group { display: flex; flex-direction: column; gap: var(--space-2); }
+    .form-label { font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); }
+    .form-input {
+      padding: var(--space-3) var(--space-4);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: var(--text-base);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      transition: border-color var(--transition-fast);
+    }
+    .form-input:focus { outline: none; border-color: var(--color-secondary); }
+    .form-input.field--error { border-color: #dc2626; }
+    .form-input.field--success { border-color: #16a34a; }
+    .field-error-msg { font-size: var(--text-xs); color: #dc2626; min-height: 16px; }
+
+    .form-submit-wrap { display: flex; justify-content: flex-end; margin-top: var(--space-4); }
+    .form-success { text-align: center; padding: var(--space-10); display: none; }
+    .form-success.is-visible { display: block; }
+  </style>
+</head>
+<body class="pkg-page">
+
+<!-- NAVBAR -->
+<header class="navbar navbar--solid">
+  <div class="navbar__inner">
+    <a href="index.html" class="navbar__brand">
+      <img src="assets/images/logo.jpg" alt="Polaris logo" class="navbar__logo">
+      <span class="navbar__name">POLARIS</span>
+    </a>
+    <nav class="navbar__links" aria-label="Main navigation">
+      <a href="index.html"        class="navbar__link" data-nav-page="index.html"        data-i18n="nav.home">Trang chủ</a>
+      <a href="destinations.html" class="navbar__link" data-nav-page="destinations.html" data-i18n="nav.destinations">Điểm đến</a>
+      <a href="planner.html"      class="navbar__link" data-nav-page="planner.html"      data-i18n="nav.planner">Lập kế hoạch</a>
+      <a href="packages.html"     class="navbar__link" data-nav-page="packages.html"     data-i18n="nav.packages">Gói dịch vụ</a>
+      <a href="blog.html"         class="navbar__link" data-nav-page="blog.html"         data-i18n="nav.blog">Cẩm nang</a>
+    </nav>
+    <div class="navbar__actions">
+      <div class="lang-toggle" role="group" aria-label="Chọn ngôn ngữ">
+        <button class="lang-toggle__btn lang-toggle__btn--active" data-lang="vi">VI</button>
+        <button class="lang-toggle__btn" data-lang="en">EN</button>
+      </div>
+      <a href="planner.html" class="navbar__cta btn btn--primary btn--sm" data-i18n="nav.cta">Lập hành trình</a>
+      <button class="navbar__hamburger" aria-expanded="false" aria-controls="mobile-menu-pkg" aria-label="Mở menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-menu-pkg" class="navbar__mobile" aria-label="Mobile navigation">
+    <a href="index.html"        class="navbar__mobile-link" data-i18n="nav.home">Trang chủ</a>
+    <a href="destinations.html" class="navbar__mobile-link" data-i18n="nav.destinations">Điểm đến</a>
+    <a href="planner.html"      class="navbar__mobile-link" data-i18n="nav.planner">Lập kế hoạch</a>
+    <a href="packages.html"     class="navbar__mobile-link" data-i18n="nav.packages">Gói dịch vụ</a>
+    <div class="navbar__mobile-actions">
+      <div class="lang-toggle" role="group">
+        <button class="lang-toggle__btn lang-toggle__btn--active" data-lang="vi">VI</button>
+        <button class="lang-toggle__btn" data-lang="en">EN</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- Header -->
+  <div class="pkg-header">
+    <div class="container">
+      <span class="section-label" style="color:var(--color-lightest)">Dịch vụ</span>
+      <h1 style="margin-top:var(--space-2)" data-i18n="packages.title">Chọn gói phù hợp với bạn</h1>
+      <p style="margin-top:var(--space-3)" data-i18n="packages.subtitle">Từ khám phá tự do đến hỗ trợ trọn vẹn — Polaris có gói cho mọi nhu cầu.</p>
+    </div>
+  </div>
+
+  <!-- Pricing cards -->
+  <section class="section">
+    <div class="container">
+      <div class="pricing-grid" id="pricing-grid">
+        <!-- Rendered by packages.js -->
+        <div class="skeleton" style="height:500px;border-radius:var(--radius-2xl)"></div>
+        <div class="skeleton" style="height:500px;border-radius:var(--radius-2xl)"></div>
+        <div class="skeleton" style="height:500px;border-radius:var(--radius-2xl)"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ / comparison note -->
+  <section class="section section--alt">
+    <div class="container" style="max-width:760px;text-align:center">
+      <h2 class="section-title">Câu hỏi thường gặp</h2>
+      <div id="faq-list" style="text-align:left;margin-top:var(--space-8)">
+        <!-- Rendered by packages.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Inquiry form -->
+  <section class="section inquiry-section" id="inquiry-section">
+    <div class="container">
+      <div class="inquiry-card">
+        <h2 class="section-title" style="text-align:center;margin-bottom:var(--space-2)">Yêu cầu tư vấn</h2>
+        <p style="text-align:center;color:var(--text-muted);margin-bottom:var(--space-8);font-size:var(--text-sm)">Điền thông tin và chúng tôi sẽ liên hệ trong vòng 24 giờ.</p>
+
+        <div id="form-success" class="form-success">
+          <p style="font-size:3rem;margin-bottom:var(--space-4)">✅</p>
+          <h3 style="font-family:var(--font-display);font-size:var(--text-2xl);margin-bottom:var(--space-3)">Gửi thành công!</h3>
+          <p style="color:var(--text-muted)">Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ. Hãy kiểm tra email của bạn.</p>
+        </div>
+
+        <form id="inquiry-form" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="inq-name" data-i18n="packages.form.name">Họ và tên *</label>
+              <input type="text" id="inq-name" name="name" class="form-input"
+                     placeholder="Nguyễn Văn A" autocomplete="name" required>
+              <span class="field-error-msg" id="inq-name-err"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inq-email" data-i18n="packages.form.email">Email *</label>
+              <input type="email" id="inq-email" name="email" class="form-input"
+                     placeholder="email@example.com" autocomplete="email" required>
+              <span class="field-error-msg" id="inq-email-err"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inq-phone" data-i18n="packages.form.phone">Số điện thoại *</label>
+              <input type="tel" id="inq-phone" name="phone" class="form-input"
+                     placeholder="09xxxxxxxx" autocomplete="tel" required>
+              <span class="field-error-msg" id="inq-phone-err"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inq-travelers" data-i18n="packages.form.travelers">Số người đi *</label>
+              <input type="number" id="inq-travelers" name="travelers" class="form-input"
+                     placeholder="2" min="1" max="50" required>
+              <span class="field-error-msg" id="inq-travelers-err"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inq-date" data-i18n="packages.form.date">Ngày dự kiến khởi hành</label>
+              <input type="date" id="inq-date" name="date" class="form-input">
+              <span class="field-error-msg" id="inq-date-err"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inq-package">Gói quan tâm</label>
+              <select id="inq-package" name="package" class="form-input">
+                <option value="">Chưa quyết định</option>
+                <option value="basic">Gói Cơ Bản</option>
+                <option value="standard">Gói Tiêu Chuẩn</option>
+                <option value="premium">Gói Cao Cấp</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:var(--space-5)">
+            <label class="form-label" for="inq-notes" data-i18n="packages.form.notes">Ghi chú thêm</label>
+            <textarea id="inq-notes" name="notes" class="form-input" rows="4"
+                      placeholder="Điểm đến mơ ước, yêu cầu đặc biệt..." style="resize:vertical"></textarea>
+          </div>
+          <div class="form-submit-wrap">
+            <button type="submit" class="btn btn--primary" id="inq-submit" data-i18n="packages.form.submit">
+              Gửi yêu cầu tư vấn
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__bottom">
+      <p class="footer__copyright" data-i18n="footer.copyright">© 2026 Polaris. Bản quyền thuộc về Polaris Travel.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/pages/packages.js"></script>
+</body>
+</html>

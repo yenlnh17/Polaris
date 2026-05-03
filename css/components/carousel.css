@@ -1,0 +1,164 @@
+/* Carousel — featured destinations, testimonials
+   Requires: variables.css */
+
+.carousel {
+  position: relative;
+}
+
+.carousel__track-wrap {
+  overflow-x: clip;
+  overflow-y: visible;
+  border-radius: var(--radius-xl);
+}
+
+.carousel__track {
+  display: flex;
+  transition: transform var(--transition-slow) cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: transform;
+}
+
+.carousel__slide {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+/* === NAVIGATION === */
+.carousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-raised);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+  color: var(--color-primary);
+  font-size: var(--text-xl);
+  transition: background-color var(--transition-fast), transform var(--transition-spring), box-shadow var(--transition-fast);
+}
+
+.carousel__btn:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: var(--shadow-lg);
+}
+
+.carousel__btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.carousel__btn--prev { left: -22px; }
+.carousel__btn--next { right: -22px; }
+
+/* === DOTS === */
+.carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+.carousel__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-color);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), width var(--transition-base);
+  border: none;
+}
+
+.carousel__dot.is-active {
+  background: var(--color-primary);
+  width: 24px;
+  border-radius: var(--radius-full);
+}
+
+.carousel__dot:hover:not(.is-active) {
+  background: var(--color-secondary);
+  transform: scale(1.2);
+}
+
+/* === MULTI-ITEM CAROUSEL (3-up on desktop) === */
+.carousel--multi .carousel__slide {
+  width: calc(100% - var(--space-4));
+  margin-right: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .carousel--multi .carousel__slide {
+    width: calc(50% - var(--space-4));
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel--multi .carousel__slide {
+    width: calc(33.333% - var(--space-4));
+  }
+}
+
+/* === TESTIMONIAL CAROUSEL === */
+.testimonial-card {
+  padding: var(--space-8);
+  background: white;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  height: 100%;
+}
+
+.testimonial-card__quote {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-style: italic;
+  color: var(--text-primary);
+  line-height: var(--leading-loose);
+  flex: 1;
+}
+
+.testimonial-card__quote::before {
+  content: '\201C';
+  font-size: var(--text-4xl);
+  color: var(--color-lightest);
+  line-height: 0;
+  vertical-align: -0.5em;
+  margin-right: var(--space-1);
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-color);
+}
+
+.testimonial-card__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid var(--color-lightest);
+}
+
+.testimonial-card__name {
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.testimonial-card__trip {
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  font-weight: 600;
+}

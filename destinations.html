@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Điểm Đến – Polaris</title>
+  <meta name="description" content="Khám phá 200+ điểm đến tại Việt Nam. Lọc theo loại hình, ngân sách và thời gian để tìm hành trình phù hợp.">
+  <link rel="canonical" href="destinations.html">
+  <meta property="og:title" content="Điểm Đến – Polaris">
+  <meta property="og:description" content="Lọc và tìm kiếm 200+ điểm đến Việt Nam.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=1200&q=80">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components/navbar.css">
+  <link rel="stylesheet" href="css/components/footer.css">
+  <link rel="stylesheet" href="css/components/hero.css">
+  <link rel="stylesheet" href="css/components/cards.css">
+  <link rel="stylesheet" href="css/components/buttons.css">
+  <link rel="stylesheet" href="css/components/forms.css">
+  <link rel="stylesheet" href="css/components/toast.css">
+
+  <style>
+    .dest-page { padding-top: var(--navbar-height); }
+
+    .dest-header {
+      background: var(--gradient-hero);
+      padding: var(--space-12) 0 var(--space-8);
+      text-align: center;
+    }
+    .dest-header h1 { color: white; font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl)); }
+    .dest-header p  { color: rgba(255,255,255,0.75); margin-inline: auto; }
+
+    /* Filter bar */
+    .filter-bar {
+      background: white;
+      border-bottom: 1px solid var(--border-color);
+      padding: var(--space-4) 0;
+      position: sticky;
+      top: var(--navbar-height);
+      z-index: var(--z-raised);
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-bar .container { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+
+    .filter-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: var(--space-3) 0; }
+
+    /* Results count */
+    .results-info { font-size: var(--text-sm); color: var(--text-muted); }
+    .results-info strong { color: var(--text-primary); }
+
+    /* View toggle */
+    .view-toggle { display: flex; gap: var(--space-1); background: var(--bg-alt); border-radius: var(--radius-md); padding: 3px; border: 1px solid var(--border-color); }
+    .view-toggle__btn { padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 600; color: var(--text-muted); transition: all var(--transition-fast); }
+    .view-toggle__btn.is-active { background: white; color: var(--color-primary); box-shadow: var(--shadow-sm); }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: var(--space-16) var(--space-8); }
+    .empty-state__icon { font-size: 4rem; margin-bottom: var(--space-4); }
+    .empty-state p { color: var(--text-muted); }
+
+    /* Map view */
+    .map-view { width: 100%; height: 500px; border-radius: var(--radius-xl); overflow: hidden; background: var(--bg-alt); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; }
+    .map-placeholder { text-align: center; color: var(--text-muted); }
+
+    /* Sort select */
+    .sort-select { padding: var(--space-2) var(--space-4); border: 1.5px solid var(--border-color); border-radius: var(--radius-md); font-size: var(--text-sm); color: var(--text-primary); appearance: none; background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b5c74'/%3E%3C/svg%3E") no-repeat right 10px center; padding-right: var(--space-8); cursor: pointer; }
+    .sort-select:focus { outline: none; border-color: var(--color-secondary); }
+  </style>
+</head>
+<body class="dest-page">
+
+<!-- NAVBAR -->
+<header class="navbar navbar--solid">
+  <div class="navbar__inner">
+    <a href="index.html" class="navbar__brand">
+      <img src="assets/images/logo.jpg" alt="Polaris logo" class="navbar__logo">
+      <span class="navbar__name">POLARIS</span>
+    </a>
+    <nav class="navbar__links" aria-label="Main navigation">
+      <a href="index.html"        class="navbar__link" data-nav-page="index.html"        data-i18n="nav.home">Trang chủ</a>
+      <a href="destinations.html" class="navbar__link" data-nav-page="destinations.html" data-i18n="nav.destinations">Điểm đến</a>
+      <a href="planner.html"      class="navbar__link" data-nav-page="planner.html"      data-i18n="nav.planner">Lập kế hoạch</a>
+      <a href="packages.html"     class="navbar__link" data-nav-page="packages.html"     data-i18n="nav.packages">Gói dịch vụ</a>
+      <a href="blog.html"         class="navbar__link" data-nav-page="blog.html"         data-i18n="nav.blog">Cẩm nang</a>
+      <a href="about.html"        class="navbar__link" data-nav-page="about.html"        data-i18n="nav.about">Về chúng tôi</a>
+    </nav>
+    <div class="navbar__actions">
+      <div class="lang-toggle" role="group" aria-label="Chọn ngôn ngữ">
+        <button class="lang-toggle__btn lang-toggle__btn--active" data-lang="vi">VI</button>
+        <button class="lang-toggle__btn" data-lang="en">EN</button>
+      </div>
+      <a href="planner.html" class="navbar__cta btn btn--primary btn--sm" data-i18n="nav.cta">Lập hành trình</a>
+      <button class="navbar__hamburger" aria-expanded="false" aria-controls="mobile-menu-dest" aria-label="Mở menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-menu-dest" class="navbar__mobile" aria-label="Mobile navigation">
+    <a href="index.html"        class="navbar__mobile-link" data-nav-page="index.html"        data-i18n="nav.home">Trang chủ</a>
+    <a href="destinations.html" class="navbar__mobile-link" data-nav-page="destinations.html" data-i18n="nav.destinations">Điểm đến</a>
+    <a href="planner.html"      class="navbar__mobile-link" data-nav-page="planner.html"      data-i18n="nav.planner">Lập kế hoạch</a>
+    <a href="packages.html"     class="navbar__mobile-link" data-nav-page="packages.html"     data-i18n="nav.packages">Gói dịch vụ</a>
+    <a href="blog.html"         class="navbar__mobile-link" data-nav-page="blog.html"         data-i18n="nav.blog">Cẩm nang</a>
+    <a href="about.html"        class="navbar__mobile-link" data-nav-page="about.html"        data-i18n="nav.about">Về chúng tôi</a>
+    <a href="contact.html"      class="navbar__mobile-link" data-nav-page="contact.html"      data-i18n="nav.contact">Liên hệ</a>
+    <div class="navbar__mobile-actions">
+      <div class="lang-toggle" role="group">
+        <button class="lang-toggle__btn lang-toggle__btn--active" data-lang="vi">VI</button>
+        <button class="lang-toggle__btn" data-lang="en">EN</button>
+      </div>
+      <a href="planner.html" class="navbar__mobile-cta btn btn--primary" data-i18n="nav.cta">Lập hành trình</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <!-- Header -->
+  <div class="dest-header">
+    <div class="container">
+      <span class="section-label" style="color:var(--color-lightest)">Việt Nam</span>
+      <h1 data-i18n="dest.title">Khám phá điểm đến</h1>
+      <p data-i18n="dest.subtitle" style="margin-top:var(--space-3)">Tìm kiếm và lọc trong 200+ điểm đến tại Việt Nam</p>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <div class="container">
+      <!-- Search -->
+      <div class="search-input" style="min-width:220px;flex:1">
+        <span class="search-input__icon" aria-hidden="true">🔍</span>
+        <input type="search" id="dest-search" data-i18n-placeholder="dest.search.placeholder" placeholder="Tìm kiếm điểm đến..." autocomplete="off">
+      </div>
+
+      <!-- Type filter -->
+      <select class="sort-select" id="type-filter" aria-label="Lọc theo loại hình">
+        <option value="" data-i18n="dest.filter.type">Loại hình</option>
+        <option value="beach" data-i18n="dest.type.beach">Biển</option>
+        <option value="mountain" data-i18n="dest.type.mountain">Núi</option>
+        <option value="city" data-i18n="dest.type.city">Thành phố</option>
+        <option value="cultural" data-i18n="dest.type.cultural">Văn hoá</option>
+        <option value="nature" data-i18n="dest.type.nature">Thiên nhiên</option>
+        <option value="adventure" data-i18n="dest.type.adventure">Phiêu lưu</option>
+      </select>
+
+      <!-- Budget filter -->
+      <select class="sort-select" id="budget-filter" aria-label="Lọc theo ngân sách">
+        <option value="" data-i18n="dest.filter.budget">Ngân sách</option>
+        <option value="budget">Tiết kiệm</option>
+        <option value="mid">Trung bình</option>
+        <option value="luxury">Cao cấp</option>
+      </select>
+
+      <!-- Sort -->
+      <select class="sort-select" id="sort-select" aria-label="Sắp xếp">
+        <option value="rating" data-i18n="dest.filter.sort">Sắp xếp</option>
+        <option value="rating">Đánh giá cao nhất</option>
+        <option value="price-asc">Giá thấp → cao</option>
+        <option value="price-desc">Giá cao → thấp</option>
+        <option value="name">A → Z</option>
+      </select>
+
+      <!-- View toggle -->
+      <div class="view-toggle" role="group" aria-label="Chế độ xem">
+        <button class="view-toggle__btn is-active" id="view-grid" aria-pressed="true" data-i18n="dest.view.grid">Lưới</button>
+        <button class="view-toggle__btn" id="view-map" aria-pressed="false" data-i18n="dest.view.map">Bản đồ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active filter chips -->
+  <div class="container">
+    <div class="filter-chips" id="filter-chips"></div>
+  </div>
+
+  <!-- Results -->
+  <section class="section" style="padding-top: var(--space-6)" aria-live="polite" aria-label="Destination results">
+    <div class="container">
+      <div class="flex--between flex" style="margin-bottom: var(--space-6); flex-wrap:wrap; gap: var(--space-3)">
+        <p class="results-info" id="results-count">
+          Đang tải...
+        </p>
+      </div>
+
+      <!-- Grid view -->
+      <div class="grid--auto" id="dest-grid">
+        <!-- Skeleton cards -->
+        <div class="card-dest card-dest--skeleton"><div class="skeleton skeleton-img ratio-4-3"></div><div class="card-dest__body"><div class="skeleton skeleton-line skeleton-line--short" style="height:12px;margin-bottom:8px"></div><div class="skeleton skeleton-line skeleton-line--medium" style="height:20px;margin-bottom:12px"></div><div class="skeleton skeleton-line" style="height:14px"></div></div></div>
+        <div class="card-dest card-dest--skeleton"><div class="skeleton skeleton-img ratio-4-3"></div><div class="card-dest__body"><div class="skeleton skeleton-line skeleton-line--short" style="height:12px;margin-bottom:8px"></div><div class="skeleton skeleton-line skeleton-line--medium" style="height:20px;margin-bottom:12px"></div><div class="skeleton skeleton-line" style="height:14px"></div></div></div>
+        <div class="card-dest card-dest--skeleton"><div class="skeleton skeleton-img ratio-4-3"></div><div class="card-dest__body"><div class="skeleton skeleton-line skeleton-line--short" style="height:12px;margin-bottom:8px"></div><div class="skeleton skeleton-line skeleton-line--medium" style="height:20px;margin-bottom:12px"></div><div class="skeleton skeleton-line" style="height:14px"></div></div></div>
+        <div class="card-dest card-dest--skeleton"><div class="skeleton skeleton-img ratio-4-3"></div><div class="card-dest__body"><div class="skeleton skeleton-line skeleton-line--short" style="height:12px;margin-bottom:8px"></div><div class="skeleton skeleton-line skeleton-line--medium" style="height:20px;margin-bottom:12px"></div><div class="skeleton skeleton-line" style="height:14px"></div></div></div>
+        <div class="card-dest card-dest--skeleton"><div class="skeleton skeleton-img ratio-4-3"></div><div class="card-dest__body"><div class="skeleton skeleton-line skeleton-line--short" style="height:12px;margin-bottom:8px"></div><div class="skeleton skeleton-line skeleton-line--medium" style="height:20px;margin-bottom:12px"></div><div class="skeleton skeleton-line" style="height:14px"></div></div></div>
+        <div class="card-dest card-dest--skeleton"><div class="skeleton skeleton-img ratio-4-3"></div><div class="card-dest__body"><div class="skeleton skeleton-line skeleton-line--short" style="height:12px;margin-bottom:8px"></div><div class="skeleton skeleton-line skeleton-line--medium" style="height:20px;margin-bottom:12px"></div><div class="skeleton skeleton-line" style="height:14px"></div></div></div>
+      </div>
+
+      <!-- Map view (hidden by default) -->
+      <div id="dest-map" class="map-view hidden">
+        <div class="map-placeholder">
+          <p style="font-size:3rem">🗺️</p>
+          <p>Bản đồ các điểm đến Việt Nam</p>
+          <p style="font-size:var(--text-sm);margin-top:var(--space-2)">Đang tải bản đồ...</p>
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state hidden" id="dest-empty">
+        <div class="empty-state__icon">🔍</div>
+        <h3 data-i18n="dest.empty">Không tìm thấy điểm đến phù hợp. Thử thay đổi bộ lọc?</h3>
+        <button class="btn btn--secondary" style="margin-top:var(--space-4)" id="clear-filters-empty" data-i18n="dest.filter.reset">Xoá bộ lọc</button>
+      </div>
+
+      <!-- Infinite scroll sentinel -->
+      <div id="load-sentinel" style="height:40px;margin-top:var(--space-6)"></div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER (abbreviated) -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__bottom">
+      <p class="footer__copyright" data-i18n="footer.copyright">© 2026 Polaris. Bản quyền thuộc về Polaris Travel.</p>
+      <div class="footer__legal">
+        <a href="#">Chính sách bảo mật</a>
+        <a href="#">Điều khoản</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/pages/destinations.js"></script>
+</body>
+</html>

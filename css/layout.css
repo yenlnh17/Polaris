@@ -1,0 +1,348 @@
+/* Layout — container, grid system, section wrappers, utilities
+   Requires: variables.css */
+
+/* === CONTAINER === */
+.container {
+    width: 100%;
+    max-width: var(--container-xl);
+    margin-inline: auto;
+    padding-inline: var(--container-pad);
+}
+
+.container--sm {
+    max-width: var(--container-sm);
+}
+.container--md {
+    max-width: var(--container-md);
+}
+.container--lg {
+    max-width: var(--container-lg);
+}
+.container--2xl {
+    max-width: var(--container-2xl);
+}
+
+/* === SECTION === */
+.section {
+    padding-block: var(--space-12);
+}
+
+.section--dark {
+    background-color: var(--color-darkest);
+}
+
+.section--alt {
+    background-color: var(--bg-alt);
+}
+
+.section--primary {
+    background: var(--gradient-hero);
+}
+
+@media (min-width: 768px) {
+    .section {
+        padding-block: var(--space-20);
+    }
+}
+
+/* === GRID === */
+.grid {
+    display: grid;
+    gap: var(--space-6);
+}
+
+/* Auto-fill responsive grids */
+.grid--2 {
+    grid-template-columns: 1fr;
+}
+.grid--3 {
+    grid-template-columns: 1fr;
+}
+.grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 640px) {
+    .grid--2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .grid--4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .grid--3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid--3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .grid--4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Auto responsive grid (used for destination cards) */
+.grid--auto {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+    gap: var(--space-6);
+}
+
+/* === FLEX UTILITIES === */
+.flex {
+    display: flex;
+}
+.flex--center {
+    align-items: center;
+    justify-content: center;
+}
+.flex--between {
+    align-items: center;
+    justify-content: space-between;
+}
+.flex--gap-2 {
+    gap: var(--space-2);
+}
+.flex--gap-4 {
+    gap: var(--space-4);
+}
+.flex--gap-6 {
+    gap: var(--space-6);
+}
+.flex--wrap {
+    flex-wrap: wrap;
+}
+.flex--col {
+    flex-direction: column;
+}
+
+/* === SIDEBAR LAYOUT === */
+.layout--sidebar {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+}
+
+.layout--sidebar__aside {
+    order: -1; /* filter sidebar above content on mobile */
+}
+
+@media (min-width: 1024px) {
+    .layout--sidebar {
+        grid-template-columns: 280px 1fr;
+        align-items: start;
+    }
+
+    .layout--sidebar__aside {
+        order: 0;
+        position: sticky;
+        top: calc(var(--navbar-height) + var(--space-6));
+        max-height: calc(100vh - var(--navbar-height) - var(--space-12));
+        overflow-y: auto;
+    }
+}
+
+/* Reverse: sidebar on right (detail pages) */
+.layout--sidebar-right {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+}
+
+@media (min-width: 1024px) {
+    .layout--sidebar-right {
+        grid-template-columns: 1fr 340px;
+        align-items: start;
+    }
+
+    .layout--sidebar-right .sidebar {
+        position: sticky;
+        top: calc(var(--navbar-height) + var(--space-6));
+    }
+}
+
+/* === MAIN CONTENT OFFSET (for fixed navbar) === */
+/* main {
+    padding-top: var(--navbar-height);
+} */
+
+/* Pages with full-viewport hero don't need offset */
+main.main--hero {
+    padding-top: 0;
+}
+
+/* === ASPECT RATIO WRAPPERS === */
+.ratio-4-3 {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+}
+.ratio-16-9 {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+.ratio-1-1 {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+.ratio-3-2 {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+}
+
+.ratio-4-3 img,
+.ratio-16-9 img,
+.ratio-1-1 img,
+.ratio-3-2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+/* === DIVIDER === */
+.divider {
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-cta);
+    border-radius: var(--radius-full);
+    margin-block: var(--space-4);
+}
+
+.divider--center {
+    margin-inline: auto;
+}
+
+/* === TEXT ALIGNMENT === */
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+
+/* === DISPLAY UTILITIES === */
+.hidden {
+    display: none !important;
+}
+.invisible {
+    visibility: hidden;
+}
+
+.show-mobile {
+    display: block;
+}
+.hide-mobile {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .show-mobile {
+        display: none;
+    }
+    .hide-mobile {
+        display: block;
+    }
+}
+
+/* === SCROLL CONTAINER (horizontal scroll rows) === */
+.scroll-row {
+    display: flex;
+    gap: var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: var(--space-2);
+}
+
+.scroll-row::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll-row > * {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+}
+
+/* === BADGE === */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-3);
+    background: rgba(102, 103, 171, 0.12);
+    color: var(--color-secondary);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.badge--primary {
+    background: rgba(66, 13, 75, 0.1);
+    color: var(--color-primary);
+}
+
+.badge--accent {
+    background: var(--gradient-cta);
+    color: white;
+}
+
+.badge--success {
+    background: rgba(34, 197, 94, 0.12);
+    color: #16a34a;
+}
+
+/* === STAR RATING === */
+.stars {
+    display: inline-flex;
+    gap: 2px;
+    color: #f59e0b;
+    font-size: var(--text-sm);
+}
+
+/* === SKELETON LOADER === */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--bg-alt) 25%,
+        rgba(102, 103, 171, 0.08) 50%,
+        var(--bg-alt) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: var(--radius-md);
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* === SCROLL REVEAL (JS adds .visible class) === */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity var(--transition-slow),
+        transform var(--transition-slow);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: none;
+}

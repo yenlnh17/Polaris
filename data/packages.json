@@ -1,0 +1,65 @@
+[
+  {
+    "id": "basic",
+    "tier": 1,
+    "name": { "vi": "Gói Cơ Bản", "en": "Basic Package" },
+    "tagline": { "vi": "Tự khám phá theo cách của bạn", "en": "Explore your way" },
+    "price": { "oneTime": 0, "currency": "VND" },
+    "priceLabel": { "vi": "Miễn phí", "en": "Free" },
+    "isFeatured": false,
+    "features": [
+      { "vi": "Truy cập công cụ lập kế hoạch hành trình", "en": "Access to itinerary planner tool", "included": true },
+      { "vi": "Lọc và tìm kiếm điểm đến", "en": "Destination filter & search", "included": true },
+      { "vi": "Danh sách yêu thích không giới hạn", "en": "Unlimited wishlist", "included": true },
+      { "vi": "Link đặt phòng qua đối tác", "en": "Partner booking links", "included": true },
+      { "vi": "Xuất hành trình PDF", "en": "Export itinerary to PDF", "included": true },
+      { "vi": "Tư vấn cá nhân qua email", "en": "Personalised email consultation", "included": false },
+      { "vi": "Hỗ trợ điện thoại ưu tiên", "en": "Priority phone support", "included": false },
+      { "vi": "Mã giảm giá đối tác độc quyền", "en": "Exclusive partner discount codes", "included": false },
+      { "vi": "Cố vấn du lịch chuyên dụng", "en": "Dedicated travel consultant", "included": false }
+    ],
+    "cta": { "vi": "Bắt đầu ngay", "en": "Get Started" }
+  },
+  {
+    "id": "standard",
+    "tier": 2,
+    "name": { "vi": "Gói Tiêu Chuẩn", "en": "Standard Package" },
+    "tagline": { "vi": "Hành trình được cá nhân hoá cho bạn", "en": "A journey personalised for you" },
+    "price": { "oneTime": 499000, "currency": "VND" },
+    "priceLabel": { "vi": "499.000đ / chuyến", "en": "499,000₫ / trip" },
+    "isFeatured": true,
+    "features": [
+      { "vi": "Truy cập công cụ lập kế hoạch hành trình", "en": "Access to itinerary planner tool", "included": true },
+      { "vi": "Lọc và tìm kiếm điểm đến", "en": "Destination filter & search", "included": true },
+      { "vi": "Danh sách yêu thích không giới hạn", "en": "Unlimited wishlist", "included": true },
+      { "vi": "Link đặt phòng qua đối tác", "en": "Partner booking links", "included": true },
+      { "vi": "Xuất hành trình PDF", "en": "Export itinerary to PDF", "included": true },
+      { "vi": "Tư vấn cá nhân qua email (24h phản hồi)", "en": "Personalised email consultation (24h reply)", "included": true },
+      { "vi": "Hỗ trợ điện thoại ưu tiên", "en": "Priority phone support", "included": true },
+      { "vi": "Mã giảm giá đối tác độc quyền", "en": "Exclusive partner discount codes", "included": true },
+      { "vi": "Cố vấn du lịch chuyên dụng", "en": "Dedicated travel consultant", "included": false }
+    ],
+    "cta": { "vi": "Đặt gói ngay", "en": "Book Now" }
+  },
+  {
+    "id": "premium",
+    "tier": 3,
+    "name": { "vi": "Gói Cao Cấp", "en": "Premium Package" },
+    "tagline": { "vi": "Trọn vẹn từng trải nghiệm", "en": "Every experience perfected" },
+    "price": { "oneTime": 1490000, "currency": "VND" },
+    "priceLabel": { "vi": "1.490.000đ / chuyến", "en": "1,490,000₫ / trip" },
+    "isFeatured": false,
+    "features": [
+      { "vi": "Truy cập công cụ lập kế hoạch hành trình", "en": "Access to itinerary planner tool", "included": true },
+      { "vi": "Lọc và tìm kiếm điểm đến", "en": "Destination filter & search", "included": true },
+      { "vi": "Danh sách yêu thích không giới hạn", "en": "Unlimited wishlist", "included": true },
+      { "vi": "Link đặt phòng qua đối tác", "en": "Partner booking links", "included": true },
+      { "vi": "Xuất hành trình PDF", "en": "Export itinerary to PDF", "included": true },
+      { "vi": "Tư vấn cá nhân qua email (12h phản hồi)", "en": "Personalised email consultation (12h reply)", "included": true },
+      { "vi": "Hỗ trợ điện thoại 24/7", "en": "24/7 phone support", "included": true },
+      { "vi": "Mã giảm giá đối tác độc quyền", "en": "Exclusive partner discount codes", "included": true },
+      { "vi": "Cố vấn du lịch chuyên dụng", "en": "Dedicated travel consultant", "included": true }
+    ],
+    "cta": { "vi": "Trải nghiệm cao cấp", "en": "Go Premium" }
+  }
+]

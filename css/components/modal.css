@@ -1,0 +1,212 @@
+/* Modal — generic overlay modal + lightbox variant
+   Requires: variables.css */
+
+/* === BACKDROP === */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: rgba(33,6,53,0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === MODAL BOX === */
+.modal {
+  position: relative;
+  background: white;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100vh - var(--space-8));
+  overflow-y: auto;
+  transform: scale(0.94) translateY(12px);
+  transition: transform var(--transition-spring);
+}
+
+.modal-backdrop.is-open .modal {
+  transform: scale(1) translateY(0);
+}
+
+/* Sizes */
+.modal--sm  { max-width: 420px; }
+.modal--lg  { max-width: 720px; }
+.modal--xl  { max-width: 960px; }
+.modal--full {
+  max-width: calc(100vw - var(--space-8));
+  max-height: calc(100vh - var(--space-8));
+}
+
+/* === MODAL HEADER === */
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6) var(--space-4);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+}
+
+.modal__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modal__close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-size: var(--text-xl);
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.modal__close:hover {
+  background: var(--bg-alt);
+  color: var(--text-primary);
+}
+
+/* === MODAL BODY === */
+.modal__body {
+  padding: var(--space-6);
+}
+
+/* === MODAL FOOTER === */
+.modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6) var(--space-5);
+  border-top: 1px solid var(--border-color);
+  position: sticky;
+  bottom: 0;
+  background: white;
+  border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
+}
+
+/* === LIGHTBOX === */
+.lightbox {
+  max-width: calc(100vw - var(--space-8));
+  max-height: calc(100vh - var(--space-8));
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.lightbox__img-wrap {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  max-height: 75vh;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+}
+
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  color: white;
+  font-size: var(--text-xl);
+  backdrop-filter: blur(4px);
+  transition: background-color var(--transition-fast);
+  z-index: 1;
+}
+
+.lightbox__nav:hover { background: rgba(255,255,255,0.3); }
+.lightbox__nav--prev { left: var(--space-3); }
+.lightbox__nav--next { right: var(--space-3); }
+
+.lightbox__thumbnails {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+}
+
+.lightbox__thumb {
+  width: 52px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+  opacity: 0.6;
+}
+
+.lightbox__thumb:hover,
+.lightbox__thumb.is-active {
+  border-color: white;
+  opacity: 1;
+}
+
+.lightbox__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  color: white;
+  font-size: var(--text-xl);
+  backdrop-filter: blur(4px);
+  transition: background-color var(--transition-fast);
+  z-index: var(--z-modal);
+}
+
+.lightbox__close:hover { background: rgba(255,255,255,0.3); }
+
+/* Counter */
+.lightbox__counter {
+  color: rgba(255,255,255,0.8);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}

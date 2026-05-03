@@ -1,0 +1,572 @@
+[
+  {
+    "id": "ha-noi",
+    "name": { "vi": "Hà Nội", "en": "Hanoi" },
+    "region": { "vi": "Miền Bắc", "en": "North" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 21.0285, "lng": 105.8542 },
+    "type": ["city", "cultural", "food"],
+    "style": ["culture", "food", "city"],
+    "budget": "budget",
+    "duration": [3, 7],
+    "rating": 4.7,
+    "reviewCount": 2340,
+    "priceFrom": 2500000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1557750255-c76072a7aad1?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1557750255-c76072a7aad1?w=1200&q=80",
+      "https://images.unsplash.com/photo-1582448839198-17b72c07dd62?w=800&q=80",
+      "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80",
+      "https://images.unsplash.com/photo-1591298869069-e21b3c72eb57?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Thủ đô ngàn năm văn hiến với Hồ Hoàn Kiếm và phố cổ 36 phố phường", "en": "Thousand-year capital with Hoan Kiem Lake and the ancient 36 streets" },
+    "highlights": [
+      { "vi": "Hồ Hoàn Kiếm & Tháp Rùa", "en": "Hoan Kiem Lake & Turtle Tower" },
+      { "vi": "Phố cổ 36 phố phường", "en": "Ancient 36 old quarters" },
+      { "vi": "Lăng Chủ tịch Hồ Chí Minh", "en": "Ho Chi Minh Mausoleum" },
+      { "vi": "Văn Miếu - Quốc Tử Giám", "en": "Temple of Literature" },
+      { "vi": "Ẩm thực đường phố phong phú", "en": "Rich street food scene" }
+    ],
+    "bestMonths": [10, 11, 12, 1, 2, 3],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Hanoi&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=hanoi&utm_source=polaris&utm_medium=referral",
+      "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Hanoi&utm_source=polaris",
+      "klook": "https://klook.com/search/?query=Hanoi&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["hanoi-street-food-tour", "hanoi-cyclo-tour", "hanoi-cooking-class"],
+    "tags": ["capital", "cultural", "food", "history", "child_friendly", "near_center", "elderly_accessible"]
+  },
+  {
+    "id": "hoi-an",
+    "name": { "vi": "Hội An", "en": "Hoi An" },
+    "region": { "vi": "Miền Trung", "en": "Central" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 15.8801, "lng": 108.3380 },
+    "type": ["cultural", "beach", "food"],
+    "style": ["relax", "culture", "food"],
+    "budget": "mid",
+    "duration": [3, 7],
+    "rating": 4.9,
+    "reviewCount": 4120,
+    "priceFrom": 3500000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=1200&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&q=80",
+      "https://images.unsplash.com/photo-1552214451-2c7c87c50e8e?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Phố cổ quyến rũ bên dòng sông Thu Bồn với đèn lồng rực rỡ", "en": "Charming ancient town along Thu Bon river, famous for colourful lanterns" },
+    "highlights": [
+      { "vi": "Phố đèn lồng về đêm", "en": "Night lantern street" },
+      { "vi": "Làng gốm Thanh Hà", "en": "Thanh Ha pottery village" },
+      { "vi": "Bãi biển An Bàng", "en": "An Bang Beach" },
+      { "vi": "Chợ Hội An & ẩm thực", "en": "Hoi An market & cuisine" },
+      { "vi": "May đo áo dài truyền thống", "en": "Traditional Ao Dai tailoring" }
+    ],
+    "bestMonths": [2, 3, 4, 5, 6, 7, 8],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Hoi+An&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=hoi+an&utm_source=polaris&utm_medium=referral",
+      "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Hoi+An&utm_source=polaris",
+      "klook": "https://klook.com/search/?query=Hoi+An&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["hoian-lantern-tour", "hoian-cooking-class", "hoian-bicycle-tour"],
+    "tags": ["unesco", "ancient-town", "lanterns", "beach-nearby", "child_friendly", "near_center", "elderly_accessible"]
+  },
+  {
+    "id": "da-lat",
+    "name": { "vi": "Đà Lạt", "en": "Da Lat" },
+    "region": { "vi": "Tây Nguyên", "en": "Central Highlands" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 11.9465, "lng": 108.4419 },
+    "type": ["mountain", "city", "cultural"],
+    "style": ["relax", "nature", "romance"],
+    "budget": "budget",
+    "duration": [2, 5],
+    "rating": 4.8,
+    "reviewCount": 3560,
+    "priceFrom": 2000000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1583417457561-4b6b733a7f96?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1583417457561-4b6b733a7f96?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600267185393-e158a98703de?w=800&q=80",
+      "https://images.unsplash.com/photo-1583417267214-2d6c01ee3870?w=800&q=80",
+      "https://images.unsplash.com/photo-1605537964076-a68e7b957bb4?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Thành phố ngàn hoa với khí hậu mát mẻ quanh năm và những đồi trà bát ngát", "en": "City of flowers with year-round cool climate and endless tea hills" },
+    "highlights": [
+      { "vi": "Hồ Xuân Hương lúc sương sớm", "en": "Xuan Huong Lake at dawn" },
+      { "vi": "Đồi chè Cầu Đất", "en": "Cau Dat tea hills" },
+      { "vi": "Làng Cù Lần & thác Datanla", "en": "Cu Lan village & Datanla falls" },
+      { "vi": "Chợ đêm Đà Lạt", "en": "Da Lat night market" },
+      { "vi": "Vườn hoa & cà phê sân vườn", "en": "Flower gardens & garden cafes" }
+    ],
+    "bestMonths": [11, 12, 1, 2, 3, 4],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Da+Lat&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=da+lat&utm_source=polaris&utm_medium=referral",
+      "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Da+Lat&utm_source=polaris",
+      "klook": "https://klook.com/search/?query=Da+Lat&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["dalat-flower-tour", "dalat-tea-experience", "dalat-canyon-swing"],
+    "tags": ["mountain", "flowers", "cool-climate", "romance", "child_friendly", "near_center", "elderly_accessible"]
+  },
+  {
+    "id": "phu-quoc",
+    "name": { "vi": "Phú Quốc", "en": "Phu Quoc" },
+    "region": { "vi": "Miền Nam", "en": "South" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 10.2899, "lng": 103.9840 },
+    "type": ["beach", "nature"],
+    "style": ["relax", "adventure", "family"],
+    "budget": "mid",
+    "duration": [4, 7],
+    "rating": 4.7,
+    "reviewCount": 5200,
+    "priceFrom": 4000000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1573790387438-4da905039392?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1573790387438-4da905039392?w=1200&q=80",
+      "https://images.unsplash.com/photo-1540202404-a2f29890b8e7?w=800&q=80",
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1586182987320-4f376d39d787?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Đảo ngọc với bãi biển hoang sơ, rừng quốc gia và trải nghiệm lặn biển đỉnh cao", "en": "Pearl Island with pristine beaches, national park and world-class diving" },
+    "highlights": [
+      { "vi": "Bãi Sao – bãi biển đẹp nhất Đông Nam Á", "en": "Sao Beach – most beautiful in SE Asia" },
+      { "vi": "VinWonders Phú Quốc", "en": "VinWonders theme park" },
+      { "vi": "Lặn biển Hòn Thơm", "en": "Snorkeling at Hon Thom" },
+      { "vi": "Chợ đêm Dương Đông", "en": "Duong Dong night market" },
+      { "vi": "Safari & vườn trái cây", "en": "Safari & tropical fruit farm" }
+    ],
+    "bestMonths": [11, 12, 1, 2, 3, 4, 5],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Phu+Quoc&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=phu+quoc&utm_source=polaris&utm_medium=referral",
+      "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Phu+Quoc&utm_source=polaris",
+      "klook": "https://klook.com/search/?query=Phu+Quoc&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["phuquoc-snorkel", "phuquoc-safari", "phuquoc-sunset-boat"],
+    "tags": ["island", "beach", "diving", "theme-park", "child_friendly", "family", "near_center", "elderly_accessible"]
+  },
+  {
+    "id": "sa-pa",
+    "name": { "vi": "Sa Pa", "en": "Sapa" },
+    "region": { "vi": "Miền Bắc", "en": "North" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 22.3364, "lng": 103.8438 },
+    "type": ["mountain", "cultural", "adventure"],
+    "style": ["adventure", "nature", "culture"],
+    "budget": "mid",
+    "duration": [3, 5],
+    "rating": 4.6,
+    "reviewCount": 2800,
+    "priceFrom": 3000000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=80",
+      "https://images.unsplash.com/photo-1573309977086-a3c8d4a1e7c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1558618047-3c8c76ca3b3d?w=800&q=80",
+      "https://images.unsplash.com/photo-1596422846543-75c6fc197f11?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Thung lũng mù sương với ruộng bậc thang vàng óng và bản làng dân tộc H'Mông", "en": "Misty valley with golden terraced rice fields and H'Mong ethnic villages" },
+    "highlights": [
+      { "vi": "Ruộng bậc thang mùa lúa chín", "en": "Rice terraces at harvest time" },
+      { "vi": "Chinh phục đỉnh Fansipan", "en": "Conquer Fansipan summit" },
+      { "vi": "Bản Cát Cát người H'Mông", "en": "Cat Cat H'Mong village" },
+      { "vi": "Chợ phiên Bắc Hà", "en": "Bac Ha highland market" },
+      { "vi": "Trekking qua Thung lũng Mường Hoa", "en": "Trekking Muong Hoa Valley" }
+    ],
+    "bestMonths": [9, 10, 3, 4, 5],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Sapa&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=sapa&utm_source=polaris&utm_medium=referral",
+      "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Sapa&utm_source=polaris",
+      "klook": "https://klook.com/search/?query=Sapa&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["sapa-trekking", "sapa-fansipan-cable", "sapa-ethnic-village"],
+    "tags": ["mountain", "trekking", "ethnic-village", "rice-terraces", "not_accessible"]
+  },
+  {
+    "id": "da-nang",
+    "name": { "vi": "Đà Nẵng", "en": "Da Nang" },
+    "region": { "vi": "Miền Trung", "en": "Central" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 16.0544, "lng": 108.2022 },
+    "type": ["beach", "city", "cultural"],
+    "style": ["relax", "city", "family"],
+    "budget": "mid",
+    "duration": [3, 6],
+    "rating": 4.8,
+    "reviewCount": 4600,
+    "priceFrom": 3000000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1559592143-a62cd04c73dd?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1559592143-a62cd04c73dd?w=1200&q=80",
+      "https://images.unsplash.com/photo-1540202404-a2f29890b8e7?w=800&q=80",
+      "https://images.unsplash.com/photo-1553531384-cc64ac80f931?w=800&q=80",
+      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Thành phố đáng sống nhất Việt Nam với Cầu Rồng và bãi biển Mỹ Khê xanh trong", "en": "Vietnam's most livable city with Dragon Bridge and pristine My Khe beach" },
+    "highlights": [
+      { "vi": "Cầu Rồng & màn phun lửa cuối tuần", "en": "Dragon Bridge fire show on weekends" },
+      { "vi": "Bà Nà Hills & Cầu Vàng", "en": "Ba Na Hills & Golden Bridge" },
+      { "vi": "Bãi biển Mỹ Khê", "en": "My Khe beach" },
+      { "vi": "Bán đảo Sơn Trà", "en": "Son Tra peninsula" },
+      { "vi": "Ngũ Hành Sơn", "en": "Marble Mountains" }
+    ],
+    "bestMonths": [3, 4, 5, 6, 7, 8, 9],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Da+Nang&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=da+nang&utm_source=polaris&utm_medium=referral",
+      "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Da+Nang&utm_source=polaris",
+      "klook": "https://klook.com/search/?query=Da+Nang&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["danang-golden-bridge", "danang-dragon-bridge", "danang-marble-mountains"],
+    "tags": ["beach", "city", "bridge", "family", "child_friendly", "near_center", "elderly_accessible"]
+  },
+  {
+    "id": "nha-trang",
+    "name": { "vi": "Nha Trang", "en": "Nha Trang" },
+    "region": { "vi": "Miền Trung", "en": "Central" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 12.2388, "lng": 109.1967 },
+    "type": ["beach", "city"],
+    "style": ["relax", "adventure", "family"],
+    "budget": "mid",
+    "duration": [3, 7],
+    "rating": 4.5,
+    "reviewCount": 3900,
+    "priceFrom": 3200000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1590611934478-0fdc57c4d0e4?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1590611934478-0fdc57c4d0e4?w=1200&q=80",
+      "https://images.unsplash.com/photo-1540202404-a2f29890b8e7?w=800&q=80",
+      "https://images.unsplash.com/photo-1583417457561-4b6b733a7f96?w=800&q=80",
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Thành phố biển sôi động với Vinpearl Land và những đảo hoang sơ tuyệt đẹp", "en": "Vibrant beach city with Vinpearl Land and pristine offshore islands" },
+    "highlights": [
+      { "vi": "Vinpearl Land & cable car", "en": "Vinpearl Land & cable car" },
+      { "vi": "Đảo Hòn Mun lặn biển", "en": "Hon Mun island snorkeling" },
+      { "vi": "Tháp Bà Ponagar", "en": "Po Nagar Cham Towers" },
+      { "vi": "Bãi Dài & Bãi Trũ", "en": "Dai & Tru beaches" }
+    ],
+    "bestMonths": [2, 3, 4, 5, 6, 7, 8],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Nha+Trang&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=nha+trang&utm_source=polaris&utm_medium=referral",
+      "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Nha+Trang&utm_source=polaris",
+      "klook": "https://klook.com/search/?query=Nha+Trang&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["nhatrang-island-hop", "nhatrang-vinpearl", "nhatrang-snorkel"],
+    "tags": ["beach", "island", "theme-park", "snorkeling", "child_friendly", "family", "near_center"]
+  },
+  {
+    "id": "ho-chi-minh",
+    "name": { "vi": "TP. Hồ Chí Minh", "en": "Ho Chi Minh City" },
+    "region": { "vi": "Miền Nam", "en": "South" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 10.8231, "lng": 106.6297 },
+    "type": ["city", "cultural", "food"],
+    "style": ["city", "food", "culture"],
+    "budget": "budget",
+    "duration": [3, 5],
+    "rating": 4.6,
+    "reviewCount": 5800,
+    "priceFrom": 2800000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=1200&q=80",
+      "https://images.unsplash.com/photo-1551918120-9739cb430c6d?w=800&q=80",
+      "https://images.unsplash.com/photo-1596422846543-75c6fc197f11?w=800&q=80",
+      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Thành phố năng động nhất Việt Nam với ẩm thực đa dạng và cuộc sống không ngủ", "en": "Vietnam's most dynamic city with diverse cuisine and a city that never sleeps" },
+    "highlights": [
+      { "vi": "Bảo tàng Chứng tích Chiến tranh", "en": "War Remnants Museum" },
+      { "vi": "Địa đạo Củ Chi", "en": "Cu Chi Tunnels" },
+      { "vi": "Chợ Bến Thành", "en": "Ben Thanh Market" },
+      { "vi": "Phố đi bộ Nguyễn Huệ", "en": "Nguyen Hue walking street" },
+      { "vi": "Ẩm thực Quận 1 & khu Little Hanoi", "en": "Q1 food scene & Little Hanoi" }
+    ],
+    "bestMonths": [12, 1, 2, 3, 4, 5],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Ho+Chi+Minh+City&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=ho+chi+minh&utm_source=polaris&utm_medium=referral",
+      "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Ho+Chi+Minh+City&utm_source=polaris",
+      "klook": "https://klook.com/search/?query=Ho+Chi+Minh+City&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["hcmc-cu-chi", "hcmc-street-food", "hcmc-vespa-tour"],
+    "tags": ["city", "history", "food", "nightlife", "child_friendly", "near_center", "elderly_accessible"]
+  },
+  {
+    "id": "ninh-binh",
+    "name": { "vi": "Ninh Bình", "en": "Ninh Binh" },
+    "region": { "vi": "Miền Bắc", "en": "North" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 20.2506, "lng": 105.9745 },
+    "type": ["nature", "cultural"],
+    "style": ["nature", "culture", "relax"],
+    "budget": "budget",
+    "duration": [2, 3],
+    "rating": 4.8,
+    "reviewCount": 2100,
+    "priceFrom": 1500000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?w=1200&q=80",
+      "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=800&q=80",
+      "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=800&q=80",
+      "https://images.unsplash.com/photo-1599640842225-85d111c60e6b?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Hạ Long Bay trên cạn với đầm Vân Long, Tràng An và những di tích lịch sử ngàn năm", "en": "Ha Long Bay on land with Van Long wetland, Trang An and ancient historic sites" },
+    "highlights": [
+      { "vi": "Tràng An – di sản UNESCO", "en": "Trang An – UNESCO heritage" },
+      { "vi": "Bích Động – chùa hang động", "en": "Bich Dong cave pagoda" },
+      { "vi": "Đầm Vân Long – chèo thuyền", "en": "Van Long wetland – rowing" },
+      { "vi": "Cố đô Hoa Lư", "en": "Hoa Lu ancient capital" }
+    ],
+    "bestMonths": [1, 2, 3, 4, 10, 11, 12],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Ninh+Binh&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=ninh+binh&utm_source=polaris&utm_medium=referral",
+      "klook": "https://klook.com/search/?query=Ninh+Binh&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["ninhbinh-trang-an-boat", "ninhbinh-cycling", "ninhbinh-hoa-lu"],
+    "tags": ["nature", "caves", "boat", "history", "unesco", "child_friendly", "near_center", "elderly_accessible"]
+  },
+  {
+    "id": "ha-long",
+    "name": { "vi": "Hạ Long", "en": "Ha Long Bay" },
+    "region": { "vi": "Miền Bắc", "en": "North" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 20.9101, "lng": 107.1839 },
+    "type": ["nature", "adventure", "beach"],
+    "style": ["nature", "adventure", "relax"],
+    "budget": "mid",
+    "duration": [2, 4],
+    "rating": 4.8,
+    "reviewCount": 6700,
+    "priceFrom": 4500000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=80",
+      "https://images.unsplash.com/photo-1553531384-cc64ac80f931?w=800&q=80",
+      "https://images.unsplash.com/photo-1598887142487-3c854d51eabb?w=800&q=80",
+      "https://images.unsplash.com/photo-1596422846543-75c6fc197f11?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Kỳ quan thiên nhiên thế giới với hàng ngàn đảo đá vôi xanh biếc trên vịnh", "en": "World natural wonder with thousands of limestone karst islands in the bay" },
+    "highlights": [
+      { "vi": "Cruise nghỉ đêm trên vịnh", "en": "Overnight cruise on the bay" },
+      { "vi": "Hang Sửng Sốt & Thiên Cung", "en": "Surprising & Heavenly Caves" },
+      { "vi": "Chèo kayak quanh hang động", "en": "Kayaking around caves" },
+      { "vi": "Làng chài nổi Cửa Vạn", "en": "Cua Van floating village" }
+    ],
+    "bestMonths": [10, 11, 12, 1, 2, 3, 4, 5],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Ha+Long&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=ha+long&utm_source=polaris&utm_medium=referral",
+      "klook": "https://klook.com/search/?query=Ha+Long+Bay&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["halong-cruise", "halong-kayak", "halong-cave-tour"],
+    "tags": ["bay", "cruise", "caves", "kayaking", "unesco", "nature", "child_friendly", "elderly_accessible"]
+  },
+  {
+    "id": "hue",
+    "name": { "vi": "Huế", "en": "Hue" },
+    "region": { "vi": "Miền Trung", "en": "Central" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 16.4637, "lng": 107.5909 },
+    "type": ["cultural", "food", "city"],
+    "style": ["culture", "food", "history"],
+    "budget": "budget",
+    "duration": [2, 4],
+    "rating": 4.6,
+    "reviewCount": 1900,
+    "priceFrom": 2000000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1200&q=80",
+      "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+      "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Cố đô triều Nguyễn với Hoàng Thành, lăng tẩm và ẩm thực cung đình tinh tế", "en": "Nguyen dynasty capital with the Imperial Citadel, royal tombs and refined royal cuisine" },
+    "highlights": [
+      { "vi": "Hoàng Thành Huế – UNESCO", "en": "Hue Imperial Citadel – UNESCO" },
+      { "vi": "Lăng Tự Đức & Minh Mạng", "en": "Tu Duc & Minh Mang royal tombs" },
+      { "vi": "Bún bò Huế & bánh bèo", "en": "Hue beef noodle soup & banh beo" },
+      { "vi": "Sông Hương & chùa Thiên Mụ", "en": "Perfume River & Thien Mu Pagoda" }
+    ],
+    "bestMonths": [2, 3, 4, 5, 6, 7, 8],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Hue&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=hue&utm_source=polaris&utm_medium=referral",
+      "klook": "https://klook.com/search/?query=Hue+Vietnam&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["hue-citadel-tour", "hue-royal-cuisine", "hue-dragon-boat"],
+    "tags": ["history", "royal", "food", "temple", "unesco", "elderly_accessible", "near_center"]
+  },
+  {
+    "id": "mui-ne",
+    "name": { "vi": "Mũi Né", "en": "Mui Ne" },
+    "region": { "vi": "Miền Nam", "en": "South" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 10.9328, "lng": 108.2861 },
+    "type": ["beach", "adventure", "nature"],
+    "style": ["adventure", "relax", "sport"],
+    "budget": "budget",
+    "duration": [2, 4],
+    "rating": 4.4,
+    "reviewCount": 1650,
+    "priceFrom": 2000000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&q=80",
+      "https://images.unsplash.com/photo-1573790387438-4da905039392?w=800&q=80",
+      "https://images.unsplash.com/photo-1590611934478-0fdc57c4d0e4?w=800&q=80",
+      "https://images.unsplash.com/photo-1540202404-a2f29890b8e7?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Thiên đường lướt ván diều với đồi cát đỏ hùng vĩ và Làng Chài thơ mộng", "en": "Kitesurfing paradise with majestic red sand dunes and a picturesque fishing village" },
+    "highlights": [
+      { "vi": "Đồi cát đỏ & đồi cát trắng", "en": "Red & white sand dunes" },
+      { "vi": "Lướt ván diều Bãi Rạng", "en": "Kitesurfing at Rang Beach" },
+      { "vi": "Làng Chài cổ", "en": "Old Fishing Village" },
+      { "vi": "Suối Tiên – sông nhỏ qua rừng", "en": "Fairy Stream – forest creek walk" }
+    ],
+    "bestMonths": [11, 12, 1, 2, 3, 4, 5],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Mui+Ne&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=mui+ne&utm_source=polaris&utm_medium=referral",
+      "klook": "https://klook.com/search/?query=Mui+Ne&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["muine-kitesurf", "muine-sanddunes-jeep", "muine-fishing-village"],
+    "tags": ["beach", "sand-dunes", "kitesurfing", "adventure", "not_for_kids", "not_accessible"]
+  },
+  {
+    "id": "con-dao",
+    "name": { "vi": "Côn Đảo", "en": "Con Dao" },
+    "region": { "vi": "Miền Nam", "en": "South" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 8.6877, "lng": 106.6032 },
+    "type": ["beach", "nature", "cultural"],
+    "style": ["relax", "nature", "adventure"],
+    "budget": "luxury",
+    "duration": [3, 7],
+    "rating": 4.9,
+    "reviewCount": 980,
+    "priceFrom": 7000000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1586182987320-4f376d39d787?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1586182987320-4f376d39d787?w=1200&q=80",
+      "https://images.unsplash.com/photo-1573790387438-4da905039392?w=800&q=80",
+      "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1540202404-a2f29890b8e7?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Đảo hoang sơ bậc nhất Việt Nam – rùa biển đẻ trứng, san hô nguyên sơ và lịch sử bi hùng", "en": "Vietnam's most pristine island – nesting sea turtles, virgin coral reefs and a heroic history" },
+    "highlights": [
+      { "vi": "Xem rùa biển đẻ trứng (mùa)", "en": "Watch sea turtles lay eggs (season)" },
+      { "vi": "Lặn biển Hòn Bảy Cạnh", "en": "Diving at Hon Bay Canh" },
+      { "vi": "Nhà tù Côn Đảo – lịch sử", "en": "Con Dao Prison – history" },
+      { "vi": "Bãi Đầm Trầu hoang sơ", "en": "Dam Trau pristine beach" }
+    ],
+    "bestMonths": [2, 3, 4, 5, 6, 7, 8],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Con+Dao&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=con+dao&utm_source=polaris&utm_medium=referral",
+      "klook": "https://klook.com/search/?query=Con+Dao&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["condao-turtle-watching", "condao-diving", "condao-prison-tour"],
+    "tags": ["island", "luxury", "diving", "eco", "history", "not_accessible"]
+  },
+  {
+    "id": "can-tho",
+    "name": { "vi": "Cần Thơ", "en": "Can Tho" },
+    "region": { "vi": "Miền Nam", "en": "South" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 10.0452, "lng": 105.7469 },
+    "type": ["cultural", "nature", "food"],
+    "style": ["culture", "food", "nature"],
+    "budget": "budget",
+    "duration": [2, 3],
+    "rating": 4.5,
+    "reviewCount": 1450,
+    "priceFrom": 1800000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1600267185393-e158a98703de?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1600267185393-e158a98703de?w=1200&q=80",
+      "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80",
+      "https://images.unsplash.com/photo-1596422846543-75c6fc197f11?w=800&q=80",
+      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Miền Tây sông nước với chợ nổi Cái Răng, vườn trái cây và văn hoá miệt vườn đặc sắc", "en": "Mekong Delta with Cai Rang floating market, fruit orchards and unique garden culture" },
+    "highlights": [
+      { "vi": "Chợ nổi Cái Răng lúc rạng sáng", "en": "Cai Rang floating market at dawn" },
+      { "vi": "Vườn trái cây Mỹ Khánh", "en": "My Khanh fruit garden" },
+      { "vi": "Cầu đi bộ Ninh Kiều", "en": "Ninh Kieu riverside walk" },
+      { "vi": "Làng hoa Sa Đéc gần đó", "en": "Sa Dec flower village nearby" }
+    ],
+    "bestMonths": [11, 12, 1, 2, 3, 4, 5],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Can+Tho&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=can+tho&utm_source=polaris&utm_medium=referral",
+      "klook": "https://klook.com/search/?query=Can+Tho&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["cantho-floating-market", "cantho-fruit-garden", "cantho-mekong-boat"],
+    "tags": ["river", "floating-market", "food", "delta", "child_friendly", "near_center", "elderly_accessible"]
+  },
+  {
+    "id": "quy-nhon",
+    "name": { "vi": "Quy Nhơn", "en": "Quy Nhon" },
+    "region": { "vi": "Miền Trung", "en": "Central" },
+    "country": "Vietnam",
+    "coordinates": { "lat": 13.7765, "lng": 109.2237 },
+    "type": ["beach", "cultural", "city"],
+    "style": ["relax", "culture", "food"],
+    "budget": "budget",
+    "duration": [3, 5],
+    "rating": 4.6,
+    "reviewCount": 1100,
+    "priceFrom": 2200000,
+    "currency": "VND",
+    "image": "https://images.unsplash.com/photo-1553531384-cc64ac80f931?w=800&q=80",
+    "gallery": [
+      "https://images.unsplash.com/photo-1553531384-cc64ac80f931?w=1200&q=80",
+      "https://images.unsplash.com/photo-1590611934478-0fdc57c4d0e4?w=800&q=80",
+      "https://images.unsplash.com/photo-1559592143-a62cd04c73dd?w=800&q=80",
+      "https://images.unsplash.com/photo-1573790387438-4da905039392?w=800&q=80"
+    ],
+    "shortDesc": { "vi": "Viên ngọc ẩn của miền Trung với bãi biển vắng vẻ, tháp Chăm cổ và hải sản tươi rói", "en": "Central Vietnam's hidden gem with quiet beaches, ancient Cham towers and fresh seafood" },
+    "highlights": [
+      { "vi": "Bãi biển Kỳ Co & Eo Gió hoang sơ", "en": "Ky Co & Eo Gio pristine beaches" },
+      { "vi": "Tháp Đôi Cham Pa cổ đại", "en": "Ancient Cham Twin Towers" },
+      { "vi": "Đảo Cù Lao Xanh", "en": "Cu Lao Xanh island" },
+      { "vi": "Chợ đêm hải sản Quy Nhơn", "en": "Quy Nhon seafood night market" }
+    ],
+    "bestMonths": [3, 4, 5, 6, 7, 8],
+    "partners": {
+      "booking": "https://booking.com/searchresults.html?ss=Quy+Nhon&utm_source=polaris&utm_medium=referral",
+      "agoda": "https://agoda.com/search?q=quy+nhon&utm_source=polaris&utm_medium=referral",
+      "klook": "https://klook.com/search/?query=Quy+Nhon&utm_source=polaris&utm_medium=referral"
+    },
+    "activities": ["quynhon-ky-co", "quynhon-cham-towers", "quynhon-seafood"],
+    "tags": ["hidden-gem", "beach", "history", "seafood", "cham", "near_center", "elderly_accessible"]
+  }
+]
