@@ -1,4 +1,4 @@
-{
+﻿{
   "vi": {
     "nav.home": "Trang chủ",
     "nav.destinations": "Điểm đến",
@@ -12,7 +12,7 @@
     "hero.label": "Ngôi sao dẫn đường của bạn",
     "hero.title.line1": "Khám phá Việt Nam",
     "hero.title.line2": "theo cách của bạn",
-    "hero.subtitle": "Hơn 200 điểm đến, hành trình cá nhân hoá và đặt phòng qua đối tác tin cậy – tất cả trong một nơi.",
+    "hero.subtitle": "Hơn 200 điểm đến, hành trình cá nhân hoá và đặt phòng qua đối tác tin cậy – tất cả trong một nơi.",
     "hero.cta.primary": "Lập hành trình ngay",
     "hero.cta.secondary": "Xem điểm đến",
     "hero.search.tab.destination": "Điểm đến",
@@ -67,7 +67,7 @@
     "testimonials.title": "Khách hàng nói gì về chúng tôi",
     "testimonials.subtitle": "Hơn 5.000 hành trình đã được lên kế hoạch qua Polaris",
 
-    "partners.label": "Đối tác tin cậy",
+    "partners.label": "Đối tác tin cậy",
     "partners.title": "Đặt phòng & tour qua đối tác hàng đầu",
 
     "newsletter.title": "Nhận gợi ý du lịch mỗi tuần",
@@ -172,7 +172,7 @@
     "detail.by_train": "Tàu hỏa",
     "detail.by_train_desc": "Tàu Bắc – Nam dừng tại nhiều thành phố. Phong cảnh đẹp dọc hành trình.",
     "detail.book_now": "Đặt ngay",
-    "detail.book_desc": "Tìm chỗ ở và tour tốt nhất qua các đối tác tin cậy",
+    "detail.book_desc": "Tìm chỗ ở và tour tốt nhất qua các đối tác tin cậy",
     "detail.plan_new": "📋 Lập hành trình mới",
 
     "common.yes": "Có",
