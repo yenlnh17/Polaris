@@ -1,8 +1,17 @@
 import { i18n } from '../core/i18n.js';
 import { initNavbar } from '../components/navbar.js';
 import { loadData, debounce, getParam, escapeHtml, formatDate } from '../core/utils.js';
+import { Toast } from '../components/toast.js';
 
 const isArticlePage = window.location.pathname.endsWith('article.html');
+
+const SVG_BOOKMARK = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>`;
+const SVG_DOTS    = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>`;
+const SVG_FB      = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`;
+const SVG_TW      = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`;
+const SVG_EMAIL   = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`;
+const SVG_LINK    = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
+const SVG_FLAG    = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>`;
 
 async function init() {
   await i18n.init();
@@ -20,11 +29,11 @@ async function init() {
 // ===== BLOG LISTING =====
 async function initBlog() {
   const articles = await loadData('/data/blog.json') || [];
-  const lang = i18n.getLang();
   let activeCategory = '';
   let searchQuery = '';
 
   function filtered() {
+    const lang = i18n.getLang();
     return articles.filter(a => {
       if (activeCategory && a.category !== activeCategory) return false;
       if (searchQuery) {
@@ -41,77 +50,67 @@ async function initBlog() {
   function render() {
     const list = filtered();
     const lang = i18n.getLang();
+    const readTimeLabel = i18n.t('blog.read_time');
+    const bookmarks = JSON.parse(localStorage.getItem('polaris_blog_bookmarks') || '[]');
 
-    // Featured article (first featured, or first of all if none match)
-    const featuredWrap = document.getElementById('featured-wrap');
-    const featured = list.find(a => a.featured) || (activeCategory === '' && searchQuery === '' ? articles.find(a => a.featured) : null);
-
-    if (featuredWrap) {
-      if (featured && activeCategory === '' && searchQuery === '') {
-        const title = featured.title[lang] || featured.title.vi;
-        const excerpt = featured.excerpt[lang] || featured.excerpt.vi;
-        const catLabel = featured.categoryLabel?.[lang] || featured.categoryLabel?.vi || featured.category;
-        featuredWrap.innerHTML = `
-          <a href="article.html?id=${featured.id}" class="featured-article reveal">
-            <img src="${escapeHtml(featured.image)}" alt="${escapeHtml(title)}" loading="lazy">
-            <div class="featured-article__overlay"></div>
-            <div class="featured-article__body">
-              <p class="featured-article__cat">${escapeHtml(catLabel)}</p>
-              <h2 class="featured-article__title">${escapeHtml(title)}</h2>
-              <p class="featured-article__meta">${escapeHtml(excerpt.slice(0, 120))}…</p>
-              <div style="display:flex;align-items:center;gap:var(--space-3);margin-top:var(--space-4)">
-                <img src="${escapeHtml(featured.author.avatar)}" alt="${escapeHtml(featured.author.name)}"
-                     style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:2px solid white">
-                <span>${escapeHtml(featured.author.name)}</span>
-                <span>·</span>
-                <span>${featured.readTime} phút đọc</span>
-              </div>
-            </div>
-          </a>`;
-        setTimeout(() => featuredWrap.querySelector('.featured-article')?.classList.add('visible'), 50);
-      } else {
-        featuredWrap.innerHTML = '';
-      }
-    }
-
-    // Grid (exclude featured from grid)
-    const grid = document.getElementById('blog-grid');
+    const container = document.getElementById('blog-list');
     const empty = document.getElementById('blog-empty');
-    const gridList = list.filter(a => a.id !== featured?.id || activeCategory !== '' || searchQuery !== '');
 
-    if (!gridList.length) {
-      if (grid) grid.innerHTML = '';
+    if (!list.length) {
+      if (container) container.innerHTML = '';
       empty?.classList.remove('hidden');
       return;
     }
     empty?.classList.add('hidden');
 
-    if (grid) {
-      grid.innerHTML = gridList.map(article => {
+    if (container) {
+      container.innerHTML = list.map(article => {
         const title = article.title[lang] || article.title.vi;
         const excerpt = article.excerpt[lang] || article.excerpt.vi;
         const catLabel = article.categoryLabel?.[lang] || article.categoryLabel?.vi || article.category;
+        const bookmarked = bookmarks.includes(article.id) ? ' is-bookmarked' : '';
         return `
-          <a href="article.html?id=${article.id}" class="blog-card reveal">
-            <div class="blog-card__img">
+          <a href="article.html?id=${article.id}" class="features-wrap reveal">
+            <div class="features-wrap__img">
               <img src="${escapeHtml(article.image)}" alt="${escapeHtml(title)}" loading="lazy">
             </div>
-            <div class="blog-card__body">
-              <p class="blog-card__cat">${escapeHtml(catLabel)}</p>
-              <h3 class="blog-card__title">${escapeHtml(title)}</h3>
-              <p class="blog-card__excerpt">${escapeHtml(excerpt)}</p>
-              <div class="blog-card__meta">
-                <img src="${escapeHtml(article.author.avatar)}" alt="${escapeHtml(article.author.name)}" class="blog-card__avatar">
+            <div class="features-wrap__body">
+              <div class="features-wrap__header">
+                <p class="features-wrap__cat">${escapeHtml(catLabel)}</p>
+                <div class="features-wrap__actions">
+                  <button class="fw-action-btn fw-bookmark${bookmarked}" data-id="${article.id}" aria-label="Lưu bài viết">
+                    ${SVG_BOOKMARK}
+                  </button>
+                  <div class="fw-more-wrap">
+                    <button class="fw-action-btn fw-more-btn" data-id="${article.id}" aria-label="Tùy chọn">
+                      ${SVG_DOTS}
+                    </button>
+                    <div class="fw-dropdown" role="menu">
+                      <button class="fw-dropdown__item fw-share-fb" data-id="${article.id}">${SVG_FB} Chia sẻ lên Facebook</button>
+                      <button class="fw-dropdown__item fw-share-tw" data-id="${article.id}">${SVG_TW} Chia sẻ lên Twitter</button>
+                      <button class="fw-dropdown__item fw-share-email" data-id="${article.id}">${SVG_EMAIL} Chia sẻ tới Email</button>
+                      <div class="fw-dropdown__sep"></div>
+                      <button class="fw-dropdown__item fw-copy-link" data-id="${article.id}">${SVG_LINK} Sao chép liên kết</button>
+                      <div class="fw-dropdown__sep"></div>
+                      <button class="fw-dropdown__item fw-report-btn" data-id="${article.id}">${SVG_FLAG} Báo cáo bài viết</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h3 class="features-wrap__title">${escapeHtml(title)}</h3>
+              <p class="features-wrap__excerpt">${escapeHtml(excerpt)}</p>
+              <div class="features-wrap__meta">
+                <img src="${escapeHtml(article.author.avatar)}" alt="${escapeHtml(article.author.name)}" class="features-wrap__avatar">
                 <span>${escapeHtml(article.author.name)}</span>
                 <span>·</span>
-                <span>${article.readTime} phút đọc</span>
+                <span>${article.readTime} ${readTimeLabel}</span>
               </div>
             </div>
           </a>`;
       }).join('');
 
       setTimeout(() => {
-        grid.querySelectorAll('.blog-card.reveal').forEach(el => el.classList.add('visible'));
+        container.querySelectorAll('.features-wrap.reveal').forEach(el => el.classList.add('visible'));
       }, 50);
     }
   }
@@ -132,6 +131,79 @@ async function initBlog() {
     searchQuery = searchInput.value.trim();
     render();
   }, 300));
+
+  // Close all dropdowns on outside click
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.fw-more-wrap')) {
+      document.querySelectorAll('.fw-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+    }
+  });
+
+  // Action button delegation (runs once; covers re-renders)
+  const blogList = document.getElementById('blog-list');
+  blogList?.addEventListener('click', e => {
+    const btn = e.target.closest('.fw-action-btn, .fw-dropdown__item');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    const id = btn.dataset.id;
+    const articleUrl = `${window.location.origin}/article.html?id=${id}`;
+
+    // Toggle dropdown
+    if (btn.classList.contains('fw-more-btn')) {
+      const dropdown = btn.nextElementSibling;
+      const isOpen = dropdown.classList.contains('is-open');
+      document.querySelectorAll('.fw-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+      if (!isOpen) dropdown.classList.add('is-open');
+      return;
+    }
+
+    // Close dropdown after any item action
+    btn.closest('.fw-dropdown')?.classList.remove('is-open');
+
+    if (btn.classList.contains('fw-bookmark')) {
+      const bookmarks = JSON.parse(localStorage.getItem('polaris_blog_bookmarks') || '[]');
+      const idx = bookmarks.indexOf(id);
+      if (idx > -1) {
+        bookmarks.splice(idx, 1);
+        btn.classList.remove('is-bookmarked');
+        Toast.info('Đã bỏ lưu bài viết');
+      } else {
+        bookmarks.push(id);
+        btn.classList.add('is-bookmarked');
+        Toast.success('Đã lưu bài viết');
+      }
+      localStorage.setItem('polaris_blog_bookmarks', JSON.stringify(bookmarks));
+      return;
+    }
+
+    if (btn.classList.contains('fw-share-fb')) {
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`, '_blank', 'noopener,noreferrer,width=600,height=400');
+      return;
+    }
+    if (btn.classList.contains('fw-share-tw')) {
+      const article = articles.find(a => a.id === id);
+      const title = article?.title[i18n.getLang()] || article?.title.vi || '';
+      window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(title)}`, '_blank', 'noopener,noreferrer,width=600,height=400');
+      return;
+    }
+    if (btn.classList.contains('fw-share-email')) {
+      const article = articles.find(a => a.id === id);
+      const title = article?.title[i18n.getLang()] || article?.title.vi || '';
+      window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(articleUrl)}`;
+      return;
+    }
+    if (btn.classList.contains('fw-copy-link')) {
+      navigator.clipboard.writeText(articleUrl)
+        .then(() => Toast.success('Đã sao chép liên kết!'))
+        .catch(() => Toast.error('Không thể sao chép liên kết'));
+      return;
+    }
+    if (btn.classList.contains('fw-report-btn')) {
+      Toast.warning('Đã ghi nhận báo cáo. Cảm ơn bạn!');
+    }
+  });
 
   render();
 }
