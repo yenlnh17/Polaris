@@ -15,8 +15,12 @@ async function init() {
   const stored = localStorage.getItem(STORAGE_KEY);
   _lang = (stored === 'en' || stored === 'vi') ? stored : DEFAULT_LANG;
 
-  const res = await fetch('/data/translations.json');
-  _translations = await res.json();
+  try {
+    const res = await fetch('/data/translations.json');
+    if (res.ok) _translations = await res.json();
+  } catch (e) {
+    console.error('i18n: failed to load translations', e);
+  }
 
   apply();
   return _lang;
