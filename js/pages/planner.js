@@ -405,6 +405,7 @@ function buildDayColumn(dayIndex, destName, dest, lang) {
   // hasBeenSet: user explicitly set this day (even to empty []) → don't auto-populate
   const hasBeenSet = dayIndex in plannerState.dayActivities;
   const validForDest = hasBeenSet && (!existing?.length || existing.every(actId => {
+    if (plannerState.customActivities?.[actId]) return true;
     const act = allActivities.find(a => a.id === actId);
     return act?.destinationId === dest.id;
   }));
@@ -599,12 +600,13 @@ function showDayPicker(btn) {
 
   const actId = btn.dataset.moveAct;
   const fromDay = +btn.dataset.day;
+  const isCustom = !!plannerState.customActivities?.[actId];
   const actDestId = allActivities.find(a => a.id === actId)?.destinationId;
 
-  // Only show days belonging to the same destination
+  // Custom activities can move to any day; standard activities stay within same destination
   const availableDays = Object.keys(dayToDestMap)
     .map(Number)
-    .filter(i => i !== fromDay && dayToDestMap[i] === actDestId);
+    .filter(i => i !== fromDay && (isCustom || dayToDestMap[i] === actDestId));
 
   if (!availableDays.length) {
     Toast.show('Không có ngày nào khác cùng điểm đến', 'info', 1800);
@@ -813,6 +815,12 @@ function bindDayBuilderEvents() {
     const dayIndex = +input.dataset.day;
     if (!plannerState.activityOverrides) plannerState.activityOverrides = {};
     plannerState.activityOverrides[`${dayIndex}-${actId}`] = { startTime: input.value };
+    if (plannerState.dayActivities[dayIndex]?.length > 1) {
+      plannerState.dayActivities[dayIndex].sort((a, b) =>
+        timeToMinutes(getEffectiveTime(a, dayIndex)) - timeToMinutes(getEffectiveTime(b, dayIndex))
+      );
+      renderDayBuilder();
+    }
     updateCostSummary();
     saveDraft();
   });
@@ -1288,7 +1296,7 @@ function renderExport() {
           <div style="margin-bottom:var(--space-3)">
             <p style="font-weight:700;font-size:var(--text-sm);margin-bottom:var(--space-2)">Ngày ${dayIndex + 1} – ${destName}</p>
             ${actIds.map(actId => {
-              const act = allActivities.find(a => a.id === actId);
+              const act = findActivity(actId);
               if (!act) return '';
               const startTime = getEffectiveTime(actId, capturedDayIdx);
               return `
@@ -1418,7 +1426,7 @@ function downloadTxt() {
       text += `NGÀY ${dayIndex + 1} – ${dest.name[lang] || dest.name.vi}\n`;
       text += '-'.repeat(30) + '\n';
       actIds.forEach(actId => {
-        const act = allActivities.find(a => a.id === actId);
+        const act = findActivity(actId);
         if (act) text += `  ${getEffectiveTime(actId, dayIndex)}  ${act.name[lang] || act.name.vi}  (${formatVND(act.estimatedCost)})\n`;
       });
       text += '\n';

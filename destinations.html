@@ -11,21 +11,79 @@
         <link rel="canonical" href="destinations.html" />
 
         <!-- Favicons -->
-        <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/favicon-96x96.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png" />
-        <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-icon-72x72.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/apple-icon-76x76.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="assets/favicon/apple-icon-114x114.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="assets/favicon/apple-icon-120x120.png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="assets/favicon/apple-icon-144x144.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="assets/favicon/apple-icon-152x152.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-icon-180x180.png" />
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="assets/favicon/favicon.ico"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="assets/favicon/favicon-96x96.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="assets/favicon/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="assets/favicon/favicon-16x16.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="57x57"
+            href="assets/favicon/apple-icon-57x57.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="60x60"
+            href="assets/favicon/apple-icon-60x60.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="72x72"
+            href="assets/favicon/apple-icon-72x72.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="76x76"
+            href="assets/favicon/apple-icon-76x76.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="114x114"
+            href="assets/favicon/apple-icon-114x114.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="120x120"
+            href="assets/favicon/apple-icon-120x120.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="144x144"
+            href="assets/favicon/apple-icon-144x144.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="152x152"
+            href="assets/favicon/apple-icon-152x152.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="assets/favicon/apple-icon-180x180.png"
+        />
         <link rel="manifest" href="assets/favicon/manifest.json" />
-        <meta name="msapplication-config" content="assets/favicon/browserconfig.xml" />
+        <meta
+            name="msapplication-config"
+            content="assets/favicon/browserconfig.xml"
+        />
         <meta name="theme-color" content="#420D4B" />
 
         <meta property="og:title" content="Điểm Đến – Polaris" />
@@ -142,23 +200,6 @@
                 margin-bottom: var(--space-4);
             }
             .empty-state p {
-                color: var(--text-muted);
-            }
-
-            /* Map view */
-            .map-view {
-                width: 100%;
-                height: 500px;
-                border-radius: var(--radius-xl);
-                overflow: hidden;
-                background: var(--bg-alt);
-                border: 1px solid var(--border-color);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .map-placeholder {
-                text-align: center;
                 color: var(--text-muted);
             }
 
@@ -442,30 +483,6 @@
                         <option value="price-desc">Giá cao → thấp</option>
                         <option value="name">A → Z</option>
                     </select>
-
-                    <!-- View toggle -->
-                    <div
-                        class="view-toggle"
-                        role="group"
-                        aria-label="Chế độ xem"
-                    >
-                        <button
-                            class="view-toggle__btn is-active"
-                            id="view-grid"
-                            aria-pressed="true"
-                            data-i18n="dest.view.grid"
-                        >
-                            Lưới
-                        </button>
-                        <button
-                            class="view-toggle__btn"
-                            id="view-map"
-                            aria-pressed="false"
-                            data-i18n="dest.view.map"
-                        >
-                            Bản đồ
-                        </button>
-                    </div>
                 </div>
             </div>
 
@@ -599,22 +616,6 @@
                                     style="height: 14px"
                                 ></div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Map view (hidden by default) -->
-                    <div id="dest-map" class="map-view hidden">
-                        <div class="map-placeholder">
-                            <p style="font-size: 3rem">🗺️</p>
-                            <p>Bản đồ các điểm đến Việt Nam</p>
-                            <p
-                                style="
-                                    font-size: var(--text-sm);
-                                    margin-top: var(--space-2);
-                                "
-                            >
-                                Đang tải bản đồ...
-                            </p>
                         </div>
                     </div>
 
