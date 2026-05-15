@@ -97,7 +97,7 @@ async function init() {
   }
 
   // Featured carousel
-  buildFeaturedCarousel(destinations.slice(0, 6));
+  buildFeaturedCarousel(destinations);
 
   // Testimonials carousel
   buildTestimonialsCarousel();
@@ -160,7 +160,7 @@ function buildFeaturedCarousel(featured) {
   // Carousel
   const carouselEl = document.getElementById('featured-carousel');
   if (carouselEl) {
-    new Carousel(carouselEl, { autoplay: true, interval: 4500, loop: true });
+    new Carousel(carouselEl, { autoplay: true, interval: 4500, loop: true, perView: 3 });
   }
 
   // Wishlist toggles
@@ -213,7 +213,7 @@ function buildTestimonialsCarousel() {
     </div>`).join('');
 
   const carouselEl = document.getElementById('testimonials-carousel');
-  if (carouselEl) new Carousel(carouselEl, { autoplay: true, interval: 5000, loop: true });
+  if (carouselEl) new Carousel(carouselEl, { autoplay: true, interval: 5000, loop: true, perView: 3 });
 }
 
 // === PARTNER MARQUEE ===
