@@ -484,13 +484,6 @@ function buildDayColumn(dayIndex, destName, dest, lang) {
 function buildTimeline(dayIndex, dest, lang) {
   const activityIds = plannerState.dayActivities[dayIndex] || [];
 
-  if (activityIds.length === 0) {
-    return `
-      <div class="day-timeline" data-day="${dayIndex}">
-        <div class="tl-empty" data-open-picker="${dayIndex}">＋ Thêm hoạt động</div>
-      </div>`;
-  }
-
   let itemsHTML = '';
   activityIds.forEach(actId => {
     const act = findActivity(actId);
@@ -522,6 +515,7 @@ function buildTimeline(dayIndex, dest, lang) {
   return `
     <div class="day-timeline" data-day="${dayIndex}">
       ${itemsHTML}
+      <div class="tl-empty" data-open-picker="${dayIndex}">＋ Thêm hoạt động</div>
     </div>`;
 }
 
@@ -1080,11 +1074,12 @@ function showCustomActivityForm(dayIndex) {
       const results = await placeAutocomplete(q);
       autocompleteList.innerHTML = results.length
         ? `<div class="activity-picker-popup__autocomplete">${results.map((r, i) =>
-            `<div class="activity-picker-popup__autocomplete-item" data-place-idx="${i}">${escapeHtml(r.description)}</div>`
+            `<div class="activity-picker-popup__autocomplete-item" data-place-idx="${i}" data-full="${escapeHtml(r.description)}">${escapeHtml(r.description)}</div>`
           ).join('')}</div>`
         : '';
       // Store results for click handler
       autocompleteList._results = results;
+      bindAutocompleteTooltip(autocompleteList);
     }, 300);
   });
 
@@ -1500,6 +1495,58 @@ function goToStep(step) {
 
   saveDraft();
   i18n.apply();
+}
+
+// ===== AUTOCOMPLETE TOOLTIP =====
+function bindAutocompleteTooltip(listEl) {
+  let tip = null;
+
+  function showTip(item) {
+    const full = item.dataset.full;
+    if (!full) return;
+    // Only show if text is actually truncated
+    if (item.scrollWidth <= item.clientWidth) return;
+
+    tip = document.createElement('div');
+    tip.className = 'autocomplete-tooltip';
+    tip.textContent = full;
+    tip.style.cssText = [
+      'position:fixed',
+      'background:var(--color-darkest)',
+      'color:white',
+      'font-size:11px',
+      'line-height:1.5',
+      'padding:6px 10px',
+      'border-radius:var(--radius-md)',
+      'box-shadow:var(--shadow-md)',
+      'max-width:280px',
+      'word-break:break-word',
+      'z-index:9999',
+      'pointer-events:none',
+    ].join(';');
+    document.body.appendChild(tip);
+
+    const rect = item.getBoundingClientRect();
+    const tipH = tip.offsetHeight;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    tip.style.left = `${Math.min(rect.left, window.innerWidth - 292)}px`;
+    tip.style.top  = spaceBelow > tipH + 8
+      ? `${rect.bottom + 4}px`
+      : `${rect.top - tipH - 4}px`;
+  }
+
+  function hideTip() {
+    tip?.remove();
+    tip = null;
+  }
+
+  listEl.addEventListener('mouseover', (e) => {
+    const item = e.target.closest('[data-full]');
+    if (item && item !== tip?._anchor) { hideTip(); showTip(item); }
+  });
+  listEl.addEventListener('mouseout', (e) => {
+    if (!e.relatedTarget?.closest('[data-full]')) hideTip();
+  });
 }
 
 // ===== UTILS =====
