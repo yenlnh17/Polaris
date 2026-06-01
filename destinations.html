@@ -102,6 +102,17 @@
             href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
             rel="stylesheet"
         />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
 
         <link rel="stylesheet" href="css/variables.css" />
         <link rel="stylesheet" href="css/reset.css" />
@@ -278,6 +289,13 @@
                         data-i18n="nav.about"
                         >Về chúng tôi</a
                     >
+                    <a
+                        href="contact.html"
+                        class="navbar__link"
+                        data-nav-page="contact.html"
+                        data-i18n="nav.contact"
+                        >Liên hệ</a
+                    >
                 </nav>
                 <div class="navbar__actions">
                     <div
@@ -365,6 +383,7 @@
                     data-i18n="nav.contact"
                     >Liên hệ</a
                 >
+
                 <div class="navbar__mobile-actions">
                     <div class="lang-toggle" role="group">
                         <button
@@ -412,8 +431,8 @@
                     <!-- Search -->
                     <div class="search-input" style="min-width: 220px; flex: 1">
                         <span class="search-input__icon" aria-hidden="true"
-                            >🔍</span
-                        >
+                            ><i class="fa-solid fa-magnifying-glass"></i
+                        ></span>
                         <input
                             type="search"
                             id="dest-search"

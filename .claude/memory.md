@@ -55,6 +55,44 @@
 - Cập nhật `manifest.json`: name `"App"` → `"Polaris"`, thêm `short_name/theme_color/background_color/display`, fix paths từ root-absolute → relative
 - Cập nhật `browserconfig.xml`: fix paths MS tile, TileColor `#ffffff` → `#420D4B`
 
+### 2026-06-01 — Icon System Upgrade + Navbar Fix + i18n Bug
+
+#### Icon Libraries (tất cả 9 HTML files)
+- Thêm **Bootstrap Icons 1.11.3** CDN (jsdelivr, không có integrity hash) — dùng `<i class="bi bi-xxx">`
+- Thêm **Font Awesome 6.7.2** CDN (cdnjs, không có integrity hash) — dùng `<i class="fa-solid fa-xxx">` hoặc `fas fa-xxx`
+- **Không dùng integrity hash** trên FA CDN vì hash sai sẽ bị browser block hoàn toàn (SRI check fail)
+
+#### Spinner Component (`css/components/spinner.css`)
+- `.spinner` — inline, dùng border + border-radius:50% + @keyframes spin
+- `.spinner-overlay` — absolute overlay cho card/section loading
+- `.spinner-center` — flex column centered cho full-page loading
+- `.btn--loading` — pointer-events:none + opacity:0.8, dùng cho form submit
+
+#### Accordion bg (`css/components/accordion.css`)
+- `.accordion__item`: transparent mặc định; `background-color` nằm trong `transition`
+- `.accordion__item:hover` và `.accordion__item.is-open`: `background: white`
+- `.accordion__trigger`: `background: transparent` ở mọi trạng thái
+
+#### About page (`about.html` + `js/pages/about.js`)
+- `team-card`: thêm `<div class="team-card__header">` bọc avatar + name/role → flex layout ngang
+- VALUES và PARTNERS icons: đổi emoji → Bootstrap Icons `<i>` strings
+
+#### Planner navbar đồng nhất với index.html
+- Xóa `navbar__link--active` hardcode trên about.html (sai page)
+- Thêm `navbar__cta` button trước hamburger
+- Đổi `id="mobile-menu-planner"` → `id="mobile-menu"` + cập nhật `aria-controls`
+- Thêm 3 links thiếu trong mobile menu: blog, about, contact
+- Thêm `data-nav-page` cho tất cả mobile links + `aria-label` cho mobile lang-toggle
+- Thêm `navbar__mobile-cta` button vào mobile actions
+
+#### Bug: `i18n.js` + icon bị mất khi language switch
+- **Root cause**: `i18n.js` line 54 dùng `el.textContent = val` → strip toàn bộ child nodes kể cả `<i>`
+- **Pattern bị lỗi**: `<button data-i18n="key"><i class="bi bi-xxx"></i> Text</button>`
+- **Fix**: tách `<i>` ra ngoài, bọc text trong `<span data-i18n="key">Text</span>`
+- **Fix pattern**: `<button><i class="bi bi-xxx"></i> <span data-i18n="key">Text</span></button>`
+- **Files đã fix**: `js/pages/destination.js` (2 buttons: `detail.view_gallery`, `detail.add_itinerary`, `detail.plan_new`)
+- **translations.json**: xóa emoji prefix (`📷`, `📋`) ra khỏi các key có icon trong HTML
+
 ## Open Questions / TODOs
 - Google Maps API key needed for interactive route map — currently plan is embedded iframe or SVG polyline fallback
 - Partner affiliate codes (Booking.com, Agoda) — placeholder UTM links used until real affiliate IDs provided

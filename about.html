@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Về Chúng Tôi – Polaris</title>
+        <meta
+            name="description"
+            content="Polaris được tạo ra để giúp mỗi người Việt khám phá đất nước mình một cách dễ dàng, cá nhân hoá và đáng nhớ nhất. Tìm hiểu câu chuyện, sứ mệnh và đội ngũ của chúng tôi."
+        />
+        <link rel="canonical" href="about.html" />
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="Về Chúng Tôi – Polaris" />
+        <meta
+            property="og:description"
+            content="Câu chuyện, sứ mệnh và đội ngũ đứng sau Polaris – ngôi sao dẫn đường trong mỗi hành trình."
+        />
+        <meta property="og:image" content="assets/images/logo.png" />
+        <meta property="og:url" content="about.html" />
+
+        <!-- Favicons -->
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="assets/favicon/favicon.ico"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="assets/favicon/favicon-96x96.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="assets/favicon/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="assets/favicon/favicon-16x16.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="57x57"
+            href="assets/favicon/apple-icon-57x57.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="60x60"
+            href="assets/favicon/apple-icon-60x60.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="72x72"
+            href="assets/favicon/apple-icon-72x72.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="76x76"
+            href="assets/favicon/apple-icon-76x76.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="114x114"
+            href="assets/favicon/apple-icon-114x114.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="120x120"
+            href="assets/favicon/apple-icon-120x120.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="144x144"
+            href="assets/favicon/apple-icon-144x144.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="152x152"
+            href="assets/favicon/apple-icon-152x152.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="assets/favicon/apple-icon-180x180.png"
+        />
+        <link rel="manifest" href="assets/favicon/manifest.json" />
+        <meta
+            name="msapplication-config"
+            content="assets/favicon/browserconfig.xml"
+        />
+        <meta name="theme-color" content="#420D4B" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
+        <link rel="stylesheet" href="css/variables.css" />
+        <link rel="stylesheet" href="css/reset.css" />
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/layout.css" />
+        <link rel="stylesheet" href="css/components/navbar.css" />
+        <link rel="stylesheet" href="css/components/footer.css" />
+        <link rel="stylesheet" href="css/components/buttons.css" />
+
+        <style>
+            .about-page {
+                padding-top: var(--navbar-height);
+            }
+
+            /* ── Hero ── */
+            .about-hero {
+                background: var(--gradient-hero);
+                padding: var(--space-20) 0 var(--space-16);
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+            .about-hero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(
+                    ellipse 60% 60% at 50% 30%,
+                    rgba(102, 103, 171, 0.18) 0%,
+                    transparent 70%
+                );
+                pointer-events: none;
+            }
+            .about-hero__logo {
+                width: 96px;
+                height: 96px;
+                border-radius: var(--radius-2xl);
+                object-fit: cover;
+                box-shadow: var(--shadow-glow);
+                margin-bottom: var(--space-6);
+            }
+            .about-hero h1 {
+                color: white;
+                font-size: clamp(var(--text-4xl), 6vw, var(--text-6xl));
+                font-family: var(--font-display);
+                margin-bottom: var(--space-4);
+            }
+            .about-hero__sub {
+                color: rgba(255, 255, 255, 0.75);
+                font-size: var(--text-lg);
+                max-width: 520px;
+                margin-inline: auto;
+                line-height: var(--leading-normal);
+            }
+
+            /* ── Reveal animation ── */
+            .reveal {
+                opacity: 0;
+                transform: translateY(20px);
+                transition:
+                    opacity var(--transition-slow),
+                    transform var(--transition-slow);
+                transition-delay: var(--delay, 0ms);
+            }
+            .reveal.is-visible {
+                opacity: 1;
+                transform: none;
+            }
+
+            /* ── Mission 2-col ── */
+            .mission-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: var(--space-10);
+                align-items: center;
+            }
+            @media (min-width: 768px) {
+                .mission-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+            .mission-text .section-label {
+                display: block;
+                margin-bottom: var(--space-3);
+            }
+            .mission-text h2 {
+                font-family: var(--font-display);
+                font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+                color: var(--text-primary);
+                margin-bottom: var(--space-5);
+                line-height: var(--leading-tight);
+            }
+            .mission-text p {
+                color: var(--text-muted);
+                font-size: var(--text-base);
+                line-height: var(--leading-loose);
+                margin-bottom: var(--space-4);
+            }
+            .mission-visual {
+                display: flex;
+                justify-content: center;
+            }
+            .mission-visual__card {
+                background: var(--gradient-hero);
+                border-radius: var(--radius-2xl);
+                padding: var(--space-12) var(--space-10);
+                text-align: center;
+                box-shadow: var(--shadow-glow);
+                max-width: 320px;
+                width: 100%;
+            }
+            .mission-visual__logo {
+                width: 80px;
+                height: 80px;
+                border-radius: var(--radius-xl);
+                object-fit: cover;
+                margin-bottom: var(--space-5);
+            }
+            .mission-visual__tagline {
+                font-family: var(--font-display);
+                font-size: var(--text-2xl);
+                color: white;
+                font-style: italic;
+                line-height: 1.4;
+            }
+            .mission-visual__sub {
+                color: var(--color-lightest);
+                font-size: var(--text-sm);
+                margin-top: var(--space-3);
+            }
+
+            /* ── Stats bar (dark) ── */
+            .stats-bar {
+                background: var(--color-darkest);
+                padding: var(--space-12) 0;
+            }
+            .stats-bar__inner {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: var(--space-8);
+                text-align: center;
+            }
+            @media (max-width: 639px) {
+                .stats-bar__inner {
+                    grid-template-columns: 1fr;
+                    gap: var(--space-6);
+                }
+            }
+            .stat-item__number {
+                font-family: var(--font-display);
+                font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
+                color: var(--color-lightest);
+                font-weight: 700;
+            }
+            .stat-item__label {
+                color: rgba(255, 255, 255, 0.55);
+                font-size: var(--text-sm);
+                margin-top: var(--space-1);
+            }
+
+            /* ── Timeline ── */
+            #timeline {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-8);
+                position: relative;
+                padding-left: var(--space-10);
+            }
+            #timeline::before {
+                content: "";
+                position: absolute;
+                left: 18px;
+                top: 8px;
+                bottom: 8px;
+                width: 2px;
+                background: linear-gradient(
+                    to bottom,
+                    var(--color-primary),
+                    var(--color-accent)
+                );
+                border-radius: var(--radius-full);
+            }
+            .timeline-item {
+                position: relative;
+            }
+            .timeline-item::before {
+                content: "";
+                position: absolute;
+                left: calc(-1 * var(--space-10) + var(--space-3) - 2px);
+                top: 6px;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: var(--color-primary);
+                border: 2px solid var(--color-lightest);
+                box-shadow: 0 0 0 4px rgba(102, 103, 171, 0.2);
+            }
+            .timeline-item__year {
+                font-size: var(--text-xs);
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--color-secondary);
+                margin-bottom: var(--space-2);
+            }
+            .timeline-item__title {
+                font-family: var(--font-display);
+                font-size: var(--text-xl);
+                color: var(--text-primary);
+                margin-bottom: var(--space-2);
+            }
+            .timeline-item__desc {
+                color: var(--text-muted);
+                font-size: var(--text-sm);
+                line-height: var(--leading-normal);
+            }
+
+            /* ── Values grid ── */
+            #values-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: var(--space-6);
+            }
+            @media (max-width: 639px) {
+                #values-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+            .value-card {
+                background: white;
+                border-radius: var(--radius-xl);
+                padding: var(--space-8) var(--space-6);
+                border: 1px solid var(--border-color);
+                box-shadow: var(--shadow-card);
+                transition:
+                    transform var(--transition-fast),
+                    box-shadow var(--transition-fast);
+            }
+            .value-card:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-lg);
+            }
+            .value-card__icon {
+                font-size: 2rem;
+                display: block;
+                margin-bottom: var(--space-4);
+            }
+            .value-card__title {
+                font-family: var(--font-display);
+                font-size: var(--text-xl);
+                color: var(--text-primary);
+                margin-bottom: var(--space-3);
+            }
+            .value-card__desc {
+                color: var(--text-muted);
+                font-size: var(--text-sm);
+                line-height: var(--leading-normal);
+            }
+
+            /* ── Team ── */
+            #team-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+            @media (min-width: 640px) {
+                #team-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+            .team-card {
+                padding: var(--space-6) var(--space-5);
+                background: white;
+                border-radius: var(--radius-xl);
+                border: 1px solid var(--border-color);
+                box-shadow: var(--shadow-card);
+                transition:
+                    transform var(--transition-fast),
+                    box-shadow var(--transition-fast);
+            }
+            .team-card:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-lg);
+            }
+            .team-card__header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: var(--space-4);
+                margin-bottom: var(--space-4);
+            }
+            .team-card__avatar {
+                width: 64px;
+                height: 64px;
+                flex-shrink: 0;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 3px solid var(--color-lightest);
+                box-shadow: var(--shadow-sm);
+            }
+            .team-card__name {
+                font-family: var(--font-display);
+                font-size: var(--text-xl);
+                color: var(--text-primary);
+                margin-bottom: var(--space-1);
+            }
+            .team-card__role {
+                font-size: var(--text-xs);
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: var(--color-secondary);
+            }
+            .team-card__bio {
+                text-align: center;
+                font-size: var(--text-sm);
+                color: var(--text-muted);
+                line-height: var(--leading-normal);
+            }
+
+            /* ── Partners ── */
+            #partners-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: var(--space-4);
+            }
+            @media (min-width: 768px) {
+                #partners-grid {
+                    grid-template-columns: repeat(4, 1fr);
+                }
+            }
+            .partner-pill {
+                display: flex;
+                align-items: center;
+                gap: var(--space-4);
+                background: white;
+                border: 1px solid var(--border-color);
+                border-radius: var(--radius-xl);
+                padding: var(--space-5) var(--space-6);
+                box-shadow: var(--shadow-card);
+                transition:
+                    box-shadow var(--transition-fast),
+                    transform var(--transition-fast);
+            }
+            .partner-pill:hover {
+                box-shadow: var(--shadow-md);
+                transform: translateY(-2px);
+            }
+            .partner-pill__logo {
+                font-size: 1.75rem;
+                flex-shrink: 0;
+            }
+            .partner-pill__name {
+                font-weight: 600;
+                font-size: var(--text-sm);
+                color: var(--text-primary);
+            }
+            .partner-pill__desc {
+                font-size: var(--text-xs);
+                color: var(--text-muted);
+                margin-top: 2px;
+            }
+
+            /* ── CTA dark block ── */
+            .about-cta {
+                background: var(--gradient-hero);
+                text-align: center;
+            }
+            .about-cta h2 {
+                font-family: var(--font-display);
+                font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
+                color: white;
+                margin-bottom: var(--space-6);
+            }
+
+            /* ── Story section layout ── */
+            .story-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: var(--space-10);
+                align-items: start;
+            }
+            @media (min-width: 768px) {
+                .story-grid {
+                    grid-template-columns: 1fr 2fr;
+                    gap: var(--space-16);
+                }
+            }
+        </style>
+    </head>
+    <body class="about-page">
+        <!-- NAVBAR -->
+        <header class="navbar navbar--solid">
+            <div class="navbar__inner">
+                <a href="index.html" class="navbar__brand">
+                    <img
+                        src="assets/images/logo.png"
+                        alt="Polaris logo"
+                        class="navbar__logo"
+                    />
+                    <span class="navbar__name">POLARIS</span>
+                </a>
+                <nav class="navbar__links" aria-label="Main navigation">
+                    <a
+                        href="index.html"
+                        class="navbar__link"
+                        data-nav-page="index.html"
+                        data-i18n="nav.home"
+                        >Trang chủ</a
+                    >
+                    <a
+                        href="destinations.html"
+                        class="navbar__link"
+                        data-nav-page="destinations.html"
+                        data-i18n="nav.destinations"
+                        >Điểm đến</a
+                    >
+                    <a
+                        href="planner.html"
+                        class="navbar__link"
+                        data-nav-page="planner.html"
+                        data-i18n="nav.planner"
+                        >Lập kế hoạch</a
+                    >
+                    <a
+                        href="packages.html"
+                        class="navbar__link"
+                        data-nav-page="packages.html"
+                        data-i18n="nav.packages"
+                        >Gói dịch vụ</a
+                    >
+                    <a
+                        href="blog.html"
+                        class="navbar__link"
+                        data-nav-page="blog.html"
+                        data-i18n="nav.blog"
+                        >Cẩm nang</a
+                    >
+                    <a
+                        href="about.html"
+                        class="navbar__link navbar__link--active"
+                        data-nav-page="about.html"
+                        data-i18n="nav.about"
+                        >Về chúng tôi</a
+                    >
+                    <a
+                        href="contact.html"
+                        class="navbar__link"
+                        data-nav-page="contact.html"
+                        data-i18n="nav.contact"
+                        >Liên hệ</a
+                    >
+                </nav>
+                <div class="navbar__actions">
+                    <div
+                        class="lang-toggle"
+                        role="group"
+                        aria-label="Chọn ngôn ngữ"
+                    >
+                        <button
+                            class="lang-toggle__btn lang-toggle__btn--active"
+                            data-lang="vi"
+                        >
+                            VI
+                        </button>
+                        <button class="lang-toggle__btn" data-lang="en">
+                            EN
+                        </button>
+                    </div>
+                    <a
+                        href="planner.html"
+                        class="navbar__cta btn btn--primary btn--sm"
+                        data-i18n="nav.cta"
+                        >Lập hành trình</a
+                    >
+                    <button
+                        class="navbar__hamburger"
+                        aria-expanded="false"
+                        aria-controls="mobile-menu-about"
+                        aria-label="Mở menu"
+                    >
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+            <nav
+                id="mobile-menu-about"
+                class="navbar__mobile"
+                aria-label="Mobile navigation"
+            >
+                <a
+                    href="index.html"
+                    class="navbar__mobile-link"
+                    data-i18n="nav.home"
+                    >Trang chủ</a
+                >
+                <a
+                    href="destinations.html"
+                    class="navbar__mobile-link"
+                    data-i18n="nav.destinations"
+                    >Điểm đến</a
+                >
+                <a
+                    href="planner.html"
+                    class="navbar__mobile-link"
+                    data-i18n="nav.planner"
+                    >Lập kế hoạch</a
+                >
+                <a
+                    href="packages.html"
+                    class="navbar__mobile-link"
+                    data-i18n="nav.packages"
+                    >Gói dịch vụ</a
+                >
+                <a
+                    href="blog.html"
+                    class="navbar__mobile-link"
+                    data-i18n="nav.blog"
+                    >Cẩm nang</a
+                >
+                <div class="navbar__mobile-actions">
+                    <div class="lang-toggle" role="group">
+                        <button
+                            class="lang-toggle__btn lang-toggle__btn--active"
+                            data-lang="vi"
+                        >
+                            VI
+                        </button>
+                        <button class="lang-toggle__btn" data-lang="en">
+                            EN
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main">
+            <!-- ── Hero ── -->
+            <section class="about-hero">
+                <div class="container">
+                    <span
+                        class="section-label"
+                        style="
+                            color: var(--color-lightest);
+                            display: block;
+                            margin-bottom: var(--space-3);
+                        "
+                        data-i18n="about.eyebrow"
+                        >Về chúng tôi</span
+                    >
+                    <h1 data-i18n="about.title">Về Polaris</h1>
+                    <p
+                        class="about-hero__sub"
+                        style="margin-top: var(--space-4)"
+                        data-i18n="about.hero.subtitle"
+                    >
+                        Giúp mỗi người Việt khám phá đất nước mình theo cách đặc
+                        biệt nhất
+                    </p>
+                </div>
+            </section>
+
+            <!-- ── Mission ── -->
+            <section class="section">
+                <div class="container">
+                    <div class="mission-grid">
+                        <div class="mission-text reveal">
+                            <span
+                                class="section-label"
+                                data-i18n="about.mission.label"
+                                >Sứ mệnh của chúng tôi</span
+                            >
+                            <h2 data-i18n="about.mission.title">
+                                Ngôi sao dẫn đường trong mỗi hành trình
+                            </h2>
+                            <p data-i18n="about.mission.text">
+                                Polaris được tạo ra để giúp mỗi người Việt và
+                                khách quốc tế khám phá vẻ đẹp Việt Nam một cách
+                                dễ dàng, cá nhân hoá và đáng nhớ nhất.
+                            </p>
+                            <p
+                                style="
+                                    color: var(--text-muted);
+                                    font-size: var(--text-base);
+                                    line-height: var(--leading-loose);
+                                "
+                            >
+                                Chúng tôi tin rằng mỗi chuyến đi là một cơ hội
+                                để kết nối sâu sắc hơn với văn hoá, con người và
+                                thiên nhiên của Việt Nam — và Polaris ở đây để
+                                làm cho điều đó trở nên dễ dàng hơn bao giờ hết.
+                            </p>
+                        </div>
+                        <div
+                            class="mission-visual reveal"
+                            style="--delay: 150ms"
+                        >
+                            <div class="mission-visual__card">
+                                <img
+                                    style="margin: 0 auto"
+                                    src="assets/images/logo.png"
+                                    alt="Polaris"
+                                    class="mission-visual__logo"
+                                />
+                                <p
+                                    class="mission-visual__tagline"
+                                    data-i18n-aria="about.mission.title"
+                                >
+                                    "Ngôi sao dẫn đường trong mỗi hành trình"
+                                </p>
+                                <p class="mission-visual__sub">
+                                    Polaris · 2026
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── Stats bar ── -->
+            <div class="stats-bar">
+                <div class="container">
+                    <div class="stats-bar__inner">
+                        <div class="stat-item">
+                            <p class="stat-item__number">200+</p>
+                            <p
+                                class="stat-item__label"
+                                data-i18n="stats.destinations_label"
+                            >
+                                Điểm đến khám phá
+                            </p>
+                        </div>
+                        <div class="stat-item">
+                            <p class="stat-item__number">5.000+</p>
+                            <p
+                                class="stat-item__label"
+                                data-i18n="stats.itineraries_label"
+                            >
+                                Hành trình cá nhân
+                            </p>
+                        </div>
+                        <div class="stat-item">
+                            <p class="stat-item__number">98%</p>
+                            <p
+                                class="stat-item__label"
+                                data-i18n="stats.satisfaction_label"
+                            >
+                                Khách hài lòng
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Story / Timeline ── -->
+            <section class="section">
+                <div class="container">
+                    <div class="story-grid">
+                        <div class="reveal">
+                            <span
+                                class="section-label"
+                                data-i18n="about.story.label"
+                                >Câu chuyện</span
+                            >
+                            <h2
+                                class="section-title"
+                                data-i18n="about.story.title"
+                            >
+                                Hành Trình Của Polaris
+                            </h2>
+                        </div>
+                        <div id="timeline" aria-label="Lịch sử Polaris"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── Values ── -->
+            <section class="section section--alt">
+                <div class="container">
+                    <div
+                        style="
+                            text-align: center;
+                            margin-bottom: var(--space-12);
+                        "
+                    >
+                        <span
+                            class="section-label reveal"
+                            data-i18n="about.values.label"
+                            >Giá trị cốt lõi</span
+                        >
+                        <h2
+                            class="section-title reveal"
+                            style="--delay: 80ms"
+                            data-i18n="about.values.title"
+                        >
+                            Những Gì Chúng Tôi Tin Tưởng
+                        </h2>
+                    </div>
+                    <div id="values-grid"></div>
+                </div>
+            </section>
+
+            <!-- ── Team ── -->
+            <section class="section">
+                <div class="container">
+                    <div
+                        style="
+                            text-align: center;
+                            margin-bottom: var(--space-12);
+                        "
+                    >
+                        <span
+                            class="section-label reveal"
+                            data-i18n="about.team.label"
+                            >Đội ngũ</span
+                        >
+                        <h2
+                            class="section-title reveal"
+                            style="--delay: 80ms"
+                            data-i18n="about.team.title"
+                        >
+                            Những Người Đứng Sau Polaris
+                        </h2>
+                    </div>
+                    <div id="team-grid"></div>
+                </div>
+            </section>
+
+            <!-- ── Partners ── -->
+            <section class="section section--alt">
+                <div class="container">
+                    <div
+                        style="
+                            text-align: center;
+                            margin-bottom: var(--space-10);
+                        "
+                    >
+                        <span
+                            class="section-label reveal"
+                            data-i18n="about.partners.label"
+                            >Đối tác</span
+                        >
+                        <h2
+                            class="section-title reveal"
+                            style="--delay: 80ms"
+                            data-i18n="about.partners.title"
+                        >
+                            Kết Nối Với Đối Tác Tin Cậy
+                        </h2>
+                    </div>
+                    <div id="partners-grid"></div>
+                </div>
+            </section>
+
+            <!-- ── CTA ── -->
+            <section class="section about-cta">
+                <div class="container">
+                    <h2 class="reveal" data-i18n="about.cta.title">
+                        Sẵn sàng bắt đầu hành trình?
+                    </h2>
+                    <a
+                        href="planner.html"
+                        class="btn btn--light reveal"
+                        style="
+                            --delay: 100ms;
+                            background: white;
+                            color: var(--color-primary);
+                        "
+                        data-i18n="about.cta.btn"
+                        >Lập hành trình ngay</a
+                    >
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__bottom">
+                    <p class="footer__copyright" data-i18n="footer.copyright">
+                        © 2026 Polaris. Bản quyền thuộc về Polaris Travel.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <script type="module" src="js/pages/about.js"></script>
+    </body>
+</html>

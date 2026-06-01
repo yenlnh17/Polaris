@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Liên Hệ – Polaris</title>
+        <meta
+            name="description"
+            content="Liên hệ với đội ngũ Polaris để được hỗ trợ, tư vấn hành trình hoặc hợp tác. Chúng tôi luôn sẵn sàng giúp bạn."
+        />
+        <link rel="canonical" href="contact.html" />
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="Liên Hệ – Polaris" />
+        <meta
+            property="og:description"
+            content="Liên hệ với Polaris để được hỗ trợ lập hành trình, tư vấn điểm đến và giải đáp thắc mắc."
+        />
+        <meta property="og:image" content="assets/images/logo.png" />
+        <meta property="og:url" content="contact.html" />
+
+        <!-- Favicons -->
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="assets/favicon/favicon.ico"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="assets/favicon/favicon-96x96.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="assets/favicon/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="assets/favicon/favicon-16x16.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="57x57"
+            href="assets/favicon/apple-icon-57x57.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="60x60"
+            href="assets/favicon/apple-icon-60x60.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="72x72"
+            href="assets/favicon/apple-icon-72x72.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="76x76"
+            href="assets/favicon/apple-icon-76x76.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="114x114"
+            href="assets/favicon/apple-icon-114x114.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="120x120"
+            href="assets/favicon/apple-icon-120x120.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="144x144"
+            href="assets/favicon/apple-icon-144x144.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="152x152"
+            href="assets/favicon/apple-icon-152x152.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="assets/favicon/apple-icon-180x180.png"
+        />
+        <link rel="manifest" href="assets/favicon/manifest.json" />
+        <meta
+            name="msapplication-config"
+            content="assets/favicon/browserconfig.xml"
+        />
+        <meta name="theme-color" content="#420D4B" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
+        <link rel="stylesheet" href="css/variables.css" />
+        <link rel="stylesheet" href="css/reset.css" />
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/layout.css" />
+        <link rel="stylesheet" href="css/components/navbar.css" />
+        <link rel="stylesheet" href="css/components/footer.css" />
+        <link rel="stylesheet" href="css/components/buttons.css" />
+        <link rel="stylesheet" href="css/components/forms.css" />
+        <link rel="stylesheet" href="css/components/accordion.css" />
+        <link rel="stylesheet" href="css/components/spinner.css" />
+        <link rel="stylesheet" href="css/components/toast.css" />
+
+        <style>
+            .contact-page {
+                padding-top: var(--navbar-height);
+            }
+
+            /* ── Header ── */
+            .contact-header {
+                background: var(--gradient-hero);
+                padding: var(--space-16) 0 var(--space-10);
+                text-align: center;
+            }
+            .contact-header h1 {
+                color: white;
+                font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+            }
+            .contact-header p {
+                color: rgba(255, 255, 255, 0.75);
+                max-width: 520px;
+                margin-inline: auto;
+                margin-top: var(--space-3);
+            }
+
+            /* ── Main 2-col grid ── */
+            .contact-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: var(--space-8);
+                align-items: start;
+            }
+            @media (min-width: 1024px) {
+                .contact-grid {
+                    grid-template-columns: 2fr 1fr;
+                    gap: var(--space-12);
+                }
+            }
+
+            /* ── Form card ── */
+            .contact-form-card {
+                background: white;
+                border-radius: var(--radius-2xl);
+                padding: var(--space-10) var(--space-8);
+                box-shadow: var(--shadow-card);
+                border: 1px solid var(--border-color);
+            }
+            .contact-form-card h2 {
+                font-family: var(--font-display);
+                font-size: var(--text-2xl);
+                color: var(--text-primary);
+                margin-bottom: var(--space-6);
+            }
+
+            .form-grid-2 {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: var(--space-5);
+            }
+            @media (min-width: 640px) {
+                .form-grid-2 {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-2);
+            }
+            .form-group--full {
+                grid-column: 1 / -1;
+            }
+            .form-label {
+                font-size: var(--text-sm);
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+            .form-input {
+                padding: var(--space-3) var(--space-4);
+                border: 1.5px solid var(--border-color);
+                border-radius: var(--radius-md);
+                font-size: var(--text-base);
+                color: var(--text-primary);
+                font-family: var(--font-body);
+                background: white;
+                transition: border-color var(--transition-fast);
+            }
+            .form-input:focus {
+                outline: 2px solid var(--color-secondary);
+                outline-offset: 2px;
+                border-color: var(--color-secondary);
+            }
+            .form-input.field--error {
+                border-color: #dc2626;
+            }
+            .form-input.field--success {
+                border-color: #16a34a;
+            }
+            .field-error-msg {
+                font-size: var(--text-xs);
+                color: #dc2626;
+                min-height: 16px;
+            }
+
+            .form-submit-wrap {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: var(--space-6);
+            }
+
+            .form-success {
+                text-align: center;
+                padding: var(--space-12) var(--space-4);
+                display: none;
+            }
+            .form-success.is-visible {
+                display: block;
+            }
+            .form-success__icon {
+                font-size: 3rem;
+                margin-bottom: var(--space-4);
+            }
+            .form-success__title {
+                font-family: var(--font-display);
+                font-size: var(--text-2xl);
+                color: var(--text-primary);
+                margin-bottom: var(--space-3);
+            }
+            .form-success__text {
+                color: var(--text-muted);
+                font-size: var(--text-base);
+            }
+
+            /* ── Info panel ── */
+            .contact-info-panel {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-4);
+            }
+            .contact-info-card {
+                background: white;
+                border-radius: var(--radius-xl);
+                padding: var(--space-6);
+                border: 1px solid var(--border-color);
+                box-shadow: var(--shadow-card);
+            }
+            .contact-info-card h3 {
+                font-family: var(--font-display);
+                font-size: var(--text-xl);
+                color: var(--text-primary);
+                margin-bottom: var(--space-5);
+            }
+            .info-row {
+                display: flex;
+                align-items: flex-start;
+                gap: var(--space-4);
+                padding: var(--space-3) 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .info-row:last-child {
+                border-bottom: none;
+            }
+            .info-row__icon {
+                width: 36px;
+                height: 36px;
+                border-radius: var(--radius-md);
+                background: rgba(102, 103, 171, 0.12);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                flex-shrink: 0;
+                color: var(--color-secondary);
+            }
+            .info-row__label {
+                font-size: var(--text-xs);
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: var(--text-muted);
+                margin-bottom: 2px;
+            }
+            .info-row__value {
+                font-size: var(--text-sm);
+                color: var(--text-primary);
+                font-weight: 500;
+            }
+            .info-row__value a {
+                color: var(--color-secondary);
+                text-decoration: none;
+            }
+            .info-row__value a:hover {
+                text-decoration: underline;
+            }
+
+            /* ── Quick-actions card ── */
+            .contact-quick-card {
+                background: var(--gradient-hero);
+                border-radius: var(--radius-xl);
+                padding: var(--space-6);
+                color: white;
+            }
+            .contact-quick-card h3 {
+                font-family: var(--font-display);
+                font-size: var(--text-xl);
+                color: white;
+                margin-bottom: var(--space-4);
+            }
+            .quick-link {
+                display: flex;
+                align-items: center;
+                gap: var(--space-3);
+                padding: var(--space-3);
+                border-radius: var(--radius-md);
+                text-decoration: none;
+                color: rgba(255, 255, 255, 0.85);
+                font-size: var(--text-sm);
+                transition: background var(--transition-fast);
+            }
+            .quick-link:hover {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+            }
+            .quick-link__icon {
+                font-size: 1.1rem;
+                width: 28px;
+                text-align: center;
+                flex-shrink: 0;
+            }
+
+            /* ── FAQ accordion ── */
+            .faq-section {
+                max-width: 760px;
+                margin-inline: auto;
+            }
+            .accordion__item {
+                padding: 0 var(--space-5);
+                border-bottom: 1px solid var(--border-color);
+            }
+            .accordion__trigger {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: var(--space-4);
+                width: 100%;
+                padding: var(--space-5) 0;
+                background: none;
+                border: none;
+                text-align: left;
+                font-size: var(--text-base);
+                font-weight: 600;
+                color: var(--text-primary);
+                cursor: pointer;
+                font-family: var(--font-body);
+                transition: color var(--transition-fast);
+            }
+            .accordion__trigger:hover {
+                color: var(--color-primary);
+            }
+            .accordion__trigger:focus-visible {
+                outline: 2px solid var(--color-secondary);
+                outline-offset: 3px;
+                border-radius: var(--radius-sm);
+            }
+            .accordion__icon {
+                flex-shrink: 0;
+                color: var(--color-primary);
+                transition: transform var(--transition-base);
+            }
+            .accordion__item.is-open .accordion__icon {
+                transform: rotate(180deg);
+            }
+            .accordion__panel {
+                overflow: hidden;
+                max-height: 0;
+                transition: max-height var(--transition-slow);
+            }
+            .accordion__body {
+                padding-bottom: var(--space-5);
+                color: var(--text-muted);
+                font-size: var(--text-sm);
+                line-height: var(--leading-loose);
+            }
+
+            /* ── Map ── */
+            .contact-map {
+                height: 380px;
+                overflow: hidden;
+                background: var(--bg-alt);
+            }
+            .contact-map iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+                display: block;
+            }
+        </style>
+    </head>
+    <body class="contact-page">
+        <!-- NAVBAR -->
+        <header class="navbar navbar--solid">
+            <div class="navbar__inner">
+                <a href="index.html" class="navbar__brand">
+                    <img
+                        src="assets/images/logo.png"
+                        alt="Polaris logo"
+                        class="navbar__logo"
+                    />
+                    <span class="navbar__name">POLARIS</span>
+                </a>
+                <nav class="navbar__links" aria-label="Main navigation">
+                    <a
+                        href="index.html"
+                        class="navbar__link"
+                        data-nav-page="index.html"
+                        data-i18n="nav.home"
+                        >Trang chủ</a
+                    >
+                    <a
+                        href="destinations.html"
+                        class="navbar__link"
+                        data-nav-page="destinations.html"
+                        data-i18n="nav.destinations"
+                        >Điểm đến</a
+                    >
+                    <a
+                        href="planner.html"
+                        class="navbar__link"
+                        data-nav-page="planner.html"
+                        data-i18n="nav.planner"
+                        >Lập kế hoạch</a
+                    >
+                    <a
+                        href="packages.html"
+                        class="navbar__link"
+                        data-nav-page="packages.html"
+                        data-i18n="nav.packages"
+                        >Gói dịch vụ</a
+                    >
+                    <a
+                        href="blog.html"
+                        class="navbar__link"
+                        data-nav-page="blog.html"
+                        data-i18n="nav.blog"
+                        >Cẩm nang</a
+                    >
+                    <a
+                        href="about.html"
+                        class="navbar__link navbar__link--active"
+                        data-nav-page="about.html"
+                        data-i18n="nav.about"
+                        >Về chúng tôi</a
+                    >
+                    <a
+                        href="contact.html"
+                        class="navbar__link"
+                        data-nav-page="contact.html"
+                        data-i18n="nav.contact"
+                        >Liên hệ</a
+                    >
+                </nav>
+                <div class="navbar__actions">
+                    <div
+                        class="lang-toggle"
+                        role="group"
+                        aria-label="Chọn ngôn ngữ"
+                    >
+                        <button
+                            class="lang-toggle__btn lang-toggle__btn--active"
+                            data-lang="vi"
+                        >
+                            VI
+                        </button>
+                        <button class="lang-toggle__btn" data-lang="en">
+                            EN
+                        </button>
+                    </div>
+                    <a
+                        href="planner.html"
+                        class="navbar__cta btn btn--primary btn--sm"
+                        data-i18n="nav.cta"
+                        >Lập hành trình</a
+                    >
+                    <button
+                        class="navbar__hamburger"
+                        aria-expanded="false"
+                        aria-controls="mobile-menu-contact"
+                        aria-label="Mở menu"
+                    >
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+            <nav
+                id="mobile-menu-contact"
+                class="navbar__mobile"
+                aria-label="Mobile navigation"
+            >
+                <a
+                    href="index.html"
+                    class="navbar__mobile-link"
+                    data-i18n="nav.home"
+                    >Trang chủ</a
+                >
+                <a
+                    href="destinations.html"
+                    class="navbar__mobile-link"
+                    data-i18n="nav.destinations"
+                    >Điểm đến</a
+                >
+                <a
+                    href="planner.html"
+                    class="navbar__mobile-link"
+                    data-i18n="nav.planner"
+                    >Lập kế hoạch</a
+                >
+                <a
+                    href="packages.html"
+                    class="navbar__mobile-link"
+                    data-i18n="nav.packages"
+                    >Gói dịch vụ</a
+                >
+                <a
+                    href="blog.html"
+                    class="navbar__mobile-link"
+                    data-i18n="nav.blog"
+                    >Cẩm nang</a
+                >
+                <div class="navbar__mobile-actions">
+                    <div class="lang-toggle" role="group">
+                        <button
+                            class="lang-toggle__btn lang-toggle__btn--active"
+                            data-lang="vi"
+                        >
+                            VI
+                        </button>
+                        <button class="lang-toggle__btn" data-lang="en">
+                            EN
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main">
+            <!-- ── Header ── -->
+            <div class="contact-header">
+                <div class="container">
+                    <span
+                        class="section-label"
+                        style="color: var(--color-lightest)"
+                        data-i18n="contact.eyebrow"
+                        >Liên hệ</span
+                    >
+                    <h1
+                        style="margin-top: var(--space-2)"
+                        data-i18n="contact.title"
+                    >
+                        Liên Hệ Với Chúng Tôi
+                    </h1>
+                    <p data-i18n="contact.subtitle">
+                        Chúng tôi luôn sẵn sàng hỗ trợ bạn trong suốt hành trình
+                    </p>
+                </div>
+            </div>
+
+            <!-- ── Form + Info ── -->
+            <section class="section">
+                <div class="container">
+                    <div class="contact-grid">
+                        <!-- Form -->
+                        <div class="contact-form-card">
+                            <h2>Gửi tin nhắn cho chúng tôi</h2>
+
+                            <div
+                                id="contact-success"
+                                class="form-success"
+                                role="alert"
+                            >
+                                <p class="form-success__icon">
+                                    <i
+                                        class="bi bi-check-circle-fill"
+                                        aria-hidden="true"
+                                    ></i>
+                                </p>
+                                <h3 class="form-success__title">
+                                    Gửi thành công!
+                                </h3>
+                                <p
+                                    class="form-success__text"
+                                    data-i18n="contact.form.success"
+                                >
+                                    Tin nhắn đã được gửi! Chúng tôi sẽ phản hồi
+                                    sớm nhất có thể.
+                                </p>
+                            </div>
+
+                            <form id="contact-form" novalidate>
+                                <div class="form-grid-2">
+                                    <div class="form-group">
+                                        <label
+                                            class="form-label"
+                                            for="ct-name"
+                                            data-i18n="contact.form.name"
+                                            >Họ và tên *</label
+                                        >
+                                        <input
+                                            type="text"
+                                            id="ct-name"
+                                            name="name"
+                                            class="form-input"
+                                            placeholder="Nguyễn Văn A"
+                                            autocomplete="name"
+                                            required
+                                        />
+                                        <span
+                                            class="field-error-msg"
+                                            id="ct-name-err"
+                                            aria-live="polite"
+                                        ></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label
+                                            class="form-label"
+                                            for="ct-email"
+                                            data-i18n="contact.form.email"
+                                            >Email *</label
+                                        >
+                                        <input
+                                            type="email"
+                                            id="ct-email"
+                                            name="email"
+                                            class="form-input"
+                                            placeholder="email@example.com"
+                                            autocomplete="email"
+                                            required
+                                        />
+                                        <span
+                                            class="field-error-msg"
+                                            id="ct-email-err"
+                                            aria-live="polite"
+                                        ></span>
+                                    </div>
+                                    <div class="form-group form-group--full">
+                                        <label
+                                            class="form-label"
+                                            for="ct-subject"
+                                            data-i18n="contact.form.subject"
+                                            >Chủ đề *</label
+                                        >
+                                        <input
+                                            type="text"
+                                            id="ct-subject"
+                                            name="subject"
+                                            class="form-input"
+                                            placeholder="Hỏi về hành trình Đà Nẵng..."
+                                            required
+                                        />
+                                        <span
+                                            class="field-error-msg"
+                                            id="ct-subject-err"
+                                            aria-live="polite"
+                                        ></span>
+                                    </div>
+                                    <div class="form-group form-group--full">
+                                        <label
+                                            class="form-label"
+                                            for="ct-message"
+                                            data-i18n="contact.form.message"
+                                            >Nội dung *</label
+                                        >
+                                        <textarea
+                                            id="ct-message"
+                                            name="message"
+                                            class="form-input"
+                                            rows="5"
+                                            placeholder="Mô tả chi tiết yêu cầu hoặc câu hỏi của bạn..."
+                                            style="resize: vertical"
+                                            required
+                                        ></textarea>
+                                        <span
+                                            class="field-error-msg"
+                                            id="ct-message-err"
+                                            aria-live="polite"
+                                        ></span>
+                                    </div>
+                                </div>
+                                <div class="form-submit-wrap">
+                                    <button
+                                        type="submit"
+                                        id="contact-submit"
+                                        class="btn btn--primary"
+                                        data-i18n="contact.form.submit"
+                                    >
+                                        Gửi tin nhắn
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Info panel -->
+                        <aside class="contact-info-panel">
+                            <!-- Contact info -->
+                            <div class="contact-info-card">
+                                <h3 data-i18n="contact.info.label">
+                                    Thông tin liên hệ
+                                </h3>
+
+                                <div class="info-row">
+                                    <div
+                                        class="info-row__icon"
+                                        aria-hidden="true"
+                                    >
+                                        📧
+                                    </div>
+                                    <div>
+                                        <p
+                                            class="info-row__label"
+                                            data-i18n="contact.info.email_label"
+                                        >
+                                            Email
+                                        </p>
+                                        <p class="info-row__value">
+                                            <a
+                                                href="mailto:support@polarisgo.vn"
+                                                >support@polarisgo.vn</a
+                                            >
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="info-row">
+                                    <div
+                                        class="info-row__icon"
+                                        aria-hidden="true"
+                                    >
+                                        📞
+                                    </div>
+                                    <div>
+                                        <p
+                                            class="info-row__label"
+                                            data-i18n="contact.info.phone_label"
+                                        >
+                                            Điện thoại
+                                        </p>
+                                        <p class="info-row__value">
+                                            <a href="tel:18009999">1800 9999</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="info-row">
+                                    <div
+                                        class="info-row__icon"
+                                        aria-hidden="true"
+                                    >
+                                        🕐
+                                    </div>
+                                    <div>
+                                        <p
+                                            class="info-row__label"
+                                            data-i18n="contact.info.hours_label"
+                                        >
+                                            Giờ làm việc
+                                        </p>
+                                        <p
+                                            class="info-row__value"
+                                            data-i18n="contact.info.hours"
+                                        >
+                                            Thứ 2 – Thứ 7: 8:00 – 18:00
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="info-row">
+                                    <div
+                                        class="info-row__icon"
+                                        aria-hidden="true"
+                                    >
+                                        📍
+                                    </div>
+                                    <div>
+                                        <p
+                                            class="info-row__label"
+                                            data-i18n="contact.info.address_label"
+                                        >
+                                            Địa chỉ
+                                        </p>
+                                        <p class="info-row__value">
+                                            Ngũ Hành Sơn, Đà Nẵng
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quick links -->
+                            <div class="contact-quick-card">
+                                <h3>Truy cập nhanh</h3>
+                                <a href="planner.html" class="quick-link">
+                                    <span class="quick-link__icon"
+                                        ><i
+                                            class="bi bi-map"
+                                            aria-hidden="true"
+                                        ></i
+                                    ></span>
+                                    <span>Lập hành trình ngay</span>
+                                </a>
+                                <a href="destinations.html" class="quick-link">
+                                    <span class="quick-link__icon"
+                                        ><i
+                                            class="bi bi-search"
+                                            aria-hidden="true"
+                                        ></i
+                                    ></span>
+                                    <span>Khám phá điểm đến</span>
+                                </a>
+                                <a href="packages.html" class="quick-link">
+                                    <span class="quick-link__icon"
+                                        ><i
+                                            class="bi bi-box-seam"
+                                            aria-hidden="true"
+                                        ></i
+                                    ></span>
+                                    <span>Xem gói dịch vụ</span>
+                                </a>
+                                <a href="about.html" class="quick-link">
+                                    <span class="quick-link__icon"
+                                        ><i
+                                            class="bi bi-star-fill"
+                                            aria-hidden="true"
+                                        ></i
+                                    ></span>
+                                    <span>Về chúng tôi</span>
+                                </a>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── FAQ ── -->
+            <section class="section section--alt">
+                <div class="container">
+                    <div class="faq-section">
+                        <div
+                            style="
+                                text-align: center;
+                                margin-bottom: var(--space-10);
+                            "
+                        >
+                            <h2
+                                class="section-title"
+                                data-i18n="contact.faq.title"
+                            >
+                                Câu hỏi thường gặp
+                            </h2>
+                        </div>
+                        <div
+                            class="faq-accordion"
+                            id="faq-list"
+                            role="list"
+                        ></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── Map ── -->
+            <div
+                class="contact-map"
+                role="region"
+                aria-label="Bản đồ văn phòng Polaris"
+            >
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.7339261719894!2d108.25065207459818!3d15.97526544194766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142108997dc971f%3A0x1295cb3d313469c9!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2jhu4cgVGjDtG5nIHRpbiB2w6AgVHJ1eeG7gW4gdGjDtG5nIFZp4buHdCAtIEjDoG4sIMSQ4bqhaSBo4buNYyDEkMOgIE7hurVuZw!5e0!3m2!1svi!2sus!4v1780325468232!5m2!1svi!2sus"
+                    width="600"
+                    height="450"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__bottom">
+                    <p class="footer__copyright" data-i18n="footer.copyright">
+                        © 2026 Polaris. Bản quyền thuộc về Polaris Travel.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <script type="module" src="js/pages/contact.js"></script>
+    </body>
+</html>

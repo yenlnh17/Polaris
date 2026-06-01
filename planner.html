@@ -92,6 +92,17 @@
             href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
             rel="stylesheet"
         />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
 
         <link rel="stylesheet" href="css/variables.css" />
         <link rel="stylesheet" href="css/reset.css" />
@@ -154,6 +165,20 @@
                         data-i18n="nav.blog"
                         >Cẩm nang</a
                     >
+                    <a
+                        href="about.html"
+                        class="navbar__link"
+                        data-nav-page="about.html"
+                        data-i18n="nav.about"
+                        >Về chúng tôi</a
+                    >
+                    <a
+                        href="contact.html"
+                        class="navbar__link"
+                        data-nav-page="contact.html"
+                        data-i18n="nav.contact"
+                        >Liên hệ</a
+                    >
                 </nav>
                 <div class="navbar__actions">
                     <div
@@ -171,10 +196,16 @@
                             EN
                         </button>
                     </div>
+                    <a
+                        href="planner.html"
+                        class="navbar__cta btn btn--primary btn--sm"
+                        data-i18n="nav.cta"
+                        >Lập hành trình</a
+                    >
                     <button
                         class="navbar__hamburger"
                         aria-expanded="false"
-                        aria-controls="mobile-menu-planner"
+                        aria-controls="mobile-menu"
                         aria-label="Mở menu"
                     >
                         <span></span><span></span><span></span>
@@ -182,36 +213,65 @@
                 </div>
             </div>
             <nav
-                id="mobile-menu-planner"
+                id="mobile-menu"
                 class="navbar__mobile"
                 aria-label="Mobile navigation"
             >
                 <a
                     href="index.html"
                     class="navbar__mobile-link"
+                    data-nav-page="index.html"
                     data-i18n="nav.home"
                     >Trang chủ</a
                 >
                 <a
                     href="destinations.html"
                     class="navbar__mobile-link"
+                    data-nav-page="destinations.html"
                     data-i18n="nav.destinations"
                     >Điểm đến</a
                 >
                 <a
                     href="planner.html"
                     class="navbar__mobile-link"
+                    data-nav-page="planner.html"
                     data-i18n="nav.planner"
                     >Lập kế hoạch</a
                 >
                 <a
                     href="packages.html"
                     class="navbar__mobile-link"
+                    data-nav-page="packages.html"
                     data-i18n="nav.packages"
                     >Gói dịch vụ</a
                 >
+                <a
+                    href="blog.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="blog.html"
+                    data-i18n="nav.blog"
+                    >Cẩm nang</a
+                >
+                <a
+                    href="about.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="about.html"
+                    data-i18n="nav.about"
+                    >Về chúng tôi</a
+                >
+                <a
+                    href="contact.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="contact.html"
+                    data-i18n="nav.contact"
+                    >Liên hệ</a
+                >
                 <div class="navbar__mobile-actions">
-                    <div class="lang-toggle" role="group">
+                    <div
+                        class="lang-toggle"
+                        role="group"
+                        aria-label="Chọn ngôn ngữ"
+                    >
                         <button
                             class="lang-toggle__btn lang-toggle__btn--active"
                             data-lang="vi"
@@ -222,6 +282,12 @@
                             EN
                         </button>
                     </div>
+                    <a
+                        href="planner.html"
+                        class="navbar__mobile-cta btn btn--primary"
+                        data-i18n="nav.cta"
+                        >Lập hành trình</a
+                    >
                 </div>
             </nav>
         </header>
@@ -346,8 +412,18 @@
                                     name="style"
                                     value="relax"
                                 />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">🌅</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i
+                                        class="bi bi-sunrise"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.relax"
@@ -360,8 +436,18 @@
                                     name="style"
                                     value="adventure"
                                 />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">🧗</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i
+                                        class="bi bi-lightning-charge"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.adventure"
@@ -374,8 +460,18 @@
                                     name="style"
                                     value="culture"
                                 />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">🏛️</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i
+                                        class="bi bi-bank2"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.culture"
@@ -388,8 +484,18 @@
                                     name="style"
                                     value="food"
                                 />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">🍜</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i
+                                        class="bi bi-cup-hot"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.food"
@@ -402,8 +508,15 @@
                                     name="style"
                                     value="shopping"
                                 />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">🛍️</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i class="bi bi-bag" aria-hidden="true"></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.shopping"
@@ -416,8 +529,18 @@
                                     name="style"
                                     value="nature"
                                 />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">🌿</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i
+                                        class="bi bi-tree"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.nature"
@@ -447,8 +570,18 @@
                         >
                             <label class="quiz-option" data-value="solo">
                                 <input type="radio" name="group" value="solo" />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">🧑</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i
+                                        class="bi bi-person"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.solo"
@@ -461,8 +594,18 @@
                                     name="group"
                                     value="couple"
                                 />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">👫</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i
+                                        class="bi bi-people"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.couple"
@@ -475,8 +618,18 @@
                                     name="group"
                                     value="group"
                                 />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">👥</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i
+                                        class="bi bi-people-fill"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.group"
@@ -489,8 +642,18 @@
                                     name="group"
                                     value="family"
                                 />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">👨‍👩‍👧‍👦</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i
+                                        class="bi bi-house-heart"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.family"
@@ -696,8 +859,11 @@
                                         <span
                                             class="quiz-option__icon"
                                             style="font-size: 1.4rem"
-                                            >🧑</span
-                                        >
+                                            ><i
+                                                class="bi bi-person"
+                                                aria-hidden="true"
+                                            ></i
+                                        ></span>
                                         <span
                                             style="
                                                 font-size: var(--text-xs);
@@ -921,8 +1087,18 @@
                                     name="budget"
                                     value="budget"
                                 />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">💚</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i
+                                        class="bi bi-cash-coin"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.budget.budget"
@@ -938,8 +1114,18 @@
                             </label>
                             <label class="quiz-option" data-value="mid">
                                 <input type="radio" name="budget" value="mid" />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">💛</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i
+                                        class="bi bi-cash-stack"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.budget.mid"
@@ -959,8 +1145,15 @@
                                     name="budget"
                                     value="luxury"
                                 />
-                                <span class="quiz-option__check">✓</span>
-                                <span class="quiz-option__icon">💜</span>
+                                <span class="quiz-option__check"
+                                    ><i
+                                        class="bi bi-check"
+                                        aria-hidden="true"
+                                    ></i
+                                ></span>
+                                <span class="quiz-option__icon"
+                                    ><i class="bi bi-gem" aria-hidden="true"></i
+                                ></span>
                                 <span
                                     class="quiz-option__label"
                                     data-i18n="pref.budget.luxury"

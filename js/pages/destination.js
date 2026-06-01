@@ -12,10 +12,10 @@ const MONTH_NAMES = {
 };
 
 const PARTNER_LABELS = {
-  booking:   { name: 'Booking.com',  icon: '🏨' },
-  agoda:     { name: 'Agoda',        icon: '🛏️' },
-  traveloka: { name: 'Traveloka',    icon: '✈️' },
-  klook:     { name: 'Klook',        icon: '🎟️' }
+  booking:   { name: 'Booking.com',  icon: '<i class="bi bi-building" aria-hidden="true"></i>' },
+  agoda:     { name: 'Agoda',        icon: '<i class="bi bi-moon-stars" aria-hidden="true"></i>' },
+  traveloka: { name: 'Traveloka',    icon: '<i class="bi bi-airplane-fill" aria-hidden="true"></i>' },
+  klook:     { name: 'Klook',        icon: '<i class="bi bi-ticket-perforated" aria-hidden="true"></i>' }
 };
 
 async function init() {
@@ -72,11 +72,11 @@ function renderContent(dest, allDestinations) {
             <h1 class="gallery-hero__title">${escapeHtml(name)}</h1>
             <div class="gallery-hero__meta">
               <span style="color:white;font-size:var(--text-sm)">
-                <span style="color:#FFD700">★</span> ${dest.rating}
+                <i class="bi bi-star-fill" style="color:#FFD700" aria-hidden="true"></i> ${dest.rating}
                 <span style="opacity:.7">(${dest.reviewCount?.toLocaleString() || '–'})</span>
               </span>
               <span style="color:var(--color-lightest);font-size:var(--text-sm)">
-                📍 ${escapeHtml(region)}, Việt Nam
+                <i class="bi bi-geo-alt-fill" aria-hidden="true"></i> ${escapeHtml(region)}, Việt Nam
               </span>
               <span style="color:var(--color-lightest);font-size:var(--text-sm)" data-i18n="dest.from">Từ</span>
               <strong style="color:white;font-size:var(--text-base)">${formatVND(dest.priceFrom)}</strong>
@@ -84,10 +84,10 @@ function renderContent(dest, allDestinations) {
           </div>
           <div class="gallery-hero__actions">
             <button class="btn btn--ghost btn--sm" id="btn-gallery-all"
-              aria-label="Xem tất cả ảnh" data-i18n="detail.view_gallery">📷 Tất cả ảnh</button>
+              aria-label="Xem tất cả ảnh"><i class="fa-solid fa-photo-film" aria-hidden="true"></i> <span data-i18n="detail.view_gallery">Tất cả ảnh</span></button>
             <button class="btn-heart ${isWished ? 'is-active' : ''}" id="btn-wish-hero"
               aria-label="${isWished ? 'Xoá khỏi yêu thích' : 'Thêm vào yêu thích'}"
-              data-wishlist="${dest.id}" style="background:rgba(255,255,255,.15);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.2rem;border:1.5px solid rgba(255,255,255,.4);cursor:pointer">♥</button>
+              data-wishlist="${dest.id}" style="background:rgba(255,255,255,.15);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.2rem;border:1.5px solid rgba(255,255,255,.4);cursor:pointer"><i class="bi bi-heart-fill" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>
@@ -141,22 +141,22 @@ function renderContent(dest, allDestinations) {
             </div>
             <div style="margin-top:var(--space-8);display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--space-4)">
               <div style="background:var(--bg-alt);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center">
-                <div style="font-size:1.8rem;margin-bottom:var(--space-2)">📅</div>
+                <div style="font-size:1.8rem;margin-bottom:var(--space-2)"><i class="bi bi-calendar3" aria-hidden="true"></i></div>
                 <p style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:2px" data-i18n="detail.duration">Thời gian</p>
                 <p style="font-weight:700;color:var(--text-primary)">${dest.duration?.[0] || 2}–${dest.duration?.[1] || 7} <span data-i18n="detail.days">ngày</span></p>
               </div>
               <div style="background:var(--bg-alt);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center">
-                <div style="font-size:1.8rem;margin-bottom:var(--space-2)">💰</div>
+                <div style="font-size:1.8rem;margin-bottom:var(--space-2)"><i class="bi bi-wallet2" aria-hidden="true"></i></div>
                 <p style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:2px" data-i18n="detail.budget_level">Ngân sách</p>
                 <p style="font-weight:700;color:var(--text-primary)">${budgetLabel(dest.budget, lang)}</p>
               </div>
               <div style="background:var(--bg-alt);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center">
-                <div style="font-size:1.8rem;margin-bottom:var(--space-2)">⭐</div>
+                <div style="font-size:1.8rem;margin-bottom:var(--space-2)"><i class="bi bi-star-fill" style="color:#FFD700" aria-hidden="true"></i></div>
                 <p style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:2px" data-i18n="detail.rating">Đánh giá</p>
                 <p style="font-weight:700;color:var(--text-primary)">${dest.rating}/5</p>
               </div>
               <div style="background:var(--bg-alt);border-radius:var(--radius-lg);padding:var(--space-4);text-align:center">
-                <div style="font-size:1.8rem;margin-bottom:var(--space-2)">🏷️</div>
+                <div style="font-size:1.8rem;margin-bottom:var(--space-2)"><i class="bi bi-tag" aria-hidden="true"></i></div>
                 <p style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:2px" data-i18n="detail.type">Loại hình</p>
                 <p style="font-weight:700;color:var(--text-primary)">${(dest.type || []).map(t => i18n.t('dest.type.' + t)).join(', ')}</p>
               </div>
@@ -169,7 +169,7 @@ function renderContent(dest, allDestinations) {
             <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-3)">
               ${(dest.highlights || []).map(h => `
                 <li style="display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-4);background:var(--bg-alt);border-radius:var(--radius-lg)">
-                  <span style="font-size:1.3rem;flex-shrink:0">✨</span>
+                  <span style="font-size:1.3rem;flex-shrink:0"><i class="bi bi-stars" aria-hidden="true"></i></span>
                   <span style="color:var(--text-secondary)">${escapeHtml(h[lang] || h.vi || '')}</span>
                 </li>`).join('')}
             </ul>
@@ -195,21 +195,21 @@ function renderContent(dest, allDestinations) {
             <h3 style="font-family:var(--font-display);font-size:var(--text-2xl);margin-bottom:var(--space-5)" data-i18n="detail.getting_title">Cách di chuyển</h3>
             <div style="display:flex;flex-direction:column;gap:var(--space-4)">
               <div style="display:flex;gap:var(--space-4);padding:var(--space-4);background:var(--bg-alt);border-radius:var(--radius-lg);align-items:flex-start">
-                <span style="font-size:1.6rem;flex-shrink:0">✈️</span>
+                <span style="font-size:1.6rem;flex-shrink:0"><i class="bi bi-airplane-fill" aria-hidden="true"></i></span>
                 <div>
                   <p style="font-weight:600;color:var(--text-primary);margin-bottom:4px" data-i18n="detail.by_plane">Máy bay</p>
                   <p style="font-size:var(--text-sm);color:var(--text-muted)" data-i18n="detail.by_plane_desc">Bay đến sân bay gần nhất, sau đó di chuyển bằng taxi hoặc xe buýt.</p>
                 </div>
               </div>
               <div style="display:flex;gap:var(--space-4);padding:var(--space-4);background:var(--bg-alt);border-radius:var(--radius-lg);align-items:flex-start">
-                <span style="font-size:1.6rem;flex-shrink:0">🚌</span>
+                <span style="font-size:1.6rem;flex-shrink:0"><i class="bi bi-bus-front-fill" aria-hidden="true"></i></span>
                 <div>
                   <p style="font-weight:600;color:var(--text-primary);margin-bottom:4px" data-i18n="detail.by_bus">Xe khách</p>
                   <p style="font-size:var(--text-sm);color:var(--text-muted)" data-i18n="detail.by_bus_desc">Nhiều tuyến xe giường nằm từ các thành phố lớn, giá tốt.</p>
                 </div>
               </div>
               <div style="display:flex;gap:var(--space-4);padding:var(--space-4);background:var(--bg-alt);border-radius:var(--radius-lg);align-items:flex-start">
-                <span style="font-size:1.6rem;flex-shrink:0">🚂</span>
+                <span style="font-size:1.6rem;flex-shrink:0"><i class="bi bi-train-front-fill" aria-hidden="true"></i></span>
                 <div>
                   <p style="font-weight:600;color:var(--text-primary);margin-bottom:4px" data-i18n="detail.by_train">Tàu hỏa</p>
                   <p style="font-size:var(--text-sm);color:var(--text-muted)" data-i18n="detail.by_train_desc">Tàu Bắc – Nam dừng tại nhiều thành phố. Phong cảnh đẹp dọc hành trình.</p>
@@ -231,21 +231,21 @@ function renderContent(dest, allDestinations) {
               return `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="partner-btn">
                 <span class="partner-btn__icon">${info.icon}</span>
                 <span>${info.name}</span>
-                <span style="margin-left:auto;color:var(--text-muted);font-size:var(--text-xs)">→</span>
+                <i class="bi bi-arrow-right" style="margin-left:auto;color:var(--text-muted);font-size:var(--text-xs)" aria-hidden="true"></i>
               </a>`;
             }).join('')}
 
             <div style="border-top:1px solid var(--border-color);margin:var(--space-5) 0"></div>
 
             <a href="planner.html?add=${encodeURIComponent(dest.id)}"
-               class="btn btn--primary" style="width:100%;justify-content:center;display:flex;gap:var(--space-2)"
-               data-i18n="detail.add_itinerary">
-              ✨ Thêm vào hành trình
+               class="btn btn--primary" style="width:100%;justify-content:center;display:flex;gap:var(--space-2)">
+              <i class="bi bi-stars" aria-hidden="true"></i>
+              <span data-i18n="detail.add_itinerary">Thêm vào hành trình</span>
             </a>
             <a href="planner.html" class="btn btn--secondary"
-               style="width:100%;justify-content:center;display:flex;margin-top:var(--space-3)"
-               data-i18n="detail.plan_new">
-              📋 Lập hành trình mới
+               style="width:100%;justify-content:center;display:flex;gap:var(--space-2);margin-top:var(--space-3)">
+              <i class="fas fa-calendar-plus" aria-hidden="true"></i>
+              <span data-i18n="detail.plan_new">Lập hành trình mới</span>
             </a>
           </div>
         </aside>

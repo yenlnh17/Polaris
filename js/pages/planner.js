@@ -8,10 +8,10 @@ const PLANNER_KEY = 'polaris_planner_draft';
 const ITINERARIES_KEY = 'polaris_itineraries';
 
 const PARTNER_LABELS = {
-  booking:   { name: 'Booking.com', icon: '🏨' },
-  agoda:     { name: 'Agoda',       icon: '🛏️' },
-  traveloka: { name: 'Traveloka',   icon: '✈️' },
-  klook:     { name: 'Klook',       icon: '🎟️' }
+  booking:   { name: 'Booking.com', icon: '<i class="bi bi-building" aria-hidden="true"></i>' },
+  agoda:     { name: 'Agoda',       icon: '<i class="bi bi-moon-stars" aria-hidden="true"></i>' },
+  traveloka: { name: 'Traveloka',   icon: '<i class="bi bi-airplane-fill" aria-hidden="true"></i>' },
+  klook:     { name: 'Klook',       icon: '<i class="bi bi-ticket-perforated" aria-hidden="true"></i>' }
 };
 
 // Hours shown on timeline (6:00 – 22:00)
@@ -472,7 +472,7 @@ function buildDayColumn(dayIndex, destName, dest, lang) {
       
     
       
-      <button class="tl-card__btn" data-optimize-day="${dayIndex}" aria-label="Tối ưu tuyến đường ngày ${dayIndex + 1}" style="color:rgba(255,255,255,0.8);font-size:var(--text-sm)" title="Tối ưu tuyến">🗺️</button>
+      <button class="tl-card__btn" data-optimize-day="${dayIndex}" aria-label="Tối ưu tuyến đường ngày ${dayIndex + 1}" style="color:rgba(255,255,255,0.8);font-size:var(--text-sm)" title="Tối ưu tuyến"><i class="bi bi-signpost-2" aria-hidden="true"></i></button>
     </div>`;
 
   const timeline = buildTimeline(dayIndex, dest, lang);

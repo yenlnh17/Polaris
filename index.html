@@ -108,6 +108,17 @@
             href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
             rel="stylesheet"
         />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
 
         <!-- CSS -->
         <link rel="stylesheet" href="css/variables.css" />
@@ -479,11 +490,18 @@
                         >Cẩm nang</a
                     >
                     <a
-                        href="#!"
+                        href="about.html"
                         class="navbar__link"
                         data-nav-page="about.html"
                         data-i18n="nav.about"
                         >Về chúng tôi</a
+                    >
+                    <a
+                        href="contact.html"
+                        class="navbar__link"
+                        data-nav-page="contact.html"
+                        data-i18n="nav.contact"
+                        >Liên hệ</a
                     >
                 </nav>
 
@@ -562,14 +580,14 @@
                     >Cẩm nang</a
                 >
                 <a
-                    href="#!"
+                    href="about.html"
                     class="navbar__mobile-link"
                     data-nav-page="about.html"
                     data-i18n="nav.about"
                     >Về chúng tôi</a
                 >
                 <a
-                    href="#!"
+                    href="contact.html"
                     class="navbar__mobile-link"
                     data-nav-page="contact.html"
                     data-i18n="nav.contact"
@@ -802,38 +820,62 @@
                             href="destinations.html?type=beach"
                             class="pref-tile"
                         >
-                            <span class="pref-tile__icon">🏖️</span>
+                            <span class="pref-tile__icon"
+                                ><i
+                                    class="bi bi-umbrella"
+                                    aria-hidden="true"
+                                ></i
+                            ></span>
                             <span data-i18n="pref.beach">Biển & Đảo</span>
                         </a>
                         <a
                             href="destinations.html?type=mountain"
                             class="pref-tile"
                         >
-                            <span class="pref-tile__icon">⛰️</span>
+                            <span class="pref-tile__icon"
+                                ><i class="bi bi-geo-alt" aria-hidden="true"></i
+                            ></span>
                             <span data-i18n="pref.mountain"
                                 >Núi & Trekking</span
                             >
                         </a>
                         <a href="destinations.html?type=city" class="pref-tile">
-                            <span class="pref-tile__icon">🏙️</span>
+                            <span class="pref-tile__icon"
+                                ><i
+                                    class="bi bi-buildings"
+                                    aria-hidden="true"
+                                ></i
+                            ></span>
                             <span data-i18n="pref.city">Thành phố</span>
                         </a>
                         <a
                             href="destinations.html?type=cultural"
                             class="pref-tile"
                         >
-                            <span class="pref-tile__icon">🏛️</span>
+                            <span class="pref-tile__icon"
+                                ><i class="bi bi-bank2" aria-hidden="true"></i
+                            ></span>
                             <span data-i18n="pref.culture">Văn hoá</span>
                         </a>
                         <a
                             href="destinations.html?type=adventure"
                             class="pref-tile"
                         >
-                            <span class="pref-tile__icon">🧗</span>
+                            <span class="pref-tile__icon"
+                                ><i
+                                    class="bi bi-lightning-charge"
+                                    aria-hidden="true"
+                                ></i
+                            ></span>
                             <span data-i18n="pref.adventure">Phiêu lưu</span>
                         </a>
                         <a href="planner.html?group=family" class="pref-tile">
-                            <span class="pref-tile__icon">👨‍👩‍👧</span>
+                            <span class="pref-tile__icon"
+                                ><i
+                                    class="bi bi-house-heart"
+                                    aria-hidden="true"
+                                ></i
+                            ></span>
                             <span data-i18n="pref.family">Gia đình</span>
                         </a>
                     </div>
@@ -1111,7 +1153,8 @@
                             👥 Nhóm bạn
                         </button>
                         <button class="planner-chip" data-value="family">
-                            👨‍👩‍👧 Gia đình
+                            <i class="bi bi-house-heart" aria-hidden="true"></i>
+                            Gia đình
                         </button>
                     </div>
                 </div>
@@ -1178,29 +1221,29 @@
                         </p>
                         <div class="footer__socials">
                             <a
-                                href="#"
+                                href="#!"
                                 class="footer__social"
                                 aria-label="Facebook"
-                                >f</a
-                            >
+                                ><i class="fa-brands fa-facebook"></i
+                            ></a>
                             <a
                                 href="#"
                                 class="footer__social"
                                 aria-label="Instagram"
-                                >📷</a
-                            >
+                                ><i class="fa-brands fa-instagram"></i
+                            ></a>
                             <a
                                 href="#"
                                 class="footer__social"
                                 aria-label="YouTube"
-                                >▶</a
-                            >
+                                ><i class="fa-brands fa-youtube"></i
+                            ></a>
                             <a
                                 href="#"
                                 class="footer__social"
                                 aria-label="TikTok"
-                                >♪</a
-                            >
+                                ><i class="fa-brands fa-tiktok"></i
+                            ></a>
                         </div>
                     </div>
                     <!-- Explore -->
@@ -1257,7 +1300,7 @@
                         <ul class="footer__links">
                             <li>
                                 <a
-                                    href="#!"
+                                    href="about.html"
                                     class="footer__link"
                                     data-i18n="nav.about"
                                     >Về chúng tôi</a
@@ -1265,7 +1308,7 @@
                             </li>
                             <li>
                                 <a
-                                    href="#!"
+                                    href="contact.html"
                                     class="footer__link"
                                     data-i18n="nav.contact"
                                     >Liên hệ</a

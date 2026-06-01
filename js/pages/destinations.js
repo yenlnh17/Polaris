@@ -157,8 +157,8 @@ function renderCards(destinations) {
     if (dest.tags.includes('elderly_accessible')) familyBadges.push(`<span class="badge badge--success" data-i18n="dest.badge.elderly_accessible">Dễ di chuyển</span>`);
 
     const badgeType = (filters.type && dest.type.includes(filters.type)) ? filters.type : dest.type[0];
-    const typeIcons = { beach:'🏖️', mountain:'⛰️', city:'🏙️', cultural:'🏛️', nature:'🌿', adventure:'🧗', food:'🍜' };
-    const typeIcon = typeIcons[badgeType] || '📍';
+    const typeIcons = { beach:'<i class="bi bi-umbrella" aria-hidden="true"></i>', mountain:'<i class="bi bi-geo-alt" aria-hidden="true"></i>', city:'<i class="bi bi-buildings" aria-hidden="true"></i>', cultural:'<i class="bi bi-bank2" aria-hidden="true"></i>', nature:'<i class="bi bi-tree" aria-hidden="true"></i>', adventure:'<i class="bi bi-lightning-charge" aria-hidden="true"></i>', food:'<i class="bi bi-cup-hot" aria-hidden="true"></i>' };
+    const typeIcon = typeIcons[badgeType] || '<i class="bi bi-geo-alt-fill" aria-hidden="true"></i>';
     const shortDesc = dest.shortDesc ? (dest.shortDesc[lang] || dest.shortDesc.vi) : '';
     const filled = Math.round(dest.rating);
     const stars = '★'.repeat(filled) + '☆'.repeat(5 - filled);
@@ -171,7 +171,7 @@ function renderCards(destinations) {
         <span class="card-dest__badge"><span class="badge badge--accent" data-i18n="dest.type.${badgeType}">${i18n.t('dest.type.' + badgeType)}</span></span>
         <button class="btn-heart card-dest__heart ${isWished ? 'is-active' : ''}"
           aria-label="${isWished ? 'Xoá khỏi yêu thích' : 'Thêm vào yêu thích'}"
-          data-wishlist="${dest.id}">♥</button>
+          data-wishlist="${dest.id}"><i class="bi bi-heart-fill" aria-hidden="true"></i></button>
         <div class="card-dest__overlay">
           <a href="destination.html?id=${dest.id}" class="btn btn--ghost btn--sm" data-i18n="dest.view_detail">Xem chi tiết</a>
           <a href="planner.html?add=${dest.id}" class="btn btn--primary btn--sm" data-i18n="dest.add_planner">+ Hành trình</a>
@@ -186,7 +186,7 @@ function renderCards(destinations) {
           </span>
         </div>
         <div class="card-dest__location-row">
-          <p class="card-dest__location">📍 ${region}</p>
+          <p class="card-dest__location"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> ${region}</p>
           <span class="card-dest__rating-count">(${dest.reviewCount.toLocaleString()})</span>
         </div>
         ${familyBadges.length ? `<div class="card-dest__tags">${familyBadges.join('')}</div>` : ''}
@@ -227,7 +227,7 @@ function renderMapView() {
   });
   mapEl.innerHTML = `
     <div class="map-placeholder">
-      <p style="font-size:2rem;margin-bottom:var(--space-3)">🗺️</p>
+      <p style="font-size:2rem;margin-bottom:var(--space-3)"><i class="bi bi-map" aria-hidden="true"></i></p>
       <p style="font-weight:600;color:var(--text-primary)">${filtered.length} điểm đến</p>
       <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:600px;margin:var(--space-4) auto 0">${points.slice(0, 20).join('')}</div>
       <p style="font-size:var(--text-xs);margin-top:var(--space-4);color:var(--text-muted)">Tích hợp Google Maps — cần API key</p>

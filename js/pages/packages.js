@@ -32,7 +32,9 @@ function renderPricing(packages, lang) {
     const features = pkg.features.map(f => {
       const text = f[lang] || f.vi;
       const cls = f.included ? 'feature-row--included' : 'feature-row--excluded';
-      const icon = f.included ? '✓' : '×';
+      const icon = f.included
+        ? '<i class="bi bi-check-lg" aria-hidden="true"></i>'
+        : '<i class="bi bi-x-lg" aria-hidden="true"></i>';
       return `
         <div class="feature-row ${cls}">
           <span class="feature-row__icon">${icon}</span>
@@ -42,7 +44,7 @@ function renderPricing(packages, lang) {
 
     return `
       <div class="pricing-card ${featured ? 'pricing-card--featured reveal' : 'reveal'}" data-pkg="${pkg.id}">
-        ${featured ? `<div class="pricing-card__badge" data-i18n="packages.recommended">Phổ biến nhất ⭐</div>` : ''}
+        ${featured ? `<div class="pricing-card__badge" data-i18n="packages.recommended">Phổ biến nhất <i class="bi bi-star-fill" aria-hidden="true"></i></div>` : ''}
         <p class="pricing-card__name">${escapeHtml(name)}</p>
         <p class="pricing-card__tagline">${escapeHtml(tagline)}</p>
         <p class="pricing-card__price">${escapeHtml(price)}</p>
