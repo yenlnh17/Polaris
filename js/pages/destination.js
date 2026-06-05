@@ -78,8 +78,9 @@ function renderContent(dest, allDestinations) {
               <span style="color:var(--color-lightest);font-size:var(--text-sm)">
                 <i class="bi bi-geo-alt-fill" aria-hidden="true"></i> ${escapeHtml(region)}, Việt Nam
               </span>
-              <span style="color:var(--color-lightest);font-size:var(--text-sm)" data-i18n="dest.from">Từ</span>
-              <strong style="color:white;font-size:var(--text-base)">${formatVND(dest.priceFrom)}</strong>
+              <span style="color:var(--color-lightest);font-size:var(--text-sm);white-space:nowrap">
+                <span data-i18n="dest.from">Từ</span> <strong style="color:white;font-size:var(--text-base)">${formatVND(dest.priceFrom)}</strong>
+              </span>
             </div>
           </div>
           <div class="gallery-hero__actions">
