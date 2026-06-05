@@ -98,10 +98,7 @@
         />
         <link
             rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         />
 
         <link rel="stylesheet" href="css/variables.css" />
@@ -302,6 +299,62 @@
                 width: 220px;
                 flex-shrink: 0;
             }
+
+            /* FAB — mobile floating action button */
+            .fab {
+                position: fixed;
+                bottom: var(--space-6);
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--gradient-cta);
+                color: white;
+                padding: var(--space-3) var(--space-8);
+                border-radius: var(--radius-full);
+                font-weight: 600;
+                font-size: var(--text-sm);
+                box-shadow: var(--shadow-lg);
+                z-index: 90;
+                white-space: nowrap;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: var(--space-2);
+                transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            }
+            .fab:hover {
+                transform: translateX(-50%) translateY(-2px);
+                box-shadow: 0 8px 24px rgba(66, 13, 75, 0.35);
+            }
+            @media (min-width: 1024px) {
+                .fab { display: none !important; }
+            }
+
+            /* Gallery hero — mobile */
+            @media (max-width: 639px) {
+                .gallery-hero {
+                    height: 55vh;
+                    min-height: 280px;
+                }
+                .gallery-hero__info .container {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: var(--space-3);
+                }
+                .gallery-hero__meta {
+                    gap: var(--space-2);
+                    flex-wrap: wrap;
+                }
+                .gallery-hero__actions {
+                    align-self: flex-start;
+                }
+            }
+
+            /* Booking sidebar — hide on mobile (FAB handles CTA) */
+            @media (max-width: 1023px) {
+                .booking-sidebar {
+                    display: none;
+                }
+            }
         </style>
     </head>
     <body style="padding-top: var(--navbar-height)">
@@ -352,6 +405,20 @@
                         data-i18n="nav.blog"
                         >Cẩm nang</a
                     >
+                    <a
+                        href="about.html"
+                        class="navbar__link"
+                        data-nav-page="about.html"
+                        data-i18n="nav.about"
+                        >Về chúng tôi</a
+                    >
+                    <a
+                        href="contact.html"
+                        class="navbar__link"
+                        data-nav-page="contact.html"
+                        data-i18n="nav.contact"
+                        >Liên hệ</a
+                    >
                 </nav>
                 <div class="navbar__actions">
                     <div
@@ -378,7 +445,7 @@
                     <button
                         class="navbar__hamburger"
                         aria-expanded="false"
-                        aria-controls="mobile-menu-detail"
+                        aria-controls="mobile-menu"
                         aria-label="Mở menu"
                     >
                         <span></span><span></span><span></span>
@@ -386,46 +453,23 @@
                 </div>
             </div>
             <nav
-                id="mobile-menu-detail"
+                id="mobile-menu"
                 class="navbar__mobile"
                 aria-label="Mobile navigation"
             >
-                <a
-                    href="index.html"
-                    class="navbar__mobile-link"
-                    data-i18n="nav.home"
-                    >Trang chủ</a
-                >
-                <a
-                    href="destinations.html"
-                    class="navbar__mobile-link"
-                    data-i18n="nav.destinations"
-                    >Điểm đến</a
-                >
-                <a
-                    href="planner.html"
-                    class="navbar__mobile-link"
-                    data-i18n="nav.planner"
-                    >Lập kế hoạch</a
-                >
-                <a
-                    href="packages.html"
-                    class="navbar__mobile-link"
-                    data-i18n="nav.packages"
-                    >Gói dịch vụ</a
-                >
+                <a href="index.html" class="navbar__mobile-link" data-nav-page="index.html" data-i18n="nav.home">Trang chủ</a>
+                <a href="destinations.html" class="navbar__mobile-link" data-nav-page="destinations.html" data-i18n="nav.destinations">Điểm đến</a>
+                <a href="planner.html" class="navbar__mobile-link" data-nav-page="planner.html" data-i18n="nav.planner">Lập kế hoạch</a>
+                <a href="packages.html" class="navbar__mobile-link" data-nav-page="packages.html" data-i18n="nav.packages">Gói dịch vụ</a>
+                <a href="blog.html" class="navbar__mobile-link" data-nav-page="blog.html" data-i18n="nav.blog">Cẩm nang</a>
+                <a href="about.html" class="navbar__mobile-link" data-nav-page="about.html" data-i18n="nav.about">Về chúng tôi</a>
+                <a href="contact.html" class="navbar__mobile-link" data-nav-page="contact.html" data-i18n="nav.contact">Liên hệ</a>
                 <div class="navbar__mobile-actions">
-                    <div class="lang-toggle" role="group">
-                        <button
-                            class="lang-toggle__btn lang-toggle__btn--active"
-                            data-lang="vi"
-                        >
-                            VI
-                        </button>
-                        <button class="lang-toggle__btn" data-lang="en">
-                            EN
-                        </button>
+                    <div class="lang-toggle" role="group" aria-label="Chọn ngôn ngữ">
+                        <button class="lang-toggle__btn lang-toggle__btn--active" data-lang="vi">VI</button>
+                        <button class="lang-toggle__btn" data-lang="en">EN</button>
                     </div>
+                    <a href="planner.html" class="navbar__mobile-cta btn btn--primary" data-i18n="nav.cta">Lập hành trình</a>
                 </div>
             </nav>
         </header>
@@ -461,13 +505,9 @@
         </main>
 
         <!-- FAB: Add to itinerary (mobile) -->
-        <a
-            href="#"
-            class="fab hidden"
-            id="fab-planner"
-            data-i18n="detail.add_itinerary"
-        >
-            ✨ Thêm vào hành trình
+        <a href="#" class="fab hidden" id="fab-planner">
+            <i class="bi bi-stars" aria-hidden="true"></i>
+            <span data-i18n="detail.add_itinerary">Thêm vào hành trình</span>
         </a>
 
         <!-- FOOTER -->

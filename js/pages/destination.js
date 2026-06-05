@@ -220,7 +220,7 @@ function renderContent(dest, allDestinations) {
         </div>
 
         <!-- Right: Booking Sidebar -->
-        <aside>
+        <aside class="sidebar">
           <div class="booking-sidebar" id="booking-sidebar">
             <h2 class="booking-sidebar__title" data-i18n="detail.book_now">Đặt ngay</h2>
             <p style="font-size:var(--text-sm);color:var(--text-muted);margin-bottom:var(--space-5)" data-i18n="detail.book_desc">Tìm chỗ ở và tour tốt nhất qua các đối tác tin cậy</p>
