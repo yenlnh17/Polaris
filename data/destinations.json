@@ -5,6 +5,8 @@
     "region": { "vi": "Miền Bắc", "en": "North" },
     "country": "Vietnam",
     "coordinates": { "lat": 21.0285, "lng": 105.8542 },
+    "airportCode": "HAN",
+    "hotelSearchQuery": "Hà Nội",
     "type": ["city", "cultural", "food"],
     "style": ["culture", "food", "city"],
     "budget": "budget",
@@ -35,6 +37,41 @@
       "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Hanoi&utm_source=polaris",
       "klook": "https://klook.com/search/?query=Hanoi&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "ha-noi-acc-1",
+        "name": "Homestay Phố Cổ Hà Nội",
+        "type": "homestay",
+        "stars": 2,
+        "pricePerNight": 380000,
+        "location": "Phố cổ Hoàn Kiếm",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "Ngay tim phố cổ, 2 phút đến Hồ Hoàn Kiếm", "en": "Heart of old quarter, 2 min to Hoan Kiem Lake" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Hoan+Kiem+Homestay+Hanoi&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "ha-noi-acc-2",
+        "name": "La Siesta Premium Hàng Be",
+        "type": "hotel",
+        "stars": 4,
+        "pricePerNight": 1350000,
+        "location": "Hoàn Kiếm, Hà Nội",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Rooftop pool, view phố cổ, bao gồm bữa sáng", "en": "Rooftop pool, old quarter view, breakfast included" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=La+Siesta+Hanoi&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "ha-noi-acc-3",
+        "name": "Sofitel Legend Metropole Hà Nội",
+        "type": "hotel",
+        "stars": 5,
+        "pricePerNight": 8500000,
+        "location": "Hoàn Kiếm, Hà Nội",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Biểu tượng lịch sử 120 năm, bể bơi ngoài trời, spa đẳng cấp", "en": "120-year historic icon, outdoor pool, world-class spa" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Sofitel+Metropole+Hanoi&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["hanoi-street-food-tour", "hanoi-cyclo-tour", "hanoi-cooking-class"],
     "tags": ["capital", "cultural", "food", "history", "child_friendly", "near_center", "elderly_accessible"]
   },
@@ -44,6 +81,8 @@
     "region": { "vi": "Miền Trung", "en": "Central" },
     "country": "Vietnam",
     "coordinates": { "lat": 15.8801, "lng": 108.3380 },
+    "airportCode": "DAD",
+    "hotelSearchQuery": "Hội An",
     "type": ["cultural", "beach", "food"],
     "style": ["relax", "culture", "food"],
     "budget": "mid",
@@ -74,6 +113,41 @@
       "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Hoi+An&utm_source=polaris",
       "klook": "https://klook.com/search/?query=Hoi+An&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "hoi-an-acc-1",
+        "name": "Homestay Hoa Vàng Phố Cổ",
+        "type": "homestay",
+        "stars": 2,
+        "pricePerNight": 420000,
+        "location": "Phố cổ Hội An",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "Trong lòng phố cổ UNESCO, đi bộ đến mọi nơi", "en": "UNESCO old town, walkable to everything" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Hoi+An+Old+Town+Homestay&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "hoi-an-acc-2",
+        "name": "Victoria Hội An Beach Resort",
+        "type": "resort",
+        "stars": 4,
+        "pricePerNight": 1800000,
+        "location": "Cửa Đại, Hội An",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Bể bơi ngoài trời, cách biển 2 phút, thoi xe đến phố cổ", "en": "Outdoor pool, 2 min to beach, shuttle to old town" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Victoria+Hoi+An+Resort&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "hoi-an-acc-3",
+        "name": "Four Seasons The Nam Hai",
+        "type": "resort",
+        "stars": 5,
+        "pricePerNight": 9500000,
+        "location": "Điện Bàn, Hội An",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Khu nghỉ sang trọng nhất Hội An, 3 bể bơi, bãi biển riêng", "en": "Most luxurious resort in Hoi An, 3 pools, private beach" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Four+Seasons+Nam+Hai+Hoi+An&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["hoian-lantern-tour", "hoian-cooking-class", "hoian-bicycle-tour"],
     "tags": ["unesco", "ancient-town", "lanterns", "beach-nearby", "child_friendly", "near_center", "elderly_accessible"]
   },
@@ -83,6 +157,8 @@
     "region": { "vi": "Tây Nguyên", "en": "Central Highlands" },
     "country": "Vietnam",
     "coordinates": { "lat": 11.9465, "lng": 108.4419 },
+    "airportCode": "DLI",
+    "hotelSearchQuery": "Đà Lạt",
     "type": ["mountain", "city", "cultural"],
     "style": ["relax", "nature", "romance"],
     "budget": "budget",
@@ -113,6 +189,41 @@
       "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Da+Lat&utm_source=polaris",
       "klook": "https://klook.com/search/?query=Da+Lat&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "da-lat-acc-1",
+        "name": "Villa Mimosa Đà Lạt",
+        "type": "villa",
+        "stars": 2,
+        "pricePerNight": 480000,
+        "location": "Trung tâm TP. Đà Lạt",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "Nhà vườn yên tĩnh, khí hậu mát lạnh, ấm cúng như nhà", "en": "Quiet garden villa, cool climate, homely warmth" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Villa+Da+Lat&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "da-lat-acc-2",
+        "name": "Silk Path Express Đà Lạt",
+        "type": "hotel",
+        "stars": 3,
+        "pricePerNight": 920000,
+        "location": "Phường 1, Đà Lạt",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Trung tâm TP, gần chợ đêm, bao gồm bữa sáng", "en": "City center, near night market, breakfast included" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Silk+Path+Da+Lat&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "da-lat-acc-3",
+        "name": "Ana Mandara Villas Đà Lạt",
+        "type": "villa",
+        "stars": 5,
+        "pricePerNight": 3500000,
+        "location": "Đà Lạt",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Villa phong cách Đông Dương sang trọng, view thung lũng", "en": "Luxurious Indochina-style villas, valley views" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Ana+Mandara+Villas+Da+Lat&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["dalat-flower-tour", "dalat-tea-experience", "dalat-canyon-swing"],
     "tags": ["mountain", "flowers", "cool-climate", "romance", "child_friendly", "near_center", "elderly_accessible"]
   },
@@ -122,6 +233,8 @@
     "region": { "vi": "Miền Nam", "en": "South" },
     "country": "Vietnam",
     "coordinates": { "lat": 10.2899, "lng": 103.9840 },
+    "airportCode": "PQC",
+    "hotelSearchQuery": "Phú Quốc",
     "type": ["beach", "nature"],
     "style": ["relax", "adventure", "family"],
     "budget": "mid",
@@ -152,6 +265,41 @@
       "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Phu+Quoc&utm_source=polaris",
       "klook": "https://klook.com/search/?query=Phu+Quoc&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "phu-quoc-acc-1",
+        "name": "Homestay Pearl Garden Phú Quốc",
+        "type": "homestay",
+        "stars": 2,
+        "pricePerNight": 650000,
+        "location": "Cửa Dương, Phú Quốc",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "View biển tuyệt đẹp, gần Cửa Dương, không khí trong lành", "en": "Beautiful sea view, near Cua Duong beach, fresh air" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Phu+Quoc+Homestay+Beach&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "phu-quoc-acc-2",
+        "name": "Novotel Phú Quốc Resort",
+        "type": "resort",
+        "stars": 4,
+        "pricePerNight": 2500000,
+        "location": "Bãi Dài, Phú Quốc",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Bãi biển riêng, 3 bể bơi, nhà hàng hải sản", "en": "Private beach, 3 pools, seafood restaurant" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Novotel+Phu+Quoc+Resort&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "phu-quoc-acc-3",
+        "name": "JW Marriott Phú Quốc Emerald Bay",
+        "type": "resort",
+        "stars": 5,
+        "pricePerNight": 9000000,
+        "location": "Bãi Khem, Phú Quốc",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Đẳng cấp quốc tế, spa 5 sao, butler service riêng", "en": "International luxury, 5-star spa, personal butler" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=JW+Marriott+Phu+Quoc&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["phuquoc-snorkel", "phuquoc-safari", "phuquoc-sunset-boat"],
     "tags": ["island", "beach", "diving", "theme-park", "child_friendly", "family", "near_center", "elderly_accessible"]
   },
@@ -161,6 +309,8 @@
     "region": { "vi": "Miền Bắc", "en": "North" },
     "country": "Vietnam",
     "coordinates": { "lat": 22.3364, "lng": 103.8438 },
+    "airportCode": null,
+    "hotelSearchQuery": "Sa Pa Lào Cai",
     "type": ["mountain", "cultural", "adventure"],
     "style": ["adventure", "nature", "culture"],
     "budget": "mid",
@@ -191,6 +341,41 @@
       "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Sapa&utm_source=polaris",
       "klook": "https://klook.com/search/?query=Sapa&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "sa-pa-acc-1",
+        "name": "Homestay Bản Hoa Sa Pa",
+        "type": "homestay",
+        "stars": 2,
+        "pricePerNight": 380000,
+        "location": "Bản H'Mông, Sa Pa",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "Ngủ nhà sàn dân tộc H'Mông, trải nghiệm xác thực", "en": "Sleep in H'Mong stilt house, authentic cultural experience" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Sapa+Homestay+Village&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "sa-pa-acc-2",
+        "name": "Sapa Elegance Hotel",
+        "type": "hotel",
+        "stars": 3,
+        "pricePerNight": 950000,
+        "location": "Trung tâm Sa Pa",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Trung tâm Sa Pa, view núi từ phòng, sưởi ấm", "en": "Sapa center, mountain view rooms, heating" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Sapa+Elegance+Hotel&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "sa-pa-acc-3",
+        "name": "Topas Ecolodge Sa Pa",
+        "type": "lodge",
+        "stars": 4,
+        "pricePerNight": 2800000,
+        "location": "Bản Dền, Sa Pa",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "View ruộng bậc thang huyền ảo, bể bơi tràn, thiên nhiên hoang sơ", "en": "Breathtaking rice terrace views, infinity pool, pristine nature" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Topas+Ecolodge+Sapa&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["sapa-trekking", "sapa-fansipan-cable", "sapa-ethnic-village"],
     "tags": ["mountain", "trekking", "ethnic-village", "rice-terraces", "not_accessible"]
   },
@@ -200,6 +385,8 @@
     "region": { "vi": "Miền Trung", "en": "Central" },
     "country": "Vietnam",
     "coordinates": { "lat": 16.0544, "lng": 108.2022 },
+    "airportCode": "DAD",
+    "hotelSearchQuery": "Đà Nẵng",
     "type": ["beach", "city", "cultural"],
     "style": ["relax", "city", "family"],
     "budget": "mid",
@@ -230,6 +417,41 @@
       "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Da+Nang&utm_source=polaris",
       "klook": "https://klook.com/search/?query=Da+Nang&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "da-nang-acc-1",
+        "name": "Homestay Riverside Đà Nẵng",
+        "type": "homestay",
+        "stars": 2,
+        "pricePerNight": 420000,
+        "location": "Ven sông Hàn, Đà Nẵng",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "View sông Hàn, 5 phút đến Cầu Rồng, tiện nghi đủ đầy", "en": "Han River view, 5 min to Dragon Bridge, fully equipped" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Da+Nang+Riverside+Homestay&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "da-nang-acc-2",
+        "name": "Furama Resort Đà Nẵng",
+        "type": "resort",
+        "stars": 5,
+        "pricePerNight": 2200000,
+        "location": "Mỹ Khê, Đà Nẵng",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Bãi biển Mỹ Khê riêng, bể bơi dài nhất Việt Nam", "en": "Private My Khe beach, longest pool in Vietnam" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Furama+Resort+Da+Nang&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "da-nang-acc-3",
+        "name": "InterContinental Danang Sun Peninsula",
+        "type": "resort",
+        "stars": 5,
+        "pricePerNight": 7500000,
+        "location": "Bán đảo Sơn Trà, Đà Nẵng",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Đỉnh bán đảo Sơn Trà, xa hoa tuyệt đỉnh, view biển 360°", "en": "Son Tra peninsula summit, ultimate luxury, 360° sea views" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=InterContinental+Danang&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["danang-golden-bridge", "danang-dragon-bridge", "danang-marble-mountains"],
     "tags": ["beach", "city", "bridge", "family", "child_friendly", "near_center", "elderly_accessible"]
   },
@@ -239,6 +461,8 @@
     "region": { "vi": "Miền Trung", "en": "Central" },
     "country": "Vietnam",
     "coordinates": { "lat": 12.2388, "lng": 109.1967 },
+    "airportCode": "CXR",
+    "hotelSearchQuery": "Nha Trang",
     "type": ["beach", "city"],
     "style": ["relax", "adventure", "family"],
     "budget": "mid",
@@ -268,6 +492,41 @@
       "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Nha+Trang&utm_source=polaris",
       "klook": "https://klook.com/search/?query=Nha+Trang&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "nha-trang-acc-1",
+        "name": "Guesthouse Biển Đông Nha Trang",
+        "type": "guesthouse",
+        "stars": 2,
+        "pricePerNight": 350000,
+        "location": "Trần Phú, Nha Trang",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "100m đến bãi biển, view biển từ phòng, giá tốt nhất khu vực", "en": "100m to beach, sea view rooms, best value in area" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Nha+Trang+Beach+Guesthouse&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "nha-trang-acc-2",
+        "name": "Mường Thanh Luxury Nha Trang",
+        "type": "hotel",
+        "stars": 5,
+        "pricePerNight": 1500000,
+        "location": "Trần Phú, Nha Trang",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Hồ bơi tầng cao, spa, trung tâm thành phố, view vịnh tuyệt đẹp", "en": "Rooftop pool, spa, city center, stunning bay views" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Muong+Thanh+Luxury+Nha+Trang&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "nha-trang-acc-3",
+        "name": "Six Senses Ninh Vân Bay",
+        "type": "resort",
+        "stars": 5,
+        "pricePerNight": 12000000,
+        "location": "Ninh Vân Bay, Nha Trang",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Eco-resort trên hòn đảo riêng, chỉ đến bằng thuyền, tuyệt mỹ", "en": "Eco-resort on private island, boat access only, paradise" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Six+Senses+Ninh+Van+Bay&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["nhatrang-island-hop", "nhatrang-vinpearl", "nhatrang-snorkel"],
     "tags": ["beach", "island", "theme-park", "snorkeling", "child_friendly", "family", "near_center"]
   },
@@ -277,6 +536,8 @@
     "region": { "vi": "Miền Nam", "en": "South" },
     "country": "Vietnam",
     "coordinates": { "lat": 10.8231, "lng": 106.6297 },
+    "airportCode": "SGN",
+    "hotelSearchQuery": "TP Hồ Chí Minh",
     "type": ["city", "cultural", "food"],
     "style": ["city", "food", "culture"],
     "budget": "budget",
@@ -307,6 +568,41 @@
       "traveloka": "https://traveloka.com/en-id/hotel/search?spec=Ho+Chi+Minh+City&utm_source=polaris",
       "klook": "https://klook.com/search/?query=Ho+Chi+Minh+City&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "ho-chi-minh-acc-1",
+        "name": "Guesthouse Quận 1 Sài Gòn",
+        "type": "guesthouse",
+        "stars": 2,
+        "pricePerNight": 400000,
+        "location": "Quận 1, TP. HCM",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "Ngay trung tâm Q1, 5 phút đến phố đi bộ, tiện di chuyển", "en": "Central District 1, 5 min to walking street, great transport access" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Ho+Chi+Minh+Guesthouse+District+1&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "ho-chi-minh-acc-2",
+        "name": "Caravelle Saigon",
+        "type": "hotel",
+        "stars": 5,
+        "pricePerNight": 2800000,
+        "location": "Quận 1, TP. HCM",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Biểu tượng Sài Gòn 60 năm, rooftop bar Saigon Saigon nổi tiếng", "en": "60-year Saigon icon, famous Saigon Saigon rooftop bar" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Caravelle+Saigon&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "ho-chi-minh-acc-3",
+        "name": "Park Hyatt Saigon",
+        "type": "hotel",
+        "stars": 5,
+        "pricePerNight": 7500000,
+        "location": "Quận 1, TP. HCM",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Phòng view hồ bơi sân thượng, phục vụ đẳng cấp thế giới", "en": "Rooftop pool view rooms, world-class service" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Park+Hyatt+Saigon&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["hcmc-cu-chi", "hcmc-street-food", "hcmc-vespa-tour"],
     "tags": ["city", "history", "food", "nightlife", "child_friendly", "near_center", "elderly_accessible"]
   },
@@ -316,6 +612,8 @@
     "region": { "vi": "Miền Bắc", "en": "North" },
     "country": "Vietnam",
     "coordinates": { "lat": 20.2506, "lng": 105.9745 },
+    "airportCode": null,
+    "hotelSearchQuery": "Ninh Bình",
     "type": ["nature", "cultural"],
     "style": ["nature", "culture", "relax"],
     "budget": "budget",
@@ -344,6 +642,41 @@
       "agoda": "https://agoda.com/search?q=ninh+binh&utm_source=polaris&utm_medium=referral",
       "klook": "https://klook.com/search/?query=Ninh+Binh&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "ninh-binh-acc-1",
+        "name": "Homestay Đồng Quê Ninh Bình",
+        "type": "homestay",
+        "stars": 2,
+        "pricePerNight": 350000,
+        "location": "Gần Tràng An, Ninh Bình",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "Phong cảnh đồng quê bình yên, 10 phút đến Tràng An", "en": "Peaceful countryside, 10 min to Trang An" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Ninh+Binh+Countryside+Homestay&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "ninh-binh-acc-2",
+        "name": "Ninh Binh Hidden Charm Hotel",
+        "type": "hotel",
+        "stars": 4,
+        "pricePerNight": 1100000,
+        "location": "Tràng An, Ninh Bình",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "View đồng lúa, bể bơi, xe đạp miễn phí đến Tràng An", "en": "Rice field views, pool, free bikes to Trang An" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Ninh+Binh+Hidden+Charm&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "ninh-binh-acc-3",
+        "name": "Emeralda Resort Ninh Bình",
+        "type": "resort",
+        "stars": 5,
+        "pricePerNight": 2500000,
+        "location": "Tràng An, Ninh Bình",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Khu nghỉ sinh thái sang trọng, bungalow trên hồ, spa tự nhiên", "en": "Luxury eco-resort, overwater bungalows, natural spa" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Emeralda+Resort+Ninh+Binh&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["ninhbinh-trang-an-boat", "ninhbinh-cycling", "ninhbinh-hoa-lu"],
     "tags": ["nature", "caves", "boat", "history", "unesco", "child_friendly", "near_center", "elderly_accessible"]
   },
@@ -353,6 +686,8 @@
     "region": { "vi": "Miền Bắc", "en": "North" },
     "country": "Vietnam",
     "coordinates": { "lat": 20.9101, "lng": 107.1839 },
+    "airportCode": null,
+    "hotelSearchQuery": "Hạ Long Quảng Ninh",
     "type": ["nature", "adventure", "beach"],
     "style": ["nature", "adventure", "relax"],
     "budget": "mid",
@@ -381,6 +716,41 @@
       "agoda": "https://agoda.com/search?q=ha+long&utm_source=polaris&utm_medium=referral",
       "klook": "https://klook.com/search/?query=Ha+Long+Bay&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "ha-long-acc-1",
+        "name": "Indochina Sails Cruise 3★",
+        "type": "cruise",
+        "stars": 3,
+        "pricePerNight": 3500000,
+        "location": "Vịnh Hạ Long",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "Cruise 1 đêm 2 ngày, bao gồm ăn uống + tham quan hang động", "en": "1-night 2-day cruise, meals + cave tour included" },
+        "bookingLink": "https://klook.com/search/?query=Ha+Long+Bay+Cruise+3+star&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "ha-long-acc-2",
+        "name": "Starlight Cruise 4★",
+        "type": "cruise",
+        "stars": 4,
+        "pricePerNight": 5500000,
+        "location": "Vịnh Hạ Long",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Kayak, chèo sup, hang động included, phòng rộng hơn", "en": "Kayaking, SUP, cave tours included, spacious cabins" },
+        "bookingLink": "https://klook.com/search/?query=Ha+Long+Bay+Cruise+4+star&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "ha-long-acc-3",
+        "name": "Seaborn Legend Luxury Cruise 5★",
+        "type": "cruise",
+        "stars": 5,
+        "pricePerNight": 12000000,
+        "location": "Vịnh Hạ Long",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Luxury cruise, butler riêng, bể bơi trên boong, fine dining", "en": "Luxury cruise, personal butler, deck pool, fine dining" },
+        "bookingLink": "https://klook.com/search/?query=Ha+Long+Bay+Luxury+Cruise&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["halong-cruise", "halong-kayak", "halong-cave-tour"],
     "tags": ["bay", "cruise", "caves", "kayaking", "unesco", "nature", "child_friendly", "elderly_accessible"]
   },
@@ -390,6 +760,8 @@
     "region": { "vi": "Miền Trung", "en": "Central" },
     "country": "Vietnam",
     "coordinates": { "lat": 16.4637, "lng": 107.5909 },
+    "airportCode": "HUI",
+    "hotelSearchQuery": "Huế",
     "type": ["cultural", "food", "city"],
     "style": ["culture", "food", "history"],
     "budget": "budget",
@@ -418,6 +790,41 @@
       "agoda": "https://agoda.com/search?q=hue&utm_source=polaris&utm_medium=referral",
       "klook": "https://klook.com/search/?query=Hue+Vietnam&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "hue-acc-1",
+        "name": "Homestay Thành Nội Huế",
+        "type": "homestay",
+        "stars": 2,
+        "pricePerNight": 380000,
+        "location": "Gần Đại Nội Huế",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "200m đến Đại Nội, nhà cổ Huế xác thực, ăn sáng cung đình", "en": "200m to Imperial Citadel, authentic Hue heritage house" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Hue+Imperial+City+Homestay&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "hue-acc-2",
+        "name": "Pilgrimage Village Boutique Resort",
+        "type": "resort",
+        "stars": 4,
+        "pricePerNight": 1500000,
+        "location": "Huế",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Bungalow giữa vườn cây xanh mát, bể bơi, spa truyền thống Huế", "en": "Garden bungalows, pool, traditional Hue spa" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Pilgrimage+Village+Hue&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "hue-acc-3",
+        "name": "Azerai La Résidence Hue",
+        "type": "hotel",
+        "stars": 5,
+        "pricePerNight": 4500000,
+        "location": "Bờ sông Hương, Huế",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Villa cổ điển Đông Dương, view sông Hương, spa 5 sao", "en": "Classic Indochina villa, Perfume River views, 5-star spa" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Azerai+La+Residence+Hue&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["hue-citadel-tour", "hue-royal-cuisine", "hue-dragon-boat"],
     "tags": ["history", "royal", "food", "temple", "unesco", "elderly_accessible", "near_center"]
   },
@@ -427,6 +834,8 @@
     "region": { "vi": "Miền Nam", "en": "South" },
     "country": "Vietnam",
     "coordinates": { "lat": 10.9328, "lng": 108.2861 },
+    "airportCode": null,
+    "hotelSearchQuery": "Mũi Né Phan Thiết",
     "type": ["beach", "adventure", "nature"],
     "style": ["adventure", "relax", "sport"],
     "budget": "budget",
@@ -455,6 +864,41 @@
       "agoda": "https://agoda.com/search?q=mui+ne&utm_source=polaris&utm_medium=referral",
       "klook": "https://klook.com/search/?query=Mui+Ne&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "mui-ne-acc-1",
+        "name": "Red Sand Guesthouse Mũi Né",
+        "type": "guesthouse",
+        "stars": 2,
+        "pricePerNight": 350000,
+        "location": "Mũi Né, Phan Thiết",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "Gần đồi cát đỏ, không khí biển trong lành, bãi biển riêng nhỏ", "en": "Near red sand dunes, fresh sea air, small private beach" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Mui+Ne+Guesthouse+Beach&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "mui-ne-acc-2",
+        "name": "Coco Beach Resort Mũi Né",
+        "type": "resort",
+        "stars": 3,
+        "pricePerNight": 1200000,
+        "location": "Mũi Né, Phan Thiết",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Bungalow nhiệt đới, bãi biển riêng, bể bơi, bar biển", "en": "Tropical bungalows, private beach, pool, beach bar" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Coco+Beach+Resort+Mui+Ne&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "mui-ne-acc-3",
+        "name": "TTC Resort Phan Thiết",
+        "type": "resort",
+        "stars": 4,
+        "pricePerNight": 2500000,
+        "location": "Phan Thiết, Bình Thuận",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Khu nghỉ dưỡng lớn 50ha, golf, 5 bể bơi, spa cao cấp", "en": "50-hectare resort, golf, 5 pools, premium spa" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=TTC+Resort+Phan+Thiet&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["muine-kitesurf", "muine-sanddunes-jeep", "muine-fishing-village"],
     "tags": ["beach", "sand-dunes", "kitesurfing", "adventure", "not_for_kids", "not_accessible"]
   },
@@ -464,6 +908,8 @@
     "region": { "vi": "Miền Nam", "en": "South" },
     "country": "Vietnam",
     "coordinates": { "lat": 8.6877, "lng": 106.6032 },
+    "airportCode": "VCS",
+    "hotelSearchQuery": "Côn Đảo",
     "type": ["beach", "nature", "cultural"],
     "style": ["relax", "nature", "adventure"],
     "budget": "luxury",
@@ -492,6 +938,41 @@
       "agoda": "https://agoda.com/search?q=con+dao&utm_source=polaris&utm_medium=referral",
       "klook": "https://klook.com/search/?query=Con+Dao&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "con-dao-acc-1",
+        "name": "Nhà Nghỉ Bình Minh Côn Đảo",
+        "type": "guesthouse",
+        "stars": 2,
+        "pricePerNight": 800000,
+        "location": "Thị trấn Côn Đảo",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "Giá tốt nhất Côn Đảo, trung tâm thị trấn, tiện di chuyển", "en": "Best value on Con Dao, central location, easy transport" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Con+Dao+Guesthouse&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "con-dao-acc-2",
+        "name": "Poulo Condor Boutique Resort",
+        "type": "resort",
+        "stars": 4,
+        "pricePerNight": 3500000,
+        "location": "Côn Đảo",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "View biển tuyệt đẹp, bể bơi vô cực, nhà hàng hải sản cao cấp", "en": "Stunning sea views, infinity pool, premium seafood restaurant" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Poulo+Condor+Boutique+Resort&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "con-dao-acc-3",
+        "name": "Six Senses Con Dao",
+        "type": "resort",
+        "stars": 5,
+        "pricePerNight": 12000000,
+        "location": "Côn Đảo",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Khu nghỉ dưỡng đẹp nhất Đông Nam Á, bãi biển hoang sơ, butler riêng", "en": "SE Asia's most beautiful resort, pristine beach, personal butler" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Six+Senses+Con+Dao&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["condao-turtle-watching", "condao-diving", "condao-prison-tour"],
     "tags": ["island", "luxury", "diving", "eco", "history", "not_accessible"]
   },
@@ -501,6 +982,8 @@
     "region": { "vi": "Miền Nam", "en": "South" },
     "country": "Vietnam",
     "coordinates": { "lat": 10.0452, "lng": 105.7469 },
+    "airportCode": "VCA",
+    "hotelSearchQuery": "Cần Thơ",
     "type": ["cultural", "nature", "food"],
     "style": ["culture", "food", "nature"],
     "budget": "budget",
@@ -529,6 +1012,41 @@
       "agoda": "https://agoda.com/search?q=can+tho&utm_source=polaris&utm_medium=referral",
       "klook": "https://klook.com/search/?query=Can+Tho&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "can-tho-acc-1",
+        "name": "Nhà Vườn Miền Tây Cần Thơ",
+        "type": "homestay",
+        "stars": 2,
+        "pricePerNight": 350000,
+        "location": "Gần chợ nổi Cái Răng",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "Nhà vườn xanh mát, ăn sáng miền Tây, đi thuyền chợ nổi 5 phút", "en": "Lush garden house, Mekong breakfast, 5 min boat to floating market" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Can+Tho+Garden+Homestay&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "can-tho-acc-2",
+        "name": "Victoria Can Tho Resort",
+        "type": "resort",
+        "stars": 4,
+        "pricePerNight": 1500000,
+        "location": "Bờ sông Cần Thơ",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Bờ sông Cần Thơ, bể bơi, spa, thuyền đến chợ nổi buổi sáng", "en": "Riverside resort, pool, spa, morning boat to floating market" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Victoria+Can+Tho+Resort&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "can-tho-acc-3",
+        "name": "Nam Bo Boutique Hotel Cần Thơ",
+        "type": "hotel",
+        "stars": 4,
+        "pricePerNight": 2200000,
+        "location": "Ninh Kiều, Cần Thơ",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Boutique sang chảnh view sông, ẩm thực miền Tây cao cấp", "en": "Chic boutique with river views, elevated Mekong cuisine" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Nam+Bo+Boutique+Can+Tho&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["cantho-floating-market", "cantho-fruit-garden", "cantho-mekong-boat"],
     "tags": ["river", "floating-market", "food", "delta", "child_friendly", "near_center", "elderly_accessible"]
   },
@@ -538,6 +1056,8 @@
     "region": { "vi": "Miền Trung", "en": "Central" },
     "country": "Vietnam",
     "coordinates": { "lat": 13.7765, "lng": 109.2237 },
+    "airportCode": "UIH",
+    "hotelSearchQuery": "Quy Nhơn Bình Định",
     "type": ["beach", "cultural", "city"],
     "style": ["relax", "culture", "food"],
     "budget": "budget",
@@ -566,6 +1086,41 @@
       "agoda": "https://agoda.com/search?q=quy+nhon&utm_source=polaris&utm_medium=referral",
       "klook": "https://klook.com/search/?query=Quy+Nhon&utm_source=polaris&utm_medium=referral"
     },
+    "accommodations": [
+      {
+        "id": "quy-nhon-acc-1",
+        "name": "Homestay Biển Bình Yên Quy Nhơn",
+        "type": "homestay",
+        "stars": 2,
+        "pricePerNight": 380000,
+        "location": "Bãi biển Quy Nhơn",
+        "recommendedFor": "budget",
+        "highlight": { "vi": "Biển vắng vẻ, bình yên, không khí trong lành, giá tốt", "en": "Quiet beach, peaceful atmosphere, great value" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Quy+Nhon+Beach+Homestay&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "quy-nhon-acc-2",
+        "name": "ANAN Boutique Hotel Quy Nhơn",
+        "type": "hotel",
+        "stars": 3,
+        "pricePerNight": 950000,
+        "location": "Trung tâm Quy Nhơn",
+        "recommendedFor": "mid",
+        "highlight": { "vi": "Boutique hiện đại, gần Kỳ Co, xe đưa đón bãi biển", "en": "Modern boutique, near Ky Co, beach shuttle service" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=ANAN+Boutique+Quy+Nhon&utm_source=polaris&utm_medium=referral"
+      },
+      {
+        "id": "quy-nhon-acc-3",
+        "name": "Avani Quy Nhon Resort",
+        "type": "resort",
+        "stars": 4,
+        "pricePerNight": 1800000,
+        "location": "Bãi biển Quy Nhơn",
+        "recommendedFor": "luxury",
+        "highlight": { "vi": "Bãi biển riêng, bể bơi vô cực, nhà hàng hải sản đẳng cấp", "en": "Private beach, infinity pool, upscale seafood restaurant" },
+        "bookingLink": "https://booking.com/searchresults.html?ss=Avani+Quy+Nhon+Resort&utm_source=polaris&utm_medium=referral"
+      }
+    ],
     "activities": ["quynhon-ky-co", "quynhon-cham-towers", "quynhon-seafood"],
     "tags": ["hidden-gem", "beach", "history", "seafood", "cham", "near_center", "elderly_accessible"]
   }

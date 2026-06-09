@@ -988,8 +988,11 @@
                         </div>
                     </section>
 
-                    <!-- Duration slider -->
-                    <section style="margin-bottom: var(--space-8)">
+                    <!-- Duration slider (hidden – dates section handles this) -->
+                    <section
+                        style="margin-bottom: var(--space-8); display: none"
+                        id="duration-slider-section"
+                    >
                         <h2
                             style="
                                 font-size: var(--text-lg);
@@ -1055,6 +1058,55 @@
                                 ><span>11</span><span>14</span>
                             </div>
                         </div>
+                    </section>
+
+                    <!-- Departure & return dates -->
+                    <section style="margin-bottom: var(--space-8)">
+                        <h2
+                            style="
+                                font-size: var(--text-lg);
+                                font-weight: 700;
+                                margin-bottom: var(--space-4);
+                            "
+                            data-i18n="planner.dates.title"
+                        >
+                            Ngày đi – Ngày về
+                        </h2>
+                        <div class="dates-row">
+                            <div class="date-field">
+                                <label
+                                    for="departure-date"
+                                    data-i18n="planner.dates.from"
+                                    >Ngày khởi hành</label
+                                >
+                                <input
+                                    type="date"
+                                    id="departure-date"
+                                    class="form-input"
+                                />
+                            </div>
+                            <div class="date-field">
+                                <label
+                                    for="return-date"
+                                    data-i18n="planner.dates.to"
+                                    >Ngày về</label
+                                >
+                                <input
+                                    type="date"
+                                    id="return-date"
+                                    class="form-input"
+                                />
+                            </div>
+                        </div>
+                        <p
+                            id="auto-duration-hint"
+                            style="
+                                display: none;
+                                font-size: var(--text-xs);
+                                color: var(--color-primary);
+                                margin-top: var(--space-2);
+                            "
+                        ></p>
                     </section>
 
                     <!-- Budget cards -->
@@ -1170,6 +1222,49 @@
                         </div>
                     </section>
 
+                    <!-- Traveler count -->
+                    <section style="margin-bottom: var(--space-8)">
+                        <h2
+                            style="
+                                font-size: var(--text-lg);
+                                font-weight: 700;
+                                margin-bottom: var(--space-4);
+                            "
+                            data-i18n="planner.travelers.title"
+                        >
+                            Số người đi
+                        </h2>
+                        <div class="traveler-counter">
+                            <button
+                                class="traveler-counter__btn"
+                                id="travelers-dec"
+                                aria-label="Giảm"
+                            >
+                                −
+                            </button>
+                            <span
+                                class="traveler-counter__value"
+                                id="travelers-display"
+                                >2</span
+                            >
+                            <button
+                                class="traveler-counter__btn"
+                                id="travelers-inc"
+                                aria-label="Tăng"
+                            >
+                                +
+                            </button>
+                            <span
+                                style="
+                                    font-size: var(--text-sm);
+                                    color: var(--text-muted);
+                                "
+                                data-i18n="planner.travelers.unit"
+                                >người</span
+                            >
+                        </div>
+                    </section>
+
                     <!-- Departure region -->
                     <section style="margin-bottom: var(--space-8)">
                         <h2
@@ -1208,6 +1303,69 @@
                             <option value="can-tho">Cần Thơ</option>
                             <option value="other">Khác</option>
                         </select>
+                    </section>
+
+                    <!-- Transport need -->
+                    <section
+                        class="quiz-section"
+                        id="quiz-transport-need"
+                        style="margin-bottom: var(--space-8)"
+                    >
+                        <h2
+                            style="
+                                font-size: var(--text-lg);
+                                font-weight: 700;
+                                margin-bottom: var(--space-4);
+                            "
+                            data-i18n="planner.transport_need.title"
+                        >
+                            Bạn muốn Polaris hỗ trợ phương tiện không?
+                        </h2>
+                        <div class="quiz-options" style="grid-template-columns: repeat(3, 1fr)">
+                            <label
+                                class="quiz-option"
+                                data-group="transportNeed"
+                                data-value="self"
+                            >
+                                <input
+                                    type="radio"
+                                    name="transportNeed"
+                                    value="self"
+                                />
+                                <span class="quiz-option__check"><i class="bi bi-check" aria-hidden="true"></i></span>
+                                <span class="quiz-option__icon"><i class="bi bi-person-walking" aria-hidden="true"></i></span>
+                                <span class="quiz-option__label" data-i18n="planner.transport_need.self">Tôi tự túc</span>
+                            </label>
+                            <label
+                                class="quiz-option is-selected"
+                                data-group="transportNeed"
+                                data-value="suggest"
+                            >
+                                <input
+                                    type="radio"
+                                    name="transportNeed"
+                                    value="suggest"
+                                    checked
+                                />
+                                <span class="quiz-option__check"><i class="bi bi-check" aria-hidden="true"></i></span>
+                                <span class="quiz-option__icon"><i class="bi bi-lightbulb" aria-hidden="true"></i></span>
+                                <span class="quiz-option__label" data-i18n="planner.transport_need.suggest">Gợi ý phương tiện</span>
+                            </label>
+                            <label
+                                class="quiz-option"
+                                data-group="transportNeed"
+                                data-value="book"
+                            >
+                                <input
+                                    type="radio"
+                                    name="transportNeed"
+                                    value="book"
+                                />
+                                <span class="quiz-option__check"><i class="bi bi-check" aria-hidden="true"></i></span>
+                                <span class="quiz-option__icon"><i class="bi bi-ticket-perforated" aria-hidden="true"></i></span>
+                                <span class="quiz-option__label" data-i18n="planner.transport_need.book">Tìm vé &amp; thêm lịch</span>
+                            </label>
+                        </div>
                     </section>
 
                     <!-- Step nav -->
@@ -1378,8 +1536,14 @@
                                 <div class="day-builder" id="day-builder"></div>
                             </div>
 
-                            <!-- Sidebar: cost + route map -->
+                            <!-- Sidebar: trip dashboard + cost + route map -->
                             <div class="step3-sidebar">
+                                <!-- Trip Dashboard -->
+                                <div
+                                    id="trip-dashboard"
+                                    class="trip-dashboard"
+                                ></div>
+
                                 <!-- Cost summary -->
                                 <div class="cost-summary" id="cost-summary">
                                     <p
@@ -1488,6 +1652,46 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Mobile bottom bar (Step 3, visible on <1024px) -->
+            <div class="step3-bottom-bar" id="step3-bottom-bar">
+                <div class="step3-bottom-bar__left">
+                    <span
+                        style="
+                            font-size: var(--text-xs);
+                            color: var(--text-muted);
+                        "
+                        >Tổng dự kiến</span
+                    >
+                    <strong
+                        id="mobile-cost-total"
+                        style="color: var(--color-primary)"
+                        >0đ</strong
+                    >
+                </div>
+                <div class="step3-bottom-bar__right">
+                    <button
+                        class="btn btn--soft btn--sm"
+                        id="mobile-detail-btn"
+                    >
+                        Chi tiết
+                    </button>
+                    <button
+                        class="btn btn--primary btn--sm"
+                        id="mobile-export-btn"
+                    >
+                        Xuất hành trình
+                    </button>
+                </div>
+            </div>
+            <div class="step3-bottom-sheet" id="step3-bottom-sheet">
+                <div class="step3-bottom-sheet__handle"></div>
+                <div id="bottom-sheet-content"></div>
+            </div>
+            <div
+                class="step3-bottom-sheet-overlay"
+                id="step3-sheet-overlay"
+            ></div>
 
             <!-- ===== STEP 4: EXPORT ===== -->
             <div class="step-panel" id="step-4">

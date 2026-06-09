@@ -26,12 +26,111 @@ let plannerState = {
   group: '',
   familyProfile: { hasChildren: false, childAges: [], hasElderly: false, mobilityLimit: false },
   duration: 5,
+  departureDate: '',
+  returnDate: '',
+  travelers: 2,
   budget: '',
   departure: '',
   selectedDestinations: [],
-  dayActivities: {},   // { dayIndex: [activityId, ...] }
-  activityOverrides: {},  // { 'dayIndex-actId': { startTime: 'HH:MM' } }
-  customActivities: {},  // { actId: { id, name, startTime, duration, estimatedCost, coordinates, isCustom } }
+  dayActivities: {},
+  activityOverrides: {},
+  customActivities: {},
+  selectedAccommodation: {},
+  selectedTransport: {},
+  transportNeed: 'suggest',  // 'self' | 'suggest' | 'book'
+};
+
+// Transport options per departure city → destination
+// type: flight | train | bus | ferry  |  priceFrom: VND  |  duration: phút
+const TRANSPORT_MATRIX = {
+  'ha-noi': {
+    'hoi-an':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Hà Nội → Đà Nẵng + taxi 30p', duration:105, priceFrom:900000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu Hà Nội → Đà Nẵng + xe', duration:1020, priceFrom:320000 }],
+    'da-nang':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Hà Nội → Đà Nẵng', duration:75, priceFrom:900000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu Thống Nhất SE3/SE7', duration:1020, priceFrom:280000 }],
+    'da-lat':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Hà Nội → Đà Lạt', duration:120, priceFrom:1500000 }, { type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Bay + xe buýt (quá cảnh SGN)', duration:270, priceFrom:1800000 }],
+    'phu-quoc':    [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Hà Nội → Phú Quốc', duration:120, priceFrom:1800000 }],
+    'sa-pa':       [{ type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu đêm HN → Lào Cai + xe', duration:510, priceFrom:280000 }, { type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe khách giường nằm', duration:300, priceFrom:180000 }],
+    'nha-trang':   [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Hà Nội → Nha Trang', duration:120, priceFrom:1600000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu Thống Nhất SE1/SE3', duration:1620, priceFrom:480000 }],
+    'ho-chi-minh': [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Hà Nội → TP.HCM', duration:130, priceFrom:1400000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu SE1 (xuyên Việt)', duration:1980, priceFrom:600000 }],
+    'ninh-binh':   [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe khách HN → Ninh Bình', duration:120, priceFrom:100000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu HN → Ninh Bình', duration:150, priceFrom:80000 }],
+    'ha-long':     [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe limousine HN → Hạ Long', duration:180, priceFrom:350000 }, { type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt Hà Nội–Hạ Long', duration:240, priceFrom:150000 }],
+    'hue':         [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Hà Nội → Huế', duration:80, priceFrom:1000000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu SE7/SE3 → Huế', duration:780, priceFrom:250000 }],
+    'mui-ne':      [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Bay HN→SGN + xe buýt đêm', duration:390, priceFrom:1800000 }],
+    'con-dao':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay HN→SGN + Bay SGN→Côn Đảo', duration:225, priceFrom:2800000 }],
+    'can-tho':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay HN→SGN + xe Cần Thơ', duration:300, priceFrom:2000000 }],
+    'quy-nhon':    [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Hà Nội → Quy Nhơn', duration:100, priceFrom:1200000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu HN → Diêu Trì + xe', duration:1020, priceFrom:300000 }],
+    'ha-noi':      [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Di chuyển nội thành', duration:30, priceFrom:30000 }],
+  },
+  'ho-chi-minh': {
+    'hoi-an':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay SGN → Đà Nẵng + taxi 30p', duration:135, priceFrom:900000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu đêm SGN → Đà Nẵng', duration:990, priceFrom:300000 }],
+    'da-lat':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay TP.HCM → Đà Lạt', duration:45, priceFrom:800000 }, { type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt đêm SGN → Đà Lạt', duration:420, priceFrom:150000 }],
+    'phu-quoc':    [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay TP.HCM → Phú Quốc', duration:60, priceFrom:800000 }, { type:'ferry', icon:'<i class="fa-solid fa-ferry" aria-hidden="true"></i>', label:'Xe + Phà Rạch Giá–Phú Quốc', duration:420, priceFrom:280000 }],
+    'sa-pa':       [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay SGN→HAN + tàu đêm + xe', duration:780, priceFrom:2200000 }],
+    'da-nang':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay TP.HCM → Đà Nẵng', duration:90, priceFrom:900000 }],
+    'nha-trang':   [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay TP.HCM → Nha Trang', duration:60, priceFrom:700000 }, { type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt đêm SGN → Nha Trang', duration:540, priceFrom:200000 }],
+    'ninh-binh':   [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay SGN→HAN + xe Ninh Bình', duration:270, priceFrom:2000000 }],
+    'ha-long':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay SGN→HAN + xe limousine HN→HL', duration:330, priceFrom:2200000 }],
+    'hue':         [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay TP.HCM → Huế', duration:90, priceFrom:900000 }],
+    'mui-ne':      [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt đêm SGN → Phan Thiết', duration:270, priceFrom:100000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu SGN → Phan Thiết', duration:240, priceFrom:100000 }],
+    'con-dao':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay TP.HCM → Côn Đảo', duration:45, priceFrom:1500000 }, { type:'ferry', icon:'<i class="fa-solid fa-ferry" aria-hidden="true"></i>', label:'Phà cao tốc Vũng Tàu–Côn Đảo', duration:360, priceFrom:350000 }],
+    'can-tho':     [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe khách SGN → Cần Thơ', duration:150, priceFrom:100000 }],
+    'quy-nhon':    [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay TP.HCM → Quy Nhơn', duration:80, priceFrom:800000 }, { type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt đêm SGN → Quy Nhơn', duration:600, priceFrom:200000 }],
+    'ha-noi':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay TP.HCM → Hà Nội', duration:130, priceFrom:1400000 }],
+    'ho-chi-minh': [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Di chuyển nội thành', duration:30, priceFrom:30000 }],
+  },
+  'da-nang': {
+    'hoi-an':      [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe/taxi Đà Nẵng → Hội An', duration:45, priceFrom:150000 }],
+    'da-lat':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Đà Nẵng → Đà Lạt', duration:60, priceFrom:800000 }],
+    'phu-quoc':    [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay DAD→SGN + Bay SGN→PQC', duration:210, priceFrom:1500000 }],
+    'nha-trang':   [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Đà Nẵng → Nha Trang', duration:60, priceFrom:800000 }, { type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt Đà Nẵng → Nha Trang', duration:600, priceFrom:200000 }],
+    'ho-chi-minh': [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Đà Nẵng → TP.HCM', duration:90, priceFrom:900000 }],
+    'ha-noi':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Đà Nẵng → Hà Nội', duration:75, priceFrom:900000 }],
+    'hue':         [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe Đà Nẵng → Huế (đèo Hải Vân)', duration:150, priceFrom:150000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu Đà Nẵng → Huế', duration:150, priceFrom:120000 }],
+    'quy-nhon':    [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt Đà Nẵng → Quy Nhơn', duration:210, priceFrom:120000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu Đà Nẵng → Diêu Trì', duration:240, priceFrom:150000 }],
+    'ninh-binh':   [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt hoặc tàu Đà Nẵng → Ninh Bình', duration:360, priceFrom:200000 }],
+    'ha-long':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay DAD→HAN + xe limousine', duration:285, priceFrom:1500000 }],
+    'da-nang':     [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Di chuyển nội thành', duration:30, priceFrom:30000 }],
+    'mui-ne':      [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt Đà Nẵng → Phan Thiết (quá cảnh)', duration:840, priceFrom:300000 }],
+    'con-dao':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay DAD→SGN + Bay SGN→Côn Đảo', duration:270, priceFrom:2000000 }],
+    'can-tho':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay DAD→SGN + xe Cần Thơ', duration:270, priceFrom:1800000 }],
+    'sa-pa':       [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay DAD→HAN + tàu đêm + xe', duration:600, priceFrom:1800000 }],
+  },
+  'hai-phong': {
+    'ha-long':     [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe Hải Phòng → Hạ Long', duration:90, priceFrom:120000 }],
+    'ha-noi':      [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe khách Hải Phòng → Hà Nội', duration:120, priceFrom:100000 }],
+    'ninh-binh':   [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe Hải Phòng → Ninh Bình', duration:180, priceFrom:120000 }],
+    'sa-pa':       [{ type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu HP→HN + tàu đêm + xe', duration:630, priceFrom:380000 }],
+    'hoi-an':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay HAN (qua HN) → Đà Nẵng + taxi', duration:210, priceFrom:1200000 }],
+    'da-nang':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe HP→HN + Bay HAN→DAD', duration:225, priceFrom:1100000 }],
+    'da-lat':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe HP→HN + Bay HAN→DLI', duration:255, priceFrom:1700000 }],
+    'phu-quoc':    [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe HP→HN + Bay HAN→PQC', duration:255, priceFrom:2000000 }],
+    'nha-trang':   [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe HP→HN + Bay HAN→CXR', duration:255, priceFrom:1800000 }],
+    'ho-chi-minh': [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe HP→HN + Bay HAN→SGN', duration:270, priceFrom:1600000 }],
+    'hue':         [{ type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu HP→HN + Tàu HN→Huế', duration:900, priceFrom:400000 }],
+    'quy-nhon':    [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe HP→HN + Bay HAN→UIH', duration:255, priceFrom:1400000 }],
+    'mui-ne':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe HP→HN + Bay HAN→SGN + xe', duration:480, priceFrom:2000000 }],
+    'con-dao':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe HP→HN + Bay HAN→SGN + Bay SGN→VCS', duration:390, priceFrom:3000000 }],
+    'can-tho':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe HP→HN + Bay HAN→SGN + xe Cần Thơ', duration:420, priceFrom:2200000 }],
+  },
+  'can-tho': {
+    'ho-chi-minh': [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe khách Cần Thơ → TP.HCM', duration:150, priceFrom:100000 }],
+    'phu-quoc':    [{ type:'ferry', icon:'<i class="fa-solid fa-ferry" aria-hidden="true"></i>', label:'Xe + Phà Hà Tiên–Phú Quốc', duration:360, priceFrom:250000 }, { type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Cần Thơ → Phú Quốc', duration:60, priceFrom:800000 }],
+    'da-lat':      [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt đêm Cần Thơ → Đà Lạt', duration:480, priceFrom:200000 }],
+    'nha-trang':   [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe Cần Thơ → SGN + xe đêm SGN→NT', duration:690, priceFrom:300000 }],
+    'hoi-an':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe CT→SGN + Bay SGN→DAD + taxi', duration:300, priceFrom:1200000 }],
+    'da-nang':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe Cần Thơ→SGN + Bay SGN→DAD', duration:270, priceFrom:1100000 }],
+    'ha-noi':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe CT→SGN + Bay SGN→HAN', duration:300, priceFrom:1600000 }],
+    'hue':         [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe CT→SGN + Bay SGN→HUI', duration:270, priceFrom:1100000 }],
+    'quy-nhon':    [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe CT→SGN + Bay SGN→UIH', duration:270, priceFrom:1000000 }],
+    'mui-ne':      [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe Cần Thơ → Phan Thiết', duration:360, priceFrom:150000 }],
+    'con-dao':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe CT→SGN + Bay SGN→VCS', duration:270, priceFrom:1800000 }],
+    'can-tho':     [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Di chuyển nội thành', duration:30, priceFrom:30000 }],
+    'ninh-binh':   [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe CT→SGN + Bay + xe HN→NB', duration:420, priceFrom:2200000 }],
+    'ha-long':     [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe CT→SGN + Bay SGN→HAN + xe HN→HL', duration:480, priceFrom:2400000 }],
+    'sa-pa':       [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Xe CT→SGN + Bay SGN→HAN + tàu đêm', duration:840, priceFrom:2600000 }],
+  },
+  'other': {
+    'default':     [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe khách liên tỉnh', duration:240, priceFrom:200000 }],
+  },
 };
 
 let allDestinations = [];
@@ -159,6 +258,89 @@ function bindStep1() {
     plannerState.familyProfile.mobilityLimit = e.target.checked;
     saveDraft();
   });
+
+  // Departure & return dates — auto-compute duration
+  const depDateEl = document.getElementById('departure-date');
+  const retDateEl = document.getElementById('return-date');
+  const durationHint = document.getElementById('auto-duration-hint');
+  function updateDatesState() {
+    plannerState.departureDate = depDateEl?.value || '';
+    plannerState.returnDate = retDateEl?.value || '';
+    if (plannerState.departureDate && plannerState.returnDate) {
+      const diff = Math.round((new Date(plannerState.returnDate) - new Date(plannerState.departureDate)) / 86400000);
+      if (diff > 0 && diff <= 14) {
+        plannerState.duration = diff + 1;  // diff = nights, duration = days
+        const slider = document.getElementById('duration-slider');
+        const display = document.getElementById('duration-display');
+        if (slider) slider.value = diff + 1;
+        if (display) display.innerHTML = `${diff + 1} <span style="font-size:var(--text-base);font-weight:400">ngày</span>`;
+        if (durationHint) { durationHint.textContent = `${diff + 1} ngày · ${diff} đêm`; durationHint.style.display = 'block'; }
+      }
+    }
+    saveDraft();
+  }
+  depDateEl?.addEventListener('change', updateDatesState);
+  retDateEl?.addEventListener('change', updateDatesState);
+
+  // Traveler counter
+  const travDisplay = document.getElementById('travelers-display');
+  document.getElementById('travelers-dec')?.addEventListener('click', () => {
+    const minTrav = plannerState.group === 'group' ? 3 : 1;
+    if (plannerState.travelers > minTrav) {
+      plannerState.travelers--;
+      if (travDisplay) travDisplay.textContent = plannerState.travelers;
+      syncGroupFromTravelers();
+      saveDraft();
+    }
+  });
+  document.getElementById('travelers-inc')?.addEventListener('click', () => {
+    if (plannerState.travelers < 20) {
+      plannerState.travelers++;
+      if (travDisplay) travDisplay.textContent = plannerState.travelers;
+      syncGroupFromTravelers();
+      saveDraft();
+    }
+  });
+
+  // Transport need
+  document.querySelectorAll('input[name="transportNeed"]').forEach(inp => {
+    inp.addEventListener('change', () => {
+      plannerState.transportNeed = inp.value;
+      document.querySelectorAll('[data-group="transportNeed"]').forEach(opt => {
+        opt.classList.toggle('is-selected', opt.dataset.value === inp.value);
+      });
+      saveDraft();
+    });
+  });
+}
+
+function setTravelerCounterEnabled(enabled) {
+  const dec = document.getElementById('travelers-dec');
+  const inc = document.getElementById('travelers-inc');
+  if (dec) dec.disabled = !enabled;
+  if (inc) inc.disabled = !enabled;
+}
+
+function updateTravelerDisplay() {
+  const el = document.getElementById('travelers-display');
+  if (el) el.textContent = plannerState.travelers;
+}
+
+function autoSelectGroup(groupValue) {
+  document.querySelectorAll('input[name="group"]').forEach(inp => {
+    inp.checked = (inp.value === groupValue);
+    inp.closest('.quiz-option')?.classList.toggle('is-selected', inp.value === groupValue);
+  });
+  plannerState.group = groupValue;
+  document.getElementById('family-extra')?.classList.toggle('is-visible', groupValue === 'family');
+}
+
+function syncGroupFromTravelers() {
+  if (plannerState.group === 'family') return;
+  const t = plannerState.travelers;
+  if (t === 1) autoSelectGroup('solo');
+  else if (t === 2) autoSelectGroup('couple');
+  else autoSelectGroup('group');
 }
 
 function onQuizChange() {
@@ -169,6 +351,14 @@ function onQuizChange() {
   const extra = document.getElementById('family-extra');
   if (plannerState.group === 'family') extra?.classList.add('is-visible');
   else extra?.classList.remove('is-visible');
+
+  // Sync travelers to companion type
+  const g = plannerState.group;
+  if (g === 'solo')   { plannerState.travelers = 1; setTravelerCounterEnabled(false); }
+  if (g === 'couple') { plannerState.travelers = 2; setTravelerCounterEnabled(false); }
+  if (g === 'group')  { if (plannerState.travelers < 3) plannerState.travelers = 3; setTravelerCounterEnabled(true); }
+  if (g === 'family') { setTravelerCounterEnabled(true); }
+  if (g) updateTravelerDisplay();
 
   const hasChildren = document.querySelector('input[name="has_children"]:checked')?.value === 'yes';
   plannerState.familyProfile.hasChildren = hasChildren;
@@ -216,6 +406,37 @@ function syncStep1ToUI() {
   if (plannerState.budget) {
     const inp = document.querySelector(`input[name="budget"][value="${plannerState.budget}"]`);
     if (inp) { inp.checked = true; inp.closest('.quiz-option')?.classList.add('is-selected'); }
+  }
+
+  // Restore dates
+  const depEl = document.getElementById('departure-date');
+  const retEl = document.getElementById('return-date');
+  if (depEl && plannerState.departureDate) depEl.value = plannerState.departureDate;
+  if (retEl && plannerState.returnDate) retEl.value = plannerState.returnDate;
+  if (plannerState.departureDate && plannerState.returnDate) {
+    const nights = Math.max(1, plannerState.duration - 1);
+    const hint = document.getElementById('auto-duration-hint');
+    if (hint) { hint.textContent = `${plannerState.duration} ngày · ${nights} đêm`; hint.style.display = 'block'; }
+  }
+
+  // Restore travelers
+  const travDisplay = document.getElementById('travelers-display');
+  if (travDisplay && plannerState.travelers) travDisplay.textContent = plannerState.travelers;
+
+  // Restore counter enabled/disabled state
+  const g = plannerState.group;
+  if (g === 'solo' || g === 'couple') setTravelerCounterEnabled(false);
+  else setTravelerCounterEnabled(true);
+
+  // Restore transport need
+  if (plannerState.transportNeed) {
+    const tnInp = document.querySelector(`input[name="transportNeed"][value="${plannerState.transportNeed}"]`);
+    if (tnInp) {
+      tnInp.checked = true;
+      document.querySelectorAll('[data-group="transportNeed"]').forEach(opt => {
+        opt.classList.toggle('is-selected', opt.dataset.value === plannerState.transportNeed);
+      });
+    }
   }
 }
 
@@ -276,55 +497,116 @@ function renderRecommendations() {
   }
   empty?.classList.add('hidden');
 
-  grid.innerHTML = scored.map(dest => {
-    const name = dest.name[lang] || dest.name.vi;
-    const region = dest.region[lang] || dest.region.vi;
-    const isSelected = plannerState.selectedDestinations.includes(dest.id);
+  grid.innerHTML = scored.map(dest => buildRecCardHTML(dest, lang)).join('');
 
-    const familyBadges = [];
-    if (dest.tags?.includes('child_friendly'))    familyBadges.push(`<span class="badge badge--primary" style="font-size:10px">Thân thiện trẻ em</span>`);
-    if (dest.tags?.includes('elderly_accessible')) familyBadges.push(`<span class="badge badge--success" style="font-size:10px">Dễ di chuyển</span>`);
-    if (dest.tags?.includes('near_center'))        familyBadges.push(`<span class="badge" style="font-size:10px">Gần trung tâm</span>`);
+  // Event delegation — click anywhere on card opens detail modal
+  grid.onclick = (e) => {
+    const card = e.target.closest('.rec-card');
+    if (!card) return;
+    toggleRecCard(card);
+  };
 
-    const matchPct = dest.score > 0 ? Math.min(100, Math.round(dest.score * 10)) : 0;
-    return `
-      <div class="rec-card ${isSelected ? 'is-selected' : ''}" data-id="${dest.id}" role="button" tabindex="0" aria-pressed="${isSelected}">
-        <div class="rec-card__check">✓</div>
-        <div style="aspect-ratio:4/3;overflow:hidden;position:relative">
-          <img src="${escapeHtml(dest.image)}" alt="${escapeHtml(name)}"
-               style="width:100%;height:100%;object-fit:cover;transition:transform .3s"
-               loading="lazy">
-          ${matchPct ? `<span style="position:absolute;top:var(--space-2);left:var(--space-2);background:var(--color-primary);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:var(--radius-full)">Phù hợp ${matchPct}%</span>` : ''}
-        </div>
-        <div style="padding:var(--space-3) var(--space-4) var(--space-3);display:flex;flex-direction:column;flex:1">
-          <div style="display:flex;align-items:flex-start;gap:var(--space-2);margin-bottom:var(--space-1)">
-            <h3 style="font-size:var(--text-xl);font-weight:700;color:var(--text-primary);line-height:1.35;flex:1;min-width:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${escapeHtml(name)}</h3>
-            <span style="font-size:var(--text-xs);background:rgba(66,13,75,0.09);color:var(--color-primary);font-weight:700;padding:1px 6px;border-radius:4px;flex-shrink:0;white-space:nowrap">★ ${dest.rating}</span>
-          </div>
-          <p style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:var(--space-2)">📍 ${escapeHtml(region)}</p>
-          ${familyBadges.length ? `<div style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-2)">${familyBadges.join('')}</div>` : ''}
-          <div style="border-top:1px solid var(--border-color);padding-top:var(--space-2);margin-top:auto">
-            <p style="font-size:12px;color:var(--text-muted);margin-bottom:1px">Từ</p>
-            <p style="font-size:var(--text-base);font-weight:700;color:var(--color-accent);margin-top:var(--space-1)">${formatVND(dest.priceFrom)}</p>
-          </div>
-        </div>
-      </div>`;
-  }).join('');
-
-  // Bind click
-  grid.querySelectorAll('.rec-card').forEach(card => {
-    card.addEventListener('click', () => toggleRecCard(card));
-    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggleRecCard(card); });
-  });
+  grid.onkeydown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const card = e.target.closest('.rec-card');
+      if (card) toggleRecCard(card);
+    }
+  };
 
   updateRecCount();
 }
+
+function buildRecCardHTML(dest, lang) {
+  const name = dest.name[lang] || dest.name.vi;
+  const region = dest.region[lang] || dest.region.vi;
+  const isSelected = plannerState.selectedDestinations.includes(dest.id);
+  const matchPct = dest.score > 0 ? Math.min(100, Math.round(dest.score * 10)) : 0;
+
+  const familyBadges = [];
+  if (dest.tags?.includes('child_friendly'))    familyBadges.push(`<span class="badge badge--primary" style="font-size:10px">Thân thiện trẻ em</span>`);
+  if (dest.tags?.includes('elderly_accessible')) familyBadges.push(`<span class="badge badge--success" style="font-size:10px">Dễ di chuyển</span>`);
+  if (dest.tags?.includes('near_center'))        familyBadges.push(`<span class="badge" style="font-size:10px">Gần trung tâm</span>`);
+
+  return `
+    <div class="rec-card ${isSelected ? 'is-selected' : ''}" data-id="${dest.id}" role="button" tabindex="0" aria-pressed="${isSelected}">
+      <div class="rec-card__check">✓</div>
+      <div style="aspect-ratio:4/3;overflow:hidden;position:relative">
+        <img src="${escapeHtml(dest.image)}" alt="${escapeHtml(name)}"
+             style="width:100%;height:100%;object-fit:cover;transition:transform .3s"
+             loading="lazy">
+        ${matchPct ? `<span style="position:absolute;top:var(--space-2);left:var(--space-2);background:var(--color-primary);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:var(--radius-full)">Phù hợp ${matchPct}%</span>` : ''}
+      </div>
+      <div style="padding:var(--space-3) var(--space-4);display:flex;flex-direction:column;flex:1">
+        <div style="display:flex;align-items:flex-start;gap:var(--space-2);margin-bottom:var(--space-1)">
+          <h3 style="font-size:var(--text-xl);font-weight:700;color:var(--text-primary);line-height:1.35;flex:1;min-width:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${escapeHtml(name)}</h3>
+          <span style="font-size:var(--text-xs);background:rgba(66,13,75,0.09);color:var(--color-primary);font-weight:700;padding:1px 6px;border-radius:4px;flex-shrink:0;white-space:nowrap">★ ${dest.rating}</span>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:var(--space-2)"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> ${escapeHtml(region)}</p>
+        ${familyBadges.length ? `<div style="display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-2)">${familyBadges.join('')}</div>` : ''}
+        <div style="border-top:1px solid var(--border-color);padding-top:var(--space-2);margin-top:auto">
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:1px">Từ</p>
+          <p style="font-size:var(--text-base);font-weight:700;color:var(--color-accent);margin-top:var(--space-1)">${formatVND(dest.priceFrom)}</p>
+        </div>
+      </div>
+    </div>`;
+}
+
+function buildRecCardDetailHTML(dest, lang) {
+  const why = generateWhySentence(dest, lang);
+  const acc = getSelectedAccommodation(dest);
+  const transport = getSelectedTransport(dest.id);
+  const nights = Math.max(1, plannerState.duration - 1);
+  const accCost = acc ? acc.pricePerNight * nights : 0;
+  const transCost = transport ? transport.priceFrom : 0;
+  const totalEst = accCost + transCost;
+
+  const accOptions = (dest.accommodations || []).map((a, i) => {
+    const isSel = getSelectedAccommodationIdx(dest) === i;
+    return `<div class="acc-option ${isSel ? 'is-selected' : ''}" data-acc-opt="${i}">
+      <strong>${escapeHtml(a.name)}</strong> · ${'★'.repeat(a.stars)} · ${formatVND(a.pricePerNight)}/đêm<br>
+      <span style="font-size:10px;color:var(--text-muted)">${escapeHtml(a.highlight?.[lang] || a.highlight?.vi || '')}</span>
+    </div>`;
+  }).join('');
+
+  const transOptions = getTransportOptions(dest.id);
+  const selectedTransIdx = plannerState.selectedTransport?.[dest.id] ?? 0;
+  const transOptionsHTML = transOptions.length
+    ? transOptions.map((t, i) => `<div class="trans-option ${selectedTransIdx === i ? 'is-selected' : ''}" data-trans-opt="${i}">${t.icon} ${escapeHtml(t.label)} · ${t.duration}p · ${formatVND(t.priceFrom)}</div>`).join('')
+    : `<div style="font-size:var(--text-xs);color:var(--text-muted);padding:var(--space-2)">Chưa có thông tin phương tiện</div>`;
+
+  return `
+    <p class="rec-card__why">${escapeHtml(why)}</p>
+    ${acc ? `
+    <div class="rec-card__section">
+      <div class="rec-card__section-header">
+        <span style="font-size:var(--text-xs);font-weight:700"><i class="fa-solid fa-hotel" aria-hidden="true"></i> ${escapeHtml(acc.name)} ${'★'.repeat(acc.stars)}</span>
+        <button class="btn btn--soft btn--sm" data-swap-acc="${dest.id}" style="font-size:11px;padding:2px 10px">Đổi phòng khác</button>
+      </div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:4px">${escapeHtml(acc.location)} · ${formatVND(acc.pricePerNight)}/đêm × ${nights} đêm = ${formatVND(accCost)}</p>
+      <div class="acc-swap-panel">${accOptions}</div>
+    </div>` : ''}
+    ${transport && plannerState.transportNeed !== 'self' ? `
+    <div class="rec-card__section">
+      <div class="rec-card__section-header">
+        <span style="font-size:var(--text-xs);font-weight:700">${transport.icon} ${escapeHtml(transport.label)}</span>
+        <button class="btn btn--soft btn--sm" data-swap-trans="${dest.id}" style="font-size:11px;padding:2px 10px">Đổi lựa chọn</button>
+      </div>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:4px">${transport.duration} phút · từ ${formatVND(transport.priceFrom)}</p>
+      <div class="trans-swap-panel">${transOptionsHTML}</div>
+    </div>` : ''}
+    <div style="border-top:1px solid var(--border-color);padding-top:var(--space-3);margin-top:var(--space-2)">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:var(--text-xs);color:var(--text-muted)">Chi phí ước tính (nơi ở + di chuyển)</span>
+        <span style="font-size:var(--text-sm);font-weight:700;color:var(--color-primary)">${formatVND(totalEst)}</span>
+      </div>
+    </div>`;
+}
+
 
 function toggleRecCard(card) {
   const id = card.dataset.id;
   const alreadySelected = plannerState.selectedDestinations.includes(id);
 
-  // Single-select: deselect all, then select tapped card (unless it was already selected)
   plannerState.selectedDestinations = [];
   document.querySelectorAll('.rec-card').forEach(c => {
     c.classList.remove('is-selected');
@@ -335,10 +617,104 @@ function toggleRecCard(card) {
     plannerState.selectedDestinations.push(id);
     card.classList.add('is-selected');
     card.setAttribute('aria-pressed', 'true');
+    const dest = allDestinations.find(d => d.id === id);
+    if (dest) showRecDetailModal(dest, i18n.getLang());
   }
 
   updateRecCount();
   saveDraft();
+}
+
+function showRecDetailModal(dest, lang) {
+  document.getElementById('rec-detail-modal')?.remove();
+
+  const name = dest.name[lang] || dest.name.vi;
+  const region = dest.region[lang] || dest.region.vi;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'rec-detail-modal';
+  overlay.style.cssText = [
+    'position:fixed', 'inset:0', 'background:rgba(0,0,0,0.52)',
+    'z-index:var(--z-modal,900)', 'display:flex', 'align-items:center',
+    'justify-content:center', 'padding:var(--space-4)', 'animation:fadeIn .15s ease',
+  ].join(';');
+
+  overlay.innerHTML = `
+    <div style="background:white;border-radius:var(--radius-2xl,20px);max-width:480px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-xl);display:flex;flex-direction:column">
+      <!-- Hero image -->
+      <div style="position:relative;aspect-ratio:16/7;overflow:hidden;border-radius:var(--radius-2xl,20px) var(--radius-2xl,20px) 0 0;flex-shrink:0">
+        <img src="${escapeHtml(dest.image)}" alt="${escapeHtml(name)}"
+             style="width:100%;height:100%;object-fit:cover">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 55%)"></div>
+        <button id="close-rec-modal" aria-label="Đóng"
+                style="position:absolute;top:var(--space-3);right:var(--space-3);width:32px;height:32px;border:none;background:rgba(0,0,0,0.4);color:white;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)">✕</button>
+        <div style="position:absolute;bottom:var(--space-4);left:var(--space-5)">
+          <p style="font-size:var(--text-xs);color:rgba(255,255,255,0.8);margin-bottom:2px"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> ${escapeHtml(region)}</p>
+          <h3 style="font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;color:white;line-height:1.2">${escapeHtml(name)}</h3>
+        </div>
+      </div>
+      <!-- Body -->
+      <div id="rec-detail-modal-body" style="padding:var(--space-5);flex:1;overflow-y:auto">
+        ${buildRecCardDetailHTML(dest, lang)}
+      </div>
+      <!-- Footer -->
+      <div style="padding:var(--space-4) var(--space-5);border-top:1px solid var(--border-color);display:flex;gap:var(--space-3);flex-shrink:0">
+        <button class="btn btn--secondary" id="cancel-rec-modal" style="flex:1">Chọn điểm khác</button>
+        <button class="btn btn--primary" id="confirm-rec-modal" style="flex:1.5">Chọn điểm này ✓</button>
+      </div>
+    </div>`;
+
+  function closeAndDeselect() {
+    overlay.remove();
+    document.removeEventListener('keydown', escHandler);
+    plannerState.selectedDestinations = plannerState.selectedDestinations.filter(id => id !== dest.id);
+    const card = document.querySelector(`.rec-card[data-id="${dest.id}"]`);
+    if (card) { card.classList.remove('is-selected'); card.setAttribute('aria-pressed', 'false'); }
+    updateRecCount();
+    saveDraft();
+  }
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) { closeAndDeselect(); return; }
+    if (e.target.closest('#close-rec-modal') || e.target.closest('#cancel-rec-modal')) { closeAndDeselect(); return; }
+    if (e.target.closest('#confirm-rec-modal')) { overlay.remove(); document.removeEventListener('keydown', escHandler); return; }
+
+    // Swap panels inside modal
+    if (e.target.closest('[data-swap-acc]')) {
+      e.stopPropagation();
+      overlay.querySelector('.acc-swap-panel')?.classList.toggle('is-open');
+      return;
+    }
+    if (e.target.closest('[data-swap-trans]')) {
+      e.stopPropagation();
+      overlay.querySelector('.trans-swap-panel')?.classList.toggle('is-open');
+      return;
+    }
+    const accOpt = e.target.closest('[data-acc-opt]');
+    if (accOpt) {
+      e.stopPropagation();
+      plannerState.selectedAccommodation ??= {};
+      plannerState.selectedAccommodation[dest.id] = +accOpt.dataset.accOpt;
+      const body = document.getElementById('rec-detail-modal-body');
+      if (body) body.innerHTML = buildRecCardDetailHTML(dest, lang);
+      saveDraft();
+      return;
+    }
+    const transOpt = e.target.closest('[data-trans-opt]');
+    if (transOpt) {
+      e.stopPropagation();
+      plannerState.selectedTransport ??= {};
+      plannerState.selectedTransport[dest.id] = +transOpt.dataset.transOpt;
+      const body = document.getElementById('rec-detail-modal-body');
+      if (body) body.innerHTML = buildRecCardDetailHTML(dest, lang);
+      saveDraft();
+      return;
+    }
+  });
+
+  const escHandler = (e) => { if (e.key === 'Escape') closeAndDeselect(); };
+  document.addEventListener('keydown', escHandler);
+  document.body.appendChild(overlay);
 }
 
 function updateRecCount() {
@@ -370,7 +746,7 @@ function renderDayBuilder() {
 
     for (let d = 0; d < days; d++) {
       dayToDestMap[dayIndex] = dest.id;
-      const col = buildDayColumn(dayIndex, d === 0 ? destName : '', dest, lang);
+      const col = buildDayColumn(dayIndex, d === 0 ? destName : '', dest, lang, d === 0);
       builder.appendChild(col);
       dayIndex++;
     }
@@ -381,16 +757,33 @@ function renderDayBuilder() {
       transport.className = 'day-col day-transport';
       transport.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:var(--space-2);padding:var(--space-2) 0;color:var(--text-muted);font-size:var(--text-xs)';
       transport.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2);color:var(--text-muted);font-size:var(--text-xs);text-align:center">
-        <span style="font-size:1.4rem">✈️</span>
+        <i class="bi bi-airplane" style="font-size:1.4rem" aria-hidden="true"></i>
         <span>Di chuyển</span>
       </div>`;
       builder.appendChild(transport);
     }
   });
 
+  renderTripDashboard(selectedDests);
   renderActivitySidebar(selectedDests, lang);
   renderRouteMap(selectedDests);
   updateCostSummary();
+
+  // Bind souvenir suggestion chips
+  builder.querySelectorAll('[data-suggest-add]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const actId = btn.dataset.suggestAdd;
+      const dIdx = +btn.dataset.day;
+      confirmIfOverBudget(actId, () => {
+        if (!plannerState.dayActivities[dIdx]) plannerState.dayActivities[dIdx] = [];
+        plannerState.dayActivities[dIdx].push(actId);
+        renderDayBuilder();
+        updateCostSummary();
+        saveDraft();
+        Toast.show('Đã thêm vào lịch trình', 'success', 1500);
+      });
+    });
+  });
 }
 
 function distributeDays(total, count) {
@@ -400,7 +793,7 @@ function distributeDays(total, count) {
   return Array.from({ length: count }, (_, i) => base + (i < extra ? 1 : 0));
 }
 
-function buildDayColumn(dayIndex, destName, dest, lang) {
+function buildDayColumn(dayIndex, destName, dest, lang, isFirstDay = false) {
   const existing = plannerState.dayActivities[dayIndex];
   // hasBeenSet: user explicitly set this day (even to empty []) → don't auto-populate
   const hasBeenSet = dayIndex in plannerState.dayActivities;
@@ -475,15 +868,49 @@ function buildDayColumn(dayIndex, destName, dest, lang) {
       <button class="tl-card__btn" data-optimize-day="${dayIndex}" aria-label="Tối ưu tuyến đường ngày ${dayIndex + 1}" style="color:rgba(255,255,255,0.8);font-size:var(--text-sm)" title="Tối ưu tuyến"><i class="bi bi-signpost-2" aria-hidden="true"></i></button>
     </div>`;
 
-  const timeline = buildTimeline(dayIndex, dest, lang);
+  const timeline = buildTimeline(dayIndex, dest, lang, isFirstDay);
 
   col.innerHTML = header + timeline;
   return col;
 }
 
-function buildTimeline(dayIndex, dest, lang) {
-  const activityIds = plannerState.dayActivities[dayIndex] || [];
+function buildTimeline(dayIndex, dest, lang, isFirstDay = false) {
+  // Fixed anchor cards at top of first day per destination
+  let fixedCardsHTML = '';
+  if (isFirstDay) {
+    const transport = getSelectedTransport(dest.id);
+    const acc = getSelectedAccommodation(dest);
+    if (transport) {
+      fixedCardsHTML += `
+        <div class="tl-item">
+          <span class="tl-dot tl-dot--fixed"></span>
+          <div class="tl-card tl-card--transport">
+            <div class="tl-card__header">
+              <span class="tl-card__name">${transport.icon} ${escapeHtml(transport.label)}</span>
+            </div>
+            <div class="tl-card__cost" style="color:rgba(255,255,255,0.85)">${transport.duration} phút · ${formatVND(transport.priceFrom)}</div>
+          </div>
+        </div>`;
+    }
+    if (acc) {
+      fixedCardsHTML += `
+        <div class="tl-item">
+          <span class="tl-dot tl-dot--fixed"></span>
+          <div class="tl-card tl-card--checkin">
+            <div class="tl-card__header">
+              <span class="tl-card__name"><i class="fa-solid fa-hotel" aria-hidden="true"></i> ${escapeHtml(acc.name)}</span>
+            </div>
+            <div class="tl-card__cost" style="color:rgba(255,255,255,0.85)">Check-in 14:00 · ${formatVND(acc.pricePerNight)}/đêm</div>
+          </div>
+        </div>`;
+    }
+  }
 
+  const activityIds = [...(plannerState.dayActivities[dayIndex] || [])].sort((a, b) => {
+    const tA = getEffectiveTime(a, dayIndex) || '23:59';
+    const tB = getEffectiveTime(b, dayIndex) || '23:59';
+    return tA.localeCompare(tB);
+  });
   let itemsHTML = '';
   activityIds.forEach(actId => {
     const act = findActivity(actId);
@@ -510,10 +937,37 @@ function buildTimeline(dayIndex, dest, lang) {
           <div class="tl-card__cost">${formatVND(act.estimatedCost)}</div>
         </div>
       </div>`;
+
+    // Souvenir suggestion chips — nearby souvenir/food_specialty within 500m
+    const actCoords = act.coordinates;
+    const destId = dayToDestMap[dayIndex];
+    if (actCoords && destId) {
+      const alreadyAdded = new Set(Object.values(plannerState.dayActivities).flat());
+      const nearby = allActivities.filter(s =>
+        s.destinationId === destId &&
+        (s.category === 'souvenir' || s.category === 'food_specialty') &&
+        s.coordinates &&
+        !alreadyAdded.has(s.id) &&
+        haversine(actCoords, s.coordinates) < 0.5
+      );
+      nearby.forEach(s => {
+        const sName = s.name[lang] || s.name.vi;
+        const icon = s.category === 'souvenir' ? 'bi-bag-heart' : 'bi-egg-fried';
+        const label = s.category === 'souvenir' ? 'Quà lưu niệm' : 'Đặc sản ăn uống';
+        itemsHTML += `
+          <div class="tl-suggestion tl-suggestion--${s.category}">
+            <div class="tl-suggestion__badge"><i class="bi ${icon}" aria-hidden="true"></i> ${label}</div>
+            <div class="tl-suggestion__name">${escapeHtml(sName)}</div>
+            <div class="tl-suggestion__meta">${s.duration} phút · từ ${formatVND(s.estimatedCost)}</div>
+            <button class="tl-suggestion__add" data-suggest-add="${s.id}" data-day="${dayIndex}">＋ Thêm vào lịch trình</button>
+          </div>`;
+      });
+    }
   });
 
   return `
     <div class="day-timeline" data-day="${dayIndex}">
+      ${fixedCardsHTML}
       ${itemsHTML}
       <div class="tl-empty" data-open-picker="${dayIndex}">＋ Thêm hoạt động</div>
     </div>`;
@@ -865,12 +1319,14 @@ function renderActivitySidebar(dests, lang) {
     const alreadyAdded = Object.values(plannerState.dayActivities).some(ids => ids.includes(actId));
     if (!alreadyAdded) {
       const day = currentFocusDay;
-      if (!plannerState.dayActivities[day]) plannerState.dayActivities[day] = [];
-      plannerState.dayActivities[day].push(actId);
-      renderDayBuilder();
-      updateCostSummary();
-      saveDraft();
-      Toast.show(i18n.t('planner.activity_added') || 'Đã thêm hoạt động', 'success', 1500);
+      confirmIfOverBudget(actId, () => {
+        if (!plannerState.dayActivities[day]) plannerState.dayActivities[day] = [];
+        plannerState.dayActivities[day].push(actId);
+        renderDayBuilder();
+        updateCostSummary();
+        saveDraft();
+        Toast.show(i18n.t('planner.activity_added') || 'Đã thêm hoạt động', 'success', 1500);
+      });
     }
   };
 }
@@ -889,7 +1345,7 @@ function renderRouteMap(dests) {
   // SVG route map (simple polyline visualization)
   if (points.length < 2) {
     mapEl.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:200px;flex-direction:column;gap:var(--space-3);color:var(--text-muted)">
-      <span style="font-size:2rem">📍</span>
+      <i class="bi bi-geo-alt" style="font-size:2rem" aria-hidden="true"></i>
       <span style="font-size:var(--text-xs);text-align:center">${escapeHtml(points[0]?.name || '')}</span>
     </div>`;
     return;
@@ -912,13 +1368,32 @@ function renderRouteMap(dests) {
   const svgPoints = points.map(p => toSVG(p.lat, p.lng));
   const polyline = svgPoints.map(p => `${p.x},${p.y}`).join(' ');
 
+  // Travel time labels between consecutive points
+  const travelLabels = svgPoints.slice(0, -1).map((p, i) => {
+    const next = svgPoints[i + 1];
+    const mx = (p.x + next.x) / 2;
+    const my = (p.y + next.y) / 2;
+    const mins = travelEst(
+      { lat: points[i].lat, lng: points[i].lng },
+      { lat: points[i + 1].lat, lng: points[i + 1].lng }
+    );
+    const label = mins >= 60
+      ? `${Math.floor(mins / 60)}g${mins % 60 ? (mins % 60) + 'p' : ''}`
+      : `${mins}p`;
+    return `<rect x="${mx - 14}" y="${my - 8}" width="28" height="13" rx="6" fill="white" stroke="var(--color-secondary)" stroke-width=".8" opacity=".9"/>
+      <text x="${mx}" y="${my + 3}" font-size="7.5" fill="var(--color-secondary)" font-family="Inter,sans-serif" font-weight="600" text-anchor="middle">${escapeHtml(label)}</text>`;
+  }).join('');
+
   mapEl.innerHTML = `
     <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:200px;background:#f8f5fc">
       <polyline points="${polyline}" fill="none" stroke="var(--color-secondary)" stroke-width="2" stroke-dasharray="4 3" opacity=".7"/>
-      ${svgPoints.map((p, i) => `
-        <circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--color-primary)"/>
-        <text x="${p.x + 7}" y="${p.y + 4}" font-size="9" fill="var(--color-darkest)" font-family="Inter,sans-serif" font-weight="600">${escapeHtml(points[i].name)}</text>
-      `).join('')}
+      ${travelLabels}
+      ${svgPoints.map((p, i) => {
+        const labelX = p.x + 7;
+        const labelY = p.y - 8;
+        return `<circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--color-primary)"/>
+        <text x="${p.x}" y="${labelY}" font-size="9" fill="var(--color-darkest)" font-family="Inter,sans-serif" font-weight="600" text-anchor="middle">${escapeHtml(points[i].name)}</text>`;
+      }).join('')}
     </svg>`;
 }
 
@@ -983,31 +1458,55 @@ function openActivityPicker(dayIndex, anchorEl) {
     <button class="activity-picker-popup__custom-btn" id="picker-custom-btn">＋ Thêm tùy chỉnh...</button>
     <div id="picker-custom-form" style="display:none"></div>`;
 
+  // Hide before positioning to avoid flash
+  popup.style.visibility = 'hidden';
   document.body.appendChild(popup);
+  popup._anchorEl = anchorEl;
 
-  // Position popup near anchor
-  const rect = anchorEl.getBoundingClientRect();
-  const spaceBelow = window.innerHeight - rect.bottom;
-  if (spaceBelow > 200) {
-    popup.style.top = `${rect.bottom + 6}px`;
-  } else {
-    popup.style.top = `${rect.top - popup.offsetHeight - 6}px`;
-  }
-  const left = Math.min(rect.left, window.innerWidth - 268);
-  popup.style.left = `${Math.max(8, left)}px`;
+  // Position after browser layout so offsetHeight/Width are real
+  requestAnimationFrame(() => {
+    const rect = anchorEl.getBoundingClientRect();
+    const popupW = popup.offsetWidth || 256;
+    const popupH = popup.offsetHeight || 200;
+    const gap = 6;
+
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
+
+    let top;
+    if (spaceBelow >= popupH + gap) {
+      top = rect.bottom + gap;
+    } else if (spaceAbove >= popupH + gap) {
+      top = rect.top - popupH - gap;
+    } else {
+      // Not enough space either side — align to viewport with scroll
+      top = Math.max(8, window.innerHeight - popupH - 8);
+    }
+
+    const left = Math.max(8, Math.min(rect.left, window.innerWidth - popupW - 8));
+    popup.style.top = `${top}px`;
+    popup.style.left = `${left}px`;
+    popup.style.visibility = '';
+
+    // Track scroll from any scrollable ancestor so popup follows anchor
+    popup._scrollHandler = () => repositionPickerPopup();
+    window.addEventListener('scroll', popup._scrollHandler, { passive: true, capture: true });
+  });
 
   // Click activity in popup → add to this day
   popup.addEventListener('click', (e) => {
     const item = e.target.closest('[data-picker-add]');
     if (item) {
       const actId = item.dataset.pickerAdd;
-      if (!plannerState.dayActivities[dayIndex]) plannerState.dayActivities[dayIndex] = [];
-      plannerState.dayActivities[dayIndex].push(actId);
-      renderDayBuilder();
-      updateCostSummary();
-      saveDraft();
-      Toast.show('Đã thêm hoạt động', 'success', 1500);
       closeActivityPicker();
+      confirmIfOverBudget(actId, () => {
+        if (!plannerState.dayActivities[dayIndex]) plannerState.dayActivities[dayIndex] = [];
+        plannerState.dayActivities[dayIndex].push(actId);
+        renderDayBuilder();
+        updateCostSummary();
+        saveDraft();
+        Toast.show('Đã thêm hoạt động', 'success', 1500);
+      });
     }
   });
 
@@ -1034,8 +1533,29 @@ function onPickerOutsideClick(e) {
   }
 }
 
+function repositionPickerPopup() {
+  const popup = document.getElementById('activity-picker-popup');
+  if (!popup || !popup._anchorEl) return;
+  const rect = popup._anchorEl.getBoundingClientRect();
+  const popupW = popup.offsetWidth || 256;
+  const popupH = popup.offsetHeight;
+  const gap = 6;
+  const spaceBelow = window.innerHeight - rect.bottom;
+  const spaceAbove = rect.top;
+  let top;
+  if (spaceBelow >= popupH + gap) top = rect.bottom + gap;
+  else if (spaceAbove >= popupH + gap) top = rect.top - popupH - gap;
+  else top = Math.max(8, window.innerHeight - popupH - 8);
+  popup.style.top = `${top}px`;
+  popup.style.left = `${Math.max(8, Math.min(rect.left, window.innerWidth - popupW - 8))}px`;
+}
+
 function closeActivityPicker() {
-  document.getElementById('activity-picker-popup')?.remove();
+  const popup = document.getElementById('activity-picker-popup');
+  if (popup?._scrollHandler) {
+    window.removeEventListener('scroll', popup._scrollHandler, { capture: true });
+  }
+  popup?.remove();
   activePickerDay = null;
 }
 
@@ -1045,6 +1565,24 @@ function showCustomActivityForm(dayIndex) {
   if (!formEl) return;
   btn?.setAttribute('style', 'display:none');
   formEl.style.display = 'block';
+
+  // Reposition popup after form makes it taller
+  requestAnimationFrame(() => {
+    const popup = document.getElementById('activity-picker-popup');
+    if (!popup || !popup._anchorEl) return;
+    const rect = popup._anchorEl.getBoundingClientRect();
+    const popupW = popup.offsetWidth || 256;
+    const popupH = popup.offsetHeight;
+    const gap = 6;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
+    let top;
+    if (spaceBelow >= popupH + gap) top = rect.bottom + gap;
+    else if (spaceAbove >= popupH + gap) top = rect.top - popupH - gap;
+    else top = Math.max(8, window.innerHeight - popupH - 8);
+    popup.style.top = `${top}px`;
+    popup.style.left = `${Math.max(8, Math.min(rect.left, window.innerWidth - popupW - 8))}px`;
+  });
 
   formEl.innerHTML = `
     <div class="activity-picker-popup__custom-form">
@@ -1058,71 +1596,91 @@ function showCustomActivityForm(dayIndex) {
       </div>
     </div>`;
 
+  // Destination coordinates for location-biased autocomplete results
+  const destId = dayToDestMap[dayIndex];
+  const destObj = allDestinations.find(d => d.id === destId);
+  const destCoords = destObj?.coordinates?.lat
+    ? { lat: destObj.coordinates.lat, lng: destObj.coordinates.lng }
+    : null;
+
   let selectedCoords = null;
   let selectedPlaceId = null;
-  const placeInput = document.getElementById('custom-act-place');
-  const autocompleteList = document.getElementById('custom-autocomplete-list');
+  let acResults = [];
   let autocompleteTimer = null;
 
-  placeInput?.addEventListener('input', () => {
+  // Use event delegation on formEl — robust against innerHTML injection
+  formEl.addEventListener('input', (e) => {
+    if (e.target.id !== 'custom-act-place') return;
     selectedCoords = null;
     selectedPlaceId = null;
     clearTimeout(autocompleteTimer);
-    const q = placeInput.value.trim();
-    if (q.length < 2) { autocompleteList.innerHTML = ''; return; }
+    const q = e.target.value.trim();
+    const listEl = document.getElementById('custom-autocomplete-list');
+    if (!listEl) return;
+    if (q.length < 2) { listEl.innerHTML = ''; acResults = []; return; }
+    listEl.innerHTML = '<div class="activity-picker-popup__autocomplete-item" style="color:var(--text-muted)">Đang tìm...</div>';
     autocompleteTimer = setTimeout(async () => {
-      const results = await placeAutocomplete(q);
-      autocompleteList.innerHTML = results.length
-        ? `<div class="activity-picker-popup__autocomplete">${results.map((r, i) =>
-            `<div class="activity-picker-popup__autocomplete-item" data-place-idx="${i}" data-full="${escapeHtml(r.description)}">${escapeHtml(r.description)}</div>`
+      const raw = await placeAutocomplete(q, { location: destCoords });
+      if (raw?.error === 'unauthorized') {
+        listEl.innerHTML = '<div class="activity-picker-popup__autocomplete-item" style="color:#dc2626">API key chưa được cấp quyền Place Search</div>';
+        return;
+      }
+      acResults = Array.isArray(raw) ? raw : [];
+      listEl.innerHTML = acResults.length
+        ? `<div class="activity-picker-popup__autocomplete">${acResults.map((r, i) =>
+            `<div class="activity-picker-popup__autocomplete-item" data-place-idx="${i}" data-full="${escapeHtml(r.description)}">${escapeHtml(r.mainText)}<span style="display:block;font-size:10px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(r.secondaryText || '')}</span></div>`
           ).join('')}</div>`
-        : '';
-      // Store results for click handler
-      autocompleteList._results = results;
-      bindAutocompleteTooltip(autocompleteList);
+        : '<div class="activity-picker-popup__autocomplete-item" style="color:var(--text-muted)">Không tìm thấy địa điểm</div>';
+      bindAutocompleteTooltip(listEl);
     }, 300);
   });
 
-  autocompleteList?.addEventListener('click', async (e) => {
+  formEl.addEventListener('click', async (e) => {
     const item = e.target.closest('[data-place-idx]');
     if (!item) return;
     const idx = +item.dataset.placeIdx;
-    const result = autocompleteList._results?.[idx];
+    const result = acResults[idx];
     if (!result) return;
-    placeInput.value = result.description;
-    autocompleteList.innerHTML = '';
+    const placeInput = document.getElementById('custom-act-place');
+    const listEl = document.getElementById('custom-autocomplete-list');
+    if (placeInput) placeInput.value = result.description;
+    if (listEl) listEl.innerHTML = '';
     selectedPlaceId = result.placeId;
     const coords = await getPlaceDetail(result.placeId);
     if (coords) selectedCoords = coords;
   });
 
-  document.getElementById('custom-act-cancel')?.addEventListener('click', closeActivityPicker);
+  formEl.addEventListener('click', (e) => {
+    if (e.target.id === 'custom-act-cancel') { closeActivityPicker(); return; }
 
-  document.getElementById('custom-act-confirm')?.addEventListener('click', () => {
-    const name = document.getElementById('custom-act-name')?.value.trim();
-    const cost = +(document.getElementById('custom-act-cost')?.value) || 0;
-    if (!name) { Toast.show('Nhập tên hoạt động', 'warning', 1500); return; }
-    if (!selectedCoords) { Toast.show('Chọn địa điểm từ gợi ý để lưu tọa độ', 'warning', 2000); return; }
+    if (e.target.id === 'custom-act-confirm') {
+      const name = document.getElementById('custom-act-name')?.value.trim();
+      const cost = +(document.getElementById('custom-act-cost')?.value) || 0;
+      if (!name) { Toast.show('Nhập tên hoạt động', 'warning', 1500); return; }
+      if (!selectedCoords) { Toast.show('Chọn địa điểm từ gợi ý để lưu tọa độ', 'warning', 2000); return; }
 
-    const actId = `custom-${Date.now()}`;
-    const customAct = {
-      id: actId,
-      name: { vi: name, en: name },
-      startTime: '09:00',
-      duration: 60,
-      estimatedCost: cost,
-      coordinates: selectedCoords,
-      isCustom: true,
-    };
-    if (!plannerState.customActivities) plannerState.customActivities = {};
-    plannerState.customActivities[actId] = customAct;
-    if (!plannerState.dayActivities[dayIndex]) plannerState.dayActivities[dayIndex] = [];
-    plannerState.dayActivities[dayIndex].push(actId);
-    renderDayBuilder();
-    updateCostSummary();
-    saveDraft();
-    Toast.show('Đã thêm hoạt động tùy chỉnh', 'success', 1500);
-    closeActivityPicker();
+      const actId = `custom-${Date.now()}`;
+      const customAct = {
+        id: actId,
+        name: { vi: name, en: name },
+        startTime: '09:00',
+        duration: 60,
+        estimatedCost: cost,
+        coordinates: selectedCoords,
+        isCustom: true,
+      };
+      if (!plannerState.customActivities) plannerState.customActivities = {};
+      plannerState.customActivities[actId] = customAct;
+      closeActivityPicker();
+      confirmIfOverBudget(actId, () => {
+        if (!plannerState.dayActivities[dayIndex]) plannerState.dayActivities[dayIndex] = [];
+        plannerState.dayActivities[dayIndex].push(actId);
+        renderDayBuilder();
+        updateCostSummary();
+        saveDraft();
+        Toast.show('Đã thêm hoạt động tùy chỉnh', 'success', 1500);
+      }, cost, name);
+    }
   });
 }
 
@@ -1230,6 +1788,75 @@ async function optimizeDayRoute(dayIndex) {
   Toast.show('Tuyến đường đã tối ưu, giờ ước tính đã cập nhật', 'success', 2000);
 }
 
+// ===== BUDGET GUARD (Step 3) =====
+function getBudgetCeiling() {
+  const perPersonPerDay = { budget: 600000, mid: 1800000, luxury: Infinity };
+  const rate = perPersonPerDay[plannerState.budget];
+  if (!rate || rate === Infinity) return Infinity;
+  return rate * Math.max(1, plannerState.travelers) * Math.max(1, plannerState.duration);
+}
+
+function calcCurrentTotal() {
+  let total = 0;
+  Object.values(plannerState.dayActivities).forEach(actIds => {
+    (actIds || []).forEach(actId => {
+      const act = findActivity(actId);
+      if (act) total += act.estimatedCost || 0;
+    });
+  });
+  const selectedDests = plannerState.selectedDestinations
+    .map(id => allDestinations.find(d => d.id === id)).filter(Boolean);
+  const daysPerDest = distributeDays(plannerState.duration, selectedDests.length);
+  selectedDests.forEach((dest, di) => {
+    const acc = getSelectedAccommodation(dest);
+    if (acc) total += acc.pricePerNight * Math.max(1, daysPerDest[di] - 1);
+    const tr = getSelectedTransport(dest.id);
+    if (tr) total += tr.priceFrom;
+  });
+  return total;
+}
+
+function showBudgetConfirmDialog(actName, actCost, currentTotal, ceiling, onConfirm) {
+  const projected = currentTotal + actCost;
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:var(--z-modal);display:flex;align-items:center;justify-content:center;padding:var(--space-4)';
+  overlay.innerHTML = `
+    <div style="background:white;border-radius:var(--radius-xl);padding:var(--space-6);max-width:380px;width:100%;box-shadow:var(--shadow-xl);animation:detail-in .2s ease">
+      <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4)">
+        <i class="bi bi-exclamation-triangle-fill" style="color:#f59e0b;font-size:1.5rem;flex-shrink:0" aria-hidden="true"></i>
+        <h3 style="font-size:var(--text-base);font-weight:700;color:var(--text-primary)">Vượt ngân sách dự kiến</h3>
+      </div>
+      <p style="font-size:var(--text-sm);color:var(--text-muted);margin-bottom:var(--space-2)">
+        Thêm <strong>${escapeHtml(actName)}</strong> sẽ nâng tổng chi phí lên:
+      </p>
+      <p style="font-size:var(--text-2xl);font-weight:700;color:var(--color-primary);margin-bottom:var(--space-1)">${formatVND(projected)}</p>
+      <p style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:var(--space-5)">Ngân sách dự kiến: ${formatVND(ceiling)}</p>
+      <div style="display:flex;gap:var(--space-3);justify-content:flex-end">
+        <button class="btn btn--soft btn--sm" id="bud-cancel">Hủy bỏ</button>
+        <button class="btn btn--primary btn--sm" id="bud-ok">Vẫn thêm</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  const remove = () => overlay.remove();
+  overlay.querySelector('#bud-cancel').addEventListener('click', remove);
+  overlay.querySelector('#bud-ok').addEventListener('click', () => { remove(); onConfirm(); });
+  overlay.addEventListener('click', e => { if (e.target === overlay) remove(); });
+  document.addEventListener('keydown', function esc(e) {
+    if (e.key === 'Escape') { remove(); document.removeEventListener('keydown', esc); }
+  });
+}
+
+function confirmIfOverBudget(actId, onConfirm, overrideCost = null, overrideName = null) {
+  const ceiling = getBudgetCeiling();
+  if (ceiling === Infinity) { onConfirm(); return; }
+  const act = findActivity(actId);
+  const actCost = overrideCost ?? act?.estimatedCost ?? 0;
+  const actName = overrideName ?? (act ? (act.name[i18n.getLang()] || act.name.vi) : actId);
+  const currentTotal = calcCurrentTotal();
+  if (currentTotal + actCost <= ceiling) { onConfirm(); return; }
+  showBudgetConfirmDialog(actName, actCost, currentTotal, ceiling, onConfirm);
+}
+
 function updateCostSummary() {
   const lang = i18n.getLang();
   const rows = document.getElementById('cost-rows');
@@ -1239,24 +1866,55 @@ function updateCostSummary() {
   let totalCost = 0;
   const breakdown = [];
 
-  Object.entries(plannerState.dayActivities).forEach(([day, actIds]) => {
+  // Activity costs
+  Object.entries(plannerState.dayActivities).forEach(([, actIds]) => {
     actIds.forEach(actId => {
       const act = findActivity(actId);
       if (act) {
         totalCost += act.estimatedCost;
-        const name = act.name[lang] || act.name.vi;
-        breakdown.push({ name, cost: act.estimatedCost });
+        breakdown.push({ icon: '', name: act.name[lang] || act.name.vi, cost: act.estimatedCost });
       }
     });
   });
 
+  // Accommodation + transport per destination
+  const selectedDests = plannerState.selectedDestinations
+    .map(id => allDestinations.find(d => d.id === id))
+    .filter(Boolean);
+  const daysPerDest = distributeDays(plannerState.duration, selectedDests.length);
+
+  selectedDests.forEach((dest, di) => {
+    const days = daysPerDest[di];
+    const nightsAtDest = Math.max(1, days - 1);
+    const acc = getSelectedAccommodation(dest);
+    if (acc) {
+      const accCost = acc.pricePerNight * nightsAtDest;
+      totalCost += accCost;
+      breakdown.push({ icon: '<i class="fa-solid fa-hotel" aria-hidden="true"></i>', name: acc.name, cost: accCost });
+    }
+    const transport = getSelectedTransport(dest.id);
+    if (transport) {
+      totalCost += transport.priceFrom;
+      breakdown.push({ icon: transport.icon, name: transport.label, cost: transport.priceFrom });
+    }
+  });
+
   rows.innerHTML = breakdown.map(item => `
     <div class="cost-row">
-      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px">${escapeHtml(item.name)}</span>
+      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px">${item.icon ? item.icon + ' ' : ''}${escapeHtml(item.name)}</span>
       <span class="cost-row__amount">${formatVND(item.cost)}</span>
     </div>`).join('');
 
   total.textContent = formatVND(totalCost);
+  syncMobileBar();
+}
+
+function syncMobileBar() {
+  const mobileTotal = document.getElementById('mobile-cost-total');
+  const desktopTotal = document.getElementById('cost-total');
+  if (mobileTotal && desktopTotal) {
+    mobileTotal.textContent = desktopTotal.textContent;
+  }
 }
 
 // ===== STEP 4: EXPORT =====
@@ -1287,6 +1945,33 @@ function renderExport() {
       for (let d = 0; d < days; d++) {
         const actIds = plannerState.dayActivities[dayIndex] || [];
         const capturedDayIdx = dayIndex;
+        const isLastDayOfDest = (d === days - 1);
+
+        // Last-day souvenir suggestions
+        let lastDaySuggestHTML = '';
+        if (isLastDayOfDest) {
+          const alreadyAdded = new Set(Object.values(plannerState.dayActivities).flat());
+          const suggestions = allActivities
+            .filter(s => s.destinationId === dest.id &&
+                         (s.category === 'souvenir' || s.category === 'food_specialty') &&
+                         !alreadyAdded.has(s.id))
+            .slice(0, 3);
+          if (suggestions.length) {
+            lastDaySuggestHTML = `
+              <p style="font-size:var(--text-xs);font-weight:600;color:var(--color-secondary);margin:var(--space-3) 0 var(--space-2);display:flex;align-items:center;gap:4px">
+                <i class="bi bi-bag-heart" aria-hidden="true"></i> Gợi ý trước khi rời ${escapeHtml(destName)}
+              </p>
+              ${suggestions.map(s => {
+                const sName = s.name[lang] || s.name.vi;
+                return `<div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-2) var(--space-3);border:1.5px dashed var(--border-color);border-radius:var(--radius-md);margin-bottom:var(--space-1)">
+                  <span style="font-size:var(--text-xs)">${escapeHtml(sName)} · ${formatVND(s.estimatedCost)}</span>
+                  <button style="font-size:var(--text-xs);padding:2px 10px;border:1px solid var(--color-secondary);border-radius:var(--radius-full);background:transparent;color:var(--color-secondary);cursor:pointer;flex-shrink:0"
+                          data-export-add="${s.id}" data-day="${capturedDayIdx}">＋ Thêm</button>
+                </div>`;
+              }).join('')}`;
+          }
+        }
+
         dayBlocks.push(`
           <div style="margin-bottom:var(--space-3)">
             <p style="font-weight:700;font-size:var(--text-sm);margin-bottom:var(--space-2)">Ngày ${dayIndex + 1} – ${destName}</p>
@@ -1301,7 +1986,8 @@ function renderExport() {
                 <span style="font-size:var(--text-xs);color:var(--color-primary);font-weight:600">${formatVND(act.estimatedCost)}</span>
               </div>`;
             }).join('')}
-            ${!actIds.length ? `<p style="font-size:var(--text-xs);color:var(--text-muted);padding:var(--space-2) 0">Chưa có hoạt động – tự khám phá!</p>` : ''}
+            ${!actIds.length ? `<p style="font-size:var(--text-xs);color:var(--text-muted);padding:var(--space-2) 0">Ngày tự do – nghỉ ngơi &amp; mua quà mang về</p>` : ''}
+            ${lastDaySuggestHTML}
           </div>`);
         dayIndex++;
       }
@@ -1315,17 +2001,27 @@ function renderExport() {
       return `
         <div style="background:var(--bg-alt);border-radius:var(--radius-xl);padding:var(--space-5);border:1px solid var(--border-color)">
           <p style="font-weight:700;margin-bottom:var(--space-4)">${escapeHtml(name)}</p>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:var(--space-3)">
-            ${Object.entries(dest.partners || {}).map(([key, url]) => {
-              const info = PARTNER_LABELS[key];
-              if (!info) return '';
-              return `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer"
-                         style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);background:white;border:1.5px solid var(--border-color);border-radius:var(--radius-lg);font-size:var(--text-sm);font-weight:600;color:var(--text-primary);text-decoration:none;transition:border-color .15s"
-                         onmouseover="this.style.borderColor='var(--color-secondary)'"
-                         onmouseout="this.style.borderColor='var(--border-color)'">
-                <span>${info.icon}</span><span>${info.name}</span>
-              </a>`;
-            }).join('')}
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--space-3)">
+            ${(() => {
+              const acc = getSelectedAccommodation(dest);
+              const accName = acc ? acc.name : null;
+              return Object.entries(dest.partners || {}).map(([key, url]) => {
+                const info = PARTNER_LABELS[key];
+                if (!info) return '';
+                const label = accName
+                  ? `Đặt ${escapeHtml(accName)} trên ${info.name}`
+                  : `${escapeHtml(name)} trên ${info.name}`;
+                const href = (acc?.bookingLink && key !== 'klook' && key !== 'traveloka')
+                  ? escapeHtml(acc.bookingLink)
+                  : escapeHtml(url);
+                return `<a href="${href}" target="_blank" rel="noopener noreferrer"
+                           style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);background:white;border:1.5px solid var(--border-color);border-radius:var(--radius-lg);font-size:var(--text-sm);font-weight:600;color:var(--text-primary);text-decoration:none;transition:border-color .15s"
+                           onmouseover="this.style.borderColor='var(--color-secondary)'"
+                           onmouseout="this.style.borderColor='var(--border-color)'">
+                  <span>${info.icon}</span><span style="font-size:var(--text-xs);line-height:1.3">${label}</span>
+                </a>`;
+              }).join('');
+            })()}
           </div>
         </div>`;
     }).join('');
@@ -1357,6 +2053,21 @@ function bindExportButtons() {
     saved.push({ id, savedAt: new Date().toISOString(), state: { ...plannerState } });
     safeSet(ITINERARIES_KEY, saved);
     Toast.show(i18n.t('planner.saved') || 'Đã lưu hành trình!', 'success', 2500);
+  });
+
+  // Bind last-day souvenir suggestion buttons in export preview
+  document.querySelectorAll('[data-export-add]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const actId = btn.dataset.exportAdd;
+      const dIdx = +btn.dataset.day;
+      if (!plannerState.dayActivities[dIdx]) plannerState.dayActivities[dIdx] = [];
+      if (!plannerState.dayActivities[dIdx].includes(actId))
+        plannerState.dayActivities[dIdx].push(actId);
+      renderExport();
+      updateCostSummary();
+      saveDraft();
+      Toast.show('Đã thêm', 'success', 1200);
+    });
   });
 }
 
@@ -1460,6 +2171,27 @@ function bindNavigation() {
   document.getElementById('btn-step3-next')?.addEventListener('click', () => goToStep(4));
 
   document.getElementById('btn-step4-back')?.addEventListener('click', () => goToStep(3));
+
+  // Mobile bottom bar (Step 3)
+  document.getElementById('mobile-detail-btn')?.addEventListener('click', () => {
+    const sheet = document.getElementById('step3-bottom-sheet');
+    const overlay = document.getElementById('step3-sheet-overlay');
+    const content = document.getElementById('bottom-sheet-content');
+    if (content) {
+      const dashboard = document.getElementById('trip-dashboard');
+      const costSummary = document.getElementById('cost-summary');
+      content.innerHTML = (dashboard?.outerHTML || '') + (costSummary?.outerHTML || '');
+    }
+    sheet?.classList.add('is-open');
+    overlay?.classList.add('is-open');
+  });
+
+  document.getElementById('step3-sheet-overlay')?.addEventListener('click', () => {
+    document.getElementById('step3-bottom-sheet')?.classList.remove('is-open');
+    document.getElementById('step3-sheet-overlay')?.classList.remove('is-open');
+  });
+
+  document.getElementById('mobile-export-btn')?.addEventListener('click', () => goToStep(4));
 }
 
 function goToStep(step) {
@@ -1546,6 +2278,219 @@ function bindAutocompleteTooltip(listEl) {
   });
   listEl.addEventListener('mouseout', (e) => {
     if (!e.relatedTarget?.closest('[data-full]')) hideTip();
+  });
+}
+
+// ===== ACCOMMODATION & TRANSPORT HELPERS =====
+function getTransportOptions(destId) {
+  const dep = plannerState.departure || 'other';
+  const matrix = TRANSPORT_MATRIX[dep] || TRANSPORT_MATRIX['other'];
+  return matrix[destId] || TRANSPORT_MATRIX['other']['default'] || [];
+}
+
+function getSelectedTransport(destId) {
+  const options = getTransportOptions(destId);
+  if (!options.length) return null;
+  const idx = plannerState.selectedTransport?.[destId] ?? 0;
+  return options[Math.min(idx, options.length - 1)];
+}
+
+function getSelectedAccommodationIdx(dest) {
+  const idx = plannerState.selectedAccommodation?.[dest.id];
+  if (idx !== undefined) return idx;
+  const accs = dest.accommodations || [];
+  const budget = plannerState.budget || 'mid';
+  const recIdx = accs.findIndex(a => a.recommendedFor === budget);
+  return recIdx >= 0 ? recIdx : 0;
+}
+
+function getRecommendedAccommodation(dest) {
+  const accs = dest.accommodations || [];
+  const budget = plannerState.budget || 'mid';
+  return accs.find(a => a.recommendedFor === budget) || accs[0] || null;
+}
+
+function getSelectedAccommodation(dest) {
+  if (!dest) return null;
+  const idx = getSelectedAccommodationIdx(dest);
+  return dest.accommodations?.[idx] || null;
+}
+
+function generateWhySentence(dest, lang = 'vi') {
+  const parts = [];
+  const currentMonth = new Date().getMonth() + 1;
+  const name = dest.name?.[lang] || dest.name?.vi || '';
+
+  if (dest.bestMonths?.includes(currentMonth)) {
+    parts.push(lang === 'vi' ? `${name} đang vào mùa đẹp nhất` : `${name} is at its best season`);
+  }
+
+  const acc = getRecommendedAccommodation(dest);
+  if (acc) {
+    const budget = plannerState.budget;
+    if (budget === 'budget') {
+      parts.push(lang === 'vi'
+        ? `Homestay gợi ý chỉ ${formatVND(acc.pricePerNight)}/đêm – tiết kiệm đúng vị`
+        : `Suggested stay only ${formatVND(acc.pricePerNight)}/night – great value`);
+    } else if (budget === 'luxury') {
+      parts.push(lang === 'vi'
+        ? `${acc.name} đẳng cấp – đúng chất sang trọng bạn muốn`
+        : `${acc.name} – the luxury you're looking for`);
+    } else {
+      parts.push(lang === 'vi'
+        ? `${acc.name} phù hợp ngân sách của bạn`
+        : `${acc.name} fits your budget perfectly`);
+    }
+  }
+
+  const matchPct = dest.score > 0 ? Math.min(100, Math.round(dest.score * 10)) : 0;
+  if (matchPct >= 70) {
+    parts.push(lang === 'vi' ? `phù hợp ${matchPct}% sở thích` : `${matchPct}% match with your style`);
+  }
+
+  if (plannerState.group === 'family' && plannerState.familyProfile?.hasChildren && dest.tags?.includes('child_friendly')) {
+    parts.push(lang === 'vi' ? `thân thiện gia đình có trẻ em` : `family-friendly with kids`);
+  }
+
+  if (!parts.length) {
+    parts.push(lang === 'vi' ? `Điểm đến phù hợp hành trình của bạn` : `A great match for your trip`);
+  }
+
+  return parts.join(' — ') + '!';
+}
+
+// ===== TRIP DASHBOARD (Step 3 sidebar) =====
+function renderTripDashboard(dests) {
+  const lang = i18n.getLang();
+  const el = document.getElementById('trip-dashboard');
+  if (!el) return;
+  if (!dests.length) { el.innerHTML = ''; return; }
+
+  const nights = Math.max(1, plannerState.duration - 1);
+  const dateStr = plannerState.departureDate && plannerState.returnDate
+    ? `${plannerState.departureDate.slice(5).replace('-', '/')} – ${plannerState.returnDate.slice(5).replace('-', '/')}`
+    : `${plannerState.duration} ngày · ${nights} đêm`;
+
+  el.innerHTML = `
+    <div class="trip-dashboard__title"><i class="bi bi-map" aria-hidden="true"></i> Trip Dashboard</div>
+    <div class="trip-dashboard__meta">
+      <span><i class="bi bi-calendar-event" aria-hidden="true"></i> ${escapeHtml(dateStr)}</span>
+      <span><i class="bi bi-people-fill" aria-hidden="true"></i> ${plannerState.travelers} người</span>
+    </div>
+    ${dests.map(dest => {
+      const name = dest.name[lang] || dest.name.vi;
+      const acc = getSelectedAccommodation(dest);
+      const transport = getSelectedTransport(dest.id);
+      return `
+        <div class="trip-dashboard__dest" data-dest-id="${dest.id}">
+          <p style="font-size:var(--text-xs);font-weight:700;color:var(--text-primary);margin-bottom:var(--space-2)"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> ${escapeHtml(name)}</p>
+          ${acc ? `<div class="trip-dashboard__anchor">
+            <span><i class="fa-solid fa-hotel" aria-hidden="true"></i> ${escapeHtml(acc.name)}<br><span style="color:var(--text-muted)">${formatVND(acc.pricePerNight)}/đêm</span></span>
+            <button class="trip-dashboard__change" data-change-acc="${dest.id}">Thay đổi</button>
+          </div>` : ''}
+          ${transport ? `<div class="trip-dashboard__anchor">
+            <span>${transport.icon} ${escapeHtml(transport.label)}<br><span style="color:var(--text-muted)">từ ${formatVND(transport.priceFrom)}</span></span>
+            <button class="trip-dashboard__change" data-change-trans="${dest.id}">Đổi</button>
+          </div>` : ''}
+        </div>`;
+    }).join('')}`;
+
+  el.onclick = handleTripDashboardClick;
+}
+
+function handleTripDashboardClick(e) {
+  const lang = i18n.getLang();
+  const changeAcc = e.target.closest('[data-change-acc]');
+  const changeTrans = e.target.closest('[data-change-trans]');
+
+  if (changeAcc) {
+    const dest = allDestinations.find(d => d.id === changeAcc.dataset.changeAcc);
+    if (dest) showAccPicker(dest, lang);
+  }
+  if (changeTrans) {
+    const dest = allDestinations.find(d => d.id === changeTrans.dataset.changeTrans);
+    if (dest) showTransPicker(dest, lang);
+  }
+}
+
+function showAccPicker(dest, lang) {
+  const accs = dest.accommodations || [];
+  if (!accs.length) return;
+
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:var(--z-modal,900);display:flex;align-items:center;justify-content:center;padding:var(--space-4)';
+  overlay.innerHTML = `
+    <div style="background:white;border-radius:var(--radius-xl);padding:var(--space-6);max-width:420px;width:100%;max-height:80vh;overflow-y:auto">
+      <h3 style="font-size:var(--text-lg);font-weight:700;margin-bottom:var(--space-4)">Chọn nơi ở – ${escapeHtml(dest.name[lang] || dest.name.vi)}</h3>
+      ${accs.map((a, i) => {
+        const isSel = getSelectedAccommodationIdx(dest) === i;
+        return `<div style="padding:var(--space-3);border:1.5px solid ${isSel ? 'var(--color-primary)' : 'var(--border-color)'};border-radius:var(--radius-lg);cursor:pointer;margin-bottom:var(--space-2);background:${isSel ? 'rgba(66,13,75,0.04)' : 'white'}" data-pick-acc="${i}">
+          <p style="font-weight:600;font-size:var(--text-sm)">${escapeHtml(a.name)} ${'★'.repeat(a.stars)}</p>
+          <p style="font-size:var(--text-xs);color:var(--text-muted)">${escapeHtml(a.location)} · ${formatVND(a.pricePerNight)}/đêm</p>
+          <p style="font-size:var(--text-xs);color:var(--color-secondary);margin-top:2px">${escapeHtml(a.highlight?.[lang] || a.highlight?.vi || '')}</p>
+        </div>`;
+      }).join('')}
+      <button class="btn btn--secondary btn--full" id="close-acc-picker">Đóng</button>
+    </div>`;
+
+  overlay.addEventListener('click', (e) => {
+    const pick = e.target.closest('[data-pick-acc]');
+    if (pick) {
+      if (!plannerState.selectedAccommodation) plannerState.selectedAccommodation = {};
+      plannerState.selectedAccommodation[dest.id] = +pick.dataset.pickAcc;
+      saveDraft();
+      renderDayBuilder();
+      pulseDayCards();
+      overlay.remove();
+      return;
+    }
+    if (e.target.id === 'close-acc-picker' || e.target === overlay) overlay.remove();
+  });
+  document.body.appendChild(overlay);
+}
+
+function showTransPicker(dest, lang) {
+  const options = getTransportOptions(dest.id);
+  if (!options.length) { Toast.show('Chưa có thông tin phương tiện cho tuyến này', 'info', 2000); return; }
+
+  const selectedIdx = plannerState.selectedTransport?.[dest.id] ?? 0;
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:var(--z-modal,900);display:flex;align-items:center;justify-content:center;padding:var(--space-4)';
+  overlay.innerHTML = `
+    <div style="background:white;border-radius:var(--radius-xl);padding:var(--space-6);max-width:420px;width:100%;max-height:80vh;overflow-y:auto">
+      <h3 style="font-size:var(--text-lg);font-weight:700;margin-bottom:var(--space-2)">Chọn phương tiện – ${escapeHtml(dest.name[lang] || dest.name.vi)}</h3>
+      <p style="font-size:var(--text-xs);color:var(--text-muted);margin-bottom:var(--space-4)">Giá tham khảo</p>
+      ${options.map((t, i) => {
+        const isSel = selectedIdx === i;
+        return `<div style="padding:var(--space-3);border:1.5px solid ${isSel ? 'var(--color-primary)' : 'var(--border-color)'};border-radius:var(--radius-lg);cursor:pointer;margin-bottom:var(--space-2);background:${isSel ? 'rgba(66,13,75,0.04)' : 'white'}" data-pick-trans="${i}">
+          <p style="font-weight:600;font-size:var(--text-sm)">${t.icon} ${escapeHtml(t.label)}</p>
+          <p style="font-size:var(--text-xs);color:var(--text-muted)">${t.duration} phút · từ ${formatVND(t.priceFrom)}</p>
+        </div>`;
+      }).join('')}
+      <button class="btn btn--secondary btn--full" id="close-trans-picker">Đóng</button>
+    </div>`;
+
+  overlay.addEventListener('click', (e) => {
+    const pick = e.target.closest('[data-pick-trans]');
+    if (pick) {
+      if (!plannerState.selectedTransport) plannerState.selectedTransport = {};
+      plannerState.selectedTransport[dest.id] = +pick.dataset.pickTrans;
+      saveDraft();
+      renderDayBuilder();
+      overlay.remove();
+      return;
+    }
+    if (e.target.id === 'close-trans-picker' || e.target === overlay) overlay.remove();
+  });
+  document.body.appendChild(overlay);
+}
+
+function pulseDayCards() {
+  document.querySelectorAll('.tl-card').forEach(card => {
+    card.classList.remove('tl-card--pulse');
+    void card.offsetWidth;
+    card.classList.add('tl-card--pulse');
+    card.addEventListener('animationend', () => card.classList.remove('tl-card--pulse'), { once: true });
   });
 }
 

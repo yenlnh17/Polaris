@@ -207,7 +207,9 @@
   color: white;
   border-radius: var(--radius-full);
   font-weight: 600;
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
+  word-spacing: 0.1em;
+  white-space: nowrap;
   box-shadow: var(--shadow-xl);
   transition: transform var(--transition-spring), box-shadow var(--transition-base);
 }

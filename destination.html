@@ -302,6 +302,7 @@
 
             /* FAB — mobile floating action button */
             .fab {
+                width: fit-content;
                 position: fixed;
                 bottom: var(--space-6);
                 left: 50%;
@@ -319,14 +320,18 @@
                 display: flex;
                 align-items: center;
                 gap: var(--space-2);
-                transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+                transition:
+                    transform var(--transition-fast),
+                    box-shadow var(--transition-fast);
             }
             .fab:hover {
                 transform: translateX(-50%) translateY(-2px);
                 box-shadow: 0 8px 24px rgba(66, 13, 75, 0.35);
             }
             @media (min-width: 1024px) {
-                .fab { display: none !important; }
+                .fab {
+                    display: none;
+                }
             }
 
             /* Gallery hero — mobile */
@@ -384,6 +389,9 @@
 
             /* Tablet hero (640–1023px): row layout, tighter fonts */
             @media (min-width: 640px) and (max-width: 1023px) {
+                .fab span {
+                    font-size: var(--text-2xl);
+                }
                 .gallery-hero {
                     height: 60vh;
                     min-height: 360px;
@@ -412,9 +420,9 @@
                 .footer {
                     padding-bottom: 80px;
                 }
-                /* Prevent any element from causing horizontal scroll */
+                /* Prevent horizontal scroll without clipping fixed elements */
                 body {
-                    overflow-x: hidden;
+                    overflow-x: clip;
                 }
             }
         </style>
@@ -519,19 +527,77 @@
                 class="navbar__mobile"
                 aria-label="Mobile navigation"
             >
-                <a href="index.html" class="navbar__mobile-link" data-nav-page="index.html" data-i18n="nav.home">Trang chủ</a>
-                <a href="destinations.html" class="navbar__mobile-link" data-nav-page="destinations.html" data-i18n="nav.destinations">Điểm đến</a>
-                <a href="planner.html" class="navbar__mobile-link" data-nav-page="planner.html" data-i18n="nav.planner">Lập kế hoạch</a>
-                <a href="packages.html" class="navbar__mobile-link" data-nav-page="packages.html" data-i18n="nav.packages">Gói dịch vụ</a>
-                <a href="blog.html" class="navbar__mobile-link" data-nav-page="blog.html" data-i18n="nav.blog">Cẩm nang</a>
-                <a href="about.html" class="navbar__mobile-link" data-nav-page="about.html" data-i18n="nav.about">Về chúng tôi</a>
-                <a href="contact.html" class="navbar__mobile-link" data-nav-page="contact.html" data-i18n="nav.contact">Liên hệ</a>
+                <a
+                    href="index.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="index.html"
+                    data-i18n="nav.home"
+                    >Trang chủ</a
+                >
+                <a
+                    href="destinations.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="destinations.html"
+                    data-i18n="nav.destinations"
+                    >Điểm đến</a
+                >
+                <a
+                    href="planner.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="planner.html"
+                    data-i18n="nav.planner"
+                    >Lập kế hoạch</a
+                >
+                <a
+                    href="packages.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="packages.html"
+                    data-i18n="nav.packages"
+                    >Gói dịch vụ</a
+                >
+                <a
+                    href="blog.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="blog.html"
+                    data-i18n="nav.blog"
+                    >Cẩm nang</a
+                >
+                <a
+                    href="about.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="about.html"
+                    data-i18n="nav.about"
+                    >Về chúng tôi</a
+                >
+                <a
+                    href="contact.html"
+                    class="navbar__mobile-link"
+                    data-nav-page="contact.html"
+                    data-i18n="nav.contact"
+                    >Liên hệ</a
+                >
                 <div class="navbar__mobile-actions">
-                    <div class="lang-toggle" role="group" aria-label="Chọn ngôn ngữ">
-                        <button class="lang-toggle__btn lang-toggle__btn--active" data-lang="vi">VI</button>
-                        <button class="lang-toggle__btn" data-lang="en">EN</button>
+                    <div
+                        class="lang-toggle"
+                        role="group"
+                        aria-label="Chọn ngôn ngữ"
+                    >
+                        <button
+                            class="lang-toggle__btn lang-toggle__btn--active"
+                            data-lang="vi"
+                        >
+                            VI
+                        </button>
+                        <button class="lang-toggle__btn" data-lang="en">
+                            EN
+                        </button>
                     </div>
-                    <a href="planner.html" class="navbar__mobile-cta btn btn--primary" data-i18n="nav.cta">Lập hành trình</a>
+                    <a
+                        href="planner.html"
+                        class="navbar__mobile-cta btn btn--primary"
+                        data-i18n="nav.cta"
+                        >Lập hành trình</a
+                    >
                 </div>
             </nav>
         </header>

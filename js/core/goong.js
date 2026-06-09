@@ -2,22 +2,36 @@ import { GOONG_KEY } from './config.js';
 
 const BASE = 'https://rsapi.goong.io';
 
-// Place autocomplete — returns array of suggestions
-export async function placeAutocomplete(query, centerLatLng = null) {
+// Place autocomplete v2 — returns array of suggestions
+// options.location: { lat, lng } — bias results toward this point
+// options.origin:   { lat, lng } — reference point for distance_meters
+// options.limit:    number       — max results (default 5)
+// options.radius:   number       — search radius in km (default 50)
+export async function placeAutocomplete(query, options = {}) {
   if (!query || query.trim().length < 2) return [];
+  const { location = null, origin = null, limit = 5, radius = 50 } = options;
   try {
     const params = new URLSearchParams({
       api_key: GOONG_KEY,
       input: query.trim(),
+      limit,
+      radius,
     });
-    if (centerLatLng) params.set('location', `${centerLatLng.lat},${centerLatLng.lng}`);
-    const res = await fetch(`${BASE}/Place/AutoComplete?${params}`);
-    if (!res.ok) return [];
+    if (location) params.set('location', `${location.lat},${location.lng}`);
+    if (origin)   params.set('origin',   `${origin.lat},${origin.lng}`);
+    const res = await fetch(`${BASE}/v2/place/autocomplete?${params}`);
     const data = await res.json();
+    if (!res.ok) {
+      const code = data?.error?.code;
+      if (code === 'API_KEY_UNAUTHORIZED') return { error: 'unauthorized' };
+      return [];
+    }
     return (data.predictions || []).map(p => ({
-      placeId: p.place_id,
-      description: p.description,
-      mainText: p.structured_formatting?.main_text || p.description,
+      placeId:         p.place_id,
+      description:     p.description,
+      mainText:        p.structured_formatting?.main_text || p.description,
+      secondaryText:   p.structured_formatting?.secondary_text,
+      distanceMeters:  p.distance_meters ?? null,
     }));
   } catch {
     return [];
@@ -69,8 +83,10 @@ export function haversine(a, b) {
 
 // Optimize route — returns optimized index order array
 // waypoints: [{ lat, lng, label? }]
-// Uses Goong Trip API for 5+ points, nearest-neighbor otherwise
-export async function optimizeRoute(waypoints) {
+// Uses Goong Trip API v2 for 5+ points, nearest-neighbor otherwise
+// options.vehicle: 'car' | 'motorcycle' | 'taxi' | 'truck' | 'hd' (default: 'car')
+// options.roundtrip: boolean — return back to origin (default: false)
+export async function optimizeRoute(waypoints, { vehicle = 'car', roundtrip = false } = {}) {
   if (!waypoints || waypoints.length < 2) return waypoints?.map((_, i) => i) ?? [];
 
   if (waypoints.length < 5) {
@@ -87,22 +103,26 @@ export async function optimizeRoute(waypoints) {
       api_key: GOONG_KEY,
       origin,
       destination,
+      vehicle,
+      roundtrip: String(roundtrip),
     });
     if (waypointStr) params.set('waypoints', waypointStr);
 
-    const res = await fetch(`${BASE}/trip?${params}`);
-    if (!res.ok) throw new Error('Trip API failed');
+    const res = await fetch(`${BASE}/v2/trip?${params}`);
+    if (!res.ok) throw new Error('Trip API v2 failed');
     const data = await res.json();
 
-    // waypoint_index is the optimized order for the middle waypoints
-    const waypointIndex = data.waypoints?.map(w => w.waypoint_index) ?? null;
-    if (!waypointIndex) return nearestNeighbor(waypoints);
+    const ws = data.waypoints;
+    if (!ws?.length) return nearestNeighbor(waypoints);
 
-    // Reconstruct full order: origin (0), optimized middles, destination (last)
-    const fullOrder = [0, ...waypointIndex.slice(1, -1).map(i => i + 1), waypoints.length - 1];
-    return fullOrder;
+    // Sort input indices by their optimized position (waypoint_index)
+    const order = ws
+      .map((w, i) => ({ i, pos: w.waypoint_index }))
+      .sort((a, b) => a.pos - b.pos)
+      .map(w => w.i);
+
+    return order;
   } catch {
-    // Fallback to nearest-neighbor on API error
     return nearestNeighbor(waypoints);
   }
 }
