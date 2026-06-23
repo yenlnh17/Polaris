@@ -82,8 +82,8 @@ const TRANSPORT_MATRIX = {
     'da-lat':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Đà Nẵng → Đà Lạt', duration:60, priceFrom:800000 }],
     'phu-quoc':    [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay DAD→SGN + Bay SGN→PQC', duration:210, priceFrom:1500000 }],
     'nha-trang':   [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Đà Nẵng → Nha Trang', duration:60, priceFrom:800000 }, { type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt Đà Nẵng → Nha Trang', duration:600, priceFrom:200000 }],
-    'ho-chi-minh': [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Đà Nẵng → TP.HCM', duration:90, priceFrom:900000 }],
-    'ha-noi':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Đà Nẵng → Hà Nội', duration:75, priceFrom:900000 }],
+    'ho-chi-minh': [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Đà Nẵng → TP.HCM', duration:90, priceFrom:900000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu SE1 Đà Nẵng → Sài Gòn', duration:1080, priceFrom:450000 }],
+    'ha-noi':      [{ type:'flight', icon:'<i class="bi bi-airplane-fill" aria-hidden="true"></i>', label:'Bay Đà Nẵng → Hà Nội', duration:75, priceFrom:900000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu SE3 Đà Nẵng → Hà Nội', duration:960, priceFrom:280000 }],
     'hue':         [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe Đà Nẵng → Huế (đèo Hải Vân)', duration:150, priceFrom:150000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu Đà Nẵng → Huế', duration:150, priceFrom:120000 }],
     'quy-nhon':    [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt Đà Nẵng → Quy Nhơn', duration:210, priceFrom:120000 }, { type:'train', icon:'<i class="bi bi-train-front-fill" aria-hidden="true"></i>', label:'Tàu Đà Nẵng → Diêu Trì', duration:240, priceFrom:150000 }],
     'ninh-binh':   [{ type:'bus', icon:'<i class="bi bi-bus-front-fill" aria-hidden="true"></i>', label:'Xe buýt hoặc tàu Đà Nẵng → Ninh Bình', duration:360, priceFrom:200000 }],
@@ -462,6 +462,30 @@ function scoreDestination(dest) {
   // Season match × 1 (current month)
   const currentMonth = new Date().getMonth() + 1;
   if (dest.bestMonths?.includes(currentMonth)) score += 1;
+
+  // Geographic distance penalty — uses land transport (bus/train/ferry) time as a
+  // proxy for real road distance (avg ~60 km/h → minutes ≈ km).
+  // Flight time is NOT used directly because it hides true geographic distance;
+  // for island/remote destinations with no land option, flight + 120 min airport
+  // overhead is the fallback.
+  // Metric: refMin / duration (≈ km per trip-day). Skip when dest IS the departure.
+  const dep = plannerState.departure;
+  if (dep && dep !== 'other' && dest.id !== dep) {
+    const routes = TRANSPORT_MATRIX[dep]?.[dest.id];
+    if (routes?.length) {
+      const landRoutes = routes.filter(r => r.type !== 'flight');
+      const airRoutes  = routes.filter(r => r.type === 'flight');
+      const refMin = landRoutes.length
+        ? Math.min(...landRoutes.map(r => r.duration))
+        : Math.min(...airRoutes.map(r => r.duration)) + 120;
+      const distPerDay = refMin / Math.max(1, duration);
+      if      (distPerDay > 400) score -= 5;
+      else if (distPerDay > 250) score -= 4;
+      else if (distPerDay > 150) score -= 3;
+      else if (distPerDay > 80)  score -= 2;
+      else if (distPerDay > 40)  score -= 1;
+    }
+  }
 
   // Family scoring
   if (plannerState.group === 'family') {
