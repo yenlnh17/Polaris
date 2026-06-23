@@ -693,11 +693,14 @@ function showRecDetailModal(dest, lang) {
     const accOpt = e.target.closest('[data-acc-opt]');
     if (accOpt) {
       e.stopPropagation();
-      plannerState.selectedAccommodation ??= {};
-      plannerState.selectedAccommodation[dest.id] = +accOpt.dataset.accOpt;
-      const body = document.getElementById('rec-detail-modal-body');
-      if (body) body.innerHTML = buildRecCardDetailHTML(dest, lang);
-      saveDraft();
+      const newIdx = +accOpt.dataset.accOpt;
+      confirmAccIfOverBudget(dest, newIdx, () => {
+        plannerState.selectedAccommodation ??= {};
+        plannerState.selectedAccommodation[dest.id] = newIdx;
+        const body = document.getElementById('rec-detail-modal-body');
+        if (body) body.innerHTML = buildRecCardDetailHTML(dest, lang);
+        saveDraft();
+      });
       return;
     }
     const transOpt = e.target.closest('[data-trans-opt]');
@@ -1325,7 +1328,7 @@ function renderActivitySidebar(dests, lang) {
         renderDayBuilder();
         updateCostSummary();
         saveDraft();
-        Toast.show(i18n.t('planner.activity_added') || 'Đã thêm hoạt động', 'success', 1500);
+        Toast.show(i18n.t('toast.planner.added'), 'success', 1500);
       });
     }
   };
@@ -1857,6 +1860,28 @@ function confirmIfOverBudget(actId, onConfirm, overrideCost = null, overrideName
   showBudgetConfirmDialog(actName, actCost, currentTotal, ceiling, onConfirm);
 }
 
+function confirmAccIfOverBudget(dest, newAccIdx, onConfirm) {
+  const ceiling = getBudgetCeiling();
+  if (ceiling === Infinity) { onConfirm(); return; }
+
+  const newAcc = dest.accommodations?.[newAccIdx];
+  if (!newAcc) { onConfirm(); return; }
+
+  const selectedDests = plannerState.selectedDestinations
+    .map(id => allDestinations.find(d => d.id === id)).filter(Boolean);
+  const daysPerDest = distributeDays(plannerState.duration, selectedDests.length);
+  const di = selectedDests.findIndex(d => d.id === dest.id);
+  const nights = di >= 0 ? Math.max(1, daysPerDest[di] - 1) : Math.max(1, plannerState.duration - 1);
+
+  const oldAcc = getSelectedAccommodation(dest);
+  const oldAccCost = oldAcc ? oldAcc.pricePerNight * nights : 0;
+  const newAccCost = newAcc.pricePerNight * nights;
+  const totalWithoutOldAcc = calcCurrentTotal() - oldAccCost;
+
+  if (totalWithoutOldAcc + newAccCost <= ceiling) { onConfirm(); return; }
+  showBudgetConfirmDialog(newAcc.name, newAccCost, totalWithoutOldAcc, ceiling, onConfirm);
+}
+
 function updateCostSummary() {
   const lang = i18n.getLang();
   const rows = document.getElementById('cost-rows');
@@ -2298,10 +2323,65 @@ function getSelectedTransport(destId) {
 function getSelectedAccommodationIdx(dest) {
   const idx = plannerState.selectedAccommodation?.[dest.id];
   if (idx !== undefined) return idx;
+
   const accs = dest.accommodations || [];
+  if (!accs.length) return 0;
+
   const budget = plannerState.budget || 'mid';
+  const ceiling = getBudgetCeiling();
+
+  if (ceiling === Infinity) {
+    const recIdx = accs.findIndex(a => a.recommendedFor === budget);
+    return recIdx >= 0 ? recIdx : 0;
+  }
+
+  const selectedDests = plannerState.selectedDestinations
+    .map(id => allDestinations.find(d => d.id === id)).filter(Boolean);
+  const daysPerDest = distributeDays(plannerState.duration, selectedDests.length);
+  const di = selectedDests.findIndex(d => d.id === dest.id);
+  const nights = di >= 0 ? Math.max(1, daysPerDest[di] - 1) : Math.max(1, plannerState.duration - 1);
+
+  // Compute all costs except this dest's accommodation — avoid calling
+  // calcCurrentTotal() / getSelectedAccommodation() to prevent recursion.
+  let fixedCost = 0;
+  Object.values(plannerState.dayActivities || {}).forEach(actIds => {
+    (actIds || []).forEach(actId => {
+      const act = findActivity(actId);
+      if (act) fixedCost += act.estimatedCost || 0;
+    });
+  });
+  selectedDests.forEach((d, i) => {
+    const tr = getSelectedTransport(d.id);
+    if (tr) fixedCost += tr.priceFrom;
+    if (d.id === dest.id) return;
+    // Other dests: use user-chosen index if set; otherwise recommendedFor match (no recursion).
+    const otherIdx = plannerState.selectedAccommodation?.[d.id];
+    const otherAccs = d.accommodations || [];
+    const otherAcc = otherIdx !== undefined
+      ? otherAccs[otherIdx]
+      : (otherAccs.find(a => a.recommendedFor === budget) || otherAccs[0]);
+    if (otherAcc) fixedCost += otherAcc.pricePerNight * Math.max(1, daysPerDest[i] - 1);
+  });
+
+  const remaining = ceiling - fixedCost;
+
+  // Prefer the tier-matched recommendation if it fits.
   const recIdx = accs.findIndex(a => a.recommendedFor === budget);
-  return recIdx >= 0 ? recIdx : 0;
+  if (recIdx >= 0 && accs[recIdx].pricePerNight * nights <= remaining) return recIdx;
+
+  // Otherwise pick the most expensive option that still fits within the remaining budget.
+  let bestIdx = -1, bestPrice = -1;
+  accs.forEach((a, i) => {
+    if (a.pricePerNight * nights <= remaining && a.pricePerNight > bestPrice) {
+      bestPrice = a.pricePerNight;
+      bestIdx = i;
+    }
+  });
+  if (bestIdx >= 0) return bestIdx;
+
+  // Every option exceeds the remaining budget — pick the cheapest to minimise overage.
+  return accs.reduce((best, a, i) =>
+    a.pricePerNight < accs[best].pricePerNight ? i : best, 0);
 }
 
 function getRecommendedAccommodation(dest) {
@@ -2436,12 +2516,15 @@ function showAccPicker(dest, lang) {
   overlay.addEventListener('click', (e) => {
     const pick = e.target.closest('[data-pick-acc]');
     if (pick) {
-      if (!plannerState.selectedAccommodation) plannerState.selectedAccommodation = {};
-      plannerState.selectedAccommodation[dest.id] = +pick.dataset.pickAcc;
-      saveDraft();
-      renderDayBuilder();
-      pulseDayCards();
-      overlay.remove();
+      const newIdx = +pick.dataset.pickAcc;
+      confirmAccIfOverBudget(dest, newIdx, () => {
+        if (!plannerState.selectedAccommodation) plannerState.selectedAccommodation = {};
+        plannerState.selectedAccommodation[dest.id] = newIdx;
+        saveDraft();
+        renderDayBuilder();
+        pulseDayCards();
+        overlay.remove();
+      });
       return;
     }
     if (e.target.id === 'close-acc-picker' || e.target === overlay) overlay.remove();
